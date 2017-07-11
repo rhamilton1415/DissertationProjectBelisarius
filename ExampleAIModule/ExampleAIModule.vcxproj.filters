@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="AdvesarialIntelligenceManager.cpp" />
+    <ClCompile Include="Agent.cpp" />
+    <ClCompile Include="BuildingManager.cpp" />
+    <ClCompile Include="BuildOrderManager.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="ScoutManager.cpp" />
+    <ClCompile Include="Source\Dll.cpp" />
+    <ClCompile Include="Source\Belisarius.cpp" />
+    <ClCompile Include="StrategyManager.cpp" />
+    <ClCompile Include="TacticalManager.cpp" />
+    <ClCompile Include="ConstructionManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AdvesarialIntelligenceManager.h" />
+    <ClInclude Include="Agent.h" />
+    <ClInclude Include="BuildingManager.h" />
+    <ClInclude Include="BuildOrderManager.h" />
+    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="ScoutManager.h" />
+    <ClInclude Include="Source\Belisarius.h" />
+    <ClInclude Include="StrategyManager.h" />
+    <ClInclude Include="TacticalManager.h" />
+    <ClInclude Include="ConstructionManager.h" />
+  </ItemGroup>
+</Project>
