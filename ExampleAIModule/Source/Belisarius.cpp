@@ -73,9 +73,9 @@ void Belisarius::onFrame()
 
   //some debugging info
   Broodwar->drawTextScreen(10, 0, "Project Belisarius");
-  Broodwar->drawTextScreen(10, 20, ("Resource Manager: " + std::to_string(r.workerCount())).c_str());
+  Broodwar->drawTextScreen(10, 20, ("Resource Manager: " + std::to_string(r.getWorkerCount())).c_str());
   Broodwar->drawTextScreen(10, 40, ("Building Manager: " + std::to_string(b.getBuildingCount())).c_str());
-  Broodwar->drawTextScreen(10, 60, ("Construction Manager: "+ std::to_string(c.workerCount()) + " constructing:  " + std::to_string(c.getBuildOrders().size())).c_str());
+  Broodwar->drawTextScreen(10, 60, ("Construction Manager: "+ std::to_string(c.getWorkerCount()) + " constructing:  " + std::to_string(c.getBuildOrders().size())).c_str());
   // Return if the game is a replay or is paused
   if ( Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self() )
     return;
@@ -204,7 +204,6 @@ void Belisarius::onUnitMorph(BWAPI::Unit unit)
   if (unit->getPlayer() == Broodwar->self())
   {
 	  c.addBuildingUnderConstruction(unit);
-	  Broodwar->sendText(unit->getBuildUnit()->getType().getName().c_str());
   }
 }
 
@@ -221,6 +220,7 @@ void Belisarius::onUnitComplete(BWAPI::Unit unit)
 {
 	if (unit->getType().isBuilding() && (unit->getPlayer() == Broodwar->self())) //If it's a building, give it to the building manager
 	{
+		c.constructionCompleted(unit);
 		b.addUnit(unit);
 	}
 }

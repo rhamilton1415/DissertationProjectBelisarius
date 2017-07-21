@@ -84,5 +84,6 @@ BWAPI::Unit& ResourceManager::requestUnit()
 	//remove the reference from the resourceCollecters vector and then return it
 	BWAPI::Unit& u = resourceCollectors.back();
 	resourceCollectors.pop_back();
+	u->stop();
 	return u;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "Agent.h"
 #include "ResourceManager.h"
+#include "ConstructionPair.h"
 class ConstructionManager :
 	public Agent
 {
@@ -11,15 +12,19 @@ public:
 	void unitCreatedUpdate();
 	void unitDestroyedUpdate();
 	void addUnit(BWAPI::Unit u);
-	int workerCount() { return builders.size(); }
+	int getWorkerCount() { return builders.size(); }
 	void addBuildOrder(BWAPI::UnitType uT);
 	void addBuildingUnderConstruction(BWAPI::Unit u);
+	void constructionCompleted(BWAPI::Unit u);
+	int orderCount(); //How many orders are currently being processed
+	int orderCount(BWAPI::UnitType specificType); //how many orders of a specific type are being processed
 	const std::vector<BWAPI::UnitType>& getBuildOrders() const { return buildOrders; }
-	const std::map<BWAPI::Unit, BWAPI::Unit>& getBuildingsUnderConstruction() const { return buildingsUnderConstruction; }
+	const std::vector<ConstructionPair>& getBuildingsUnderConstruction() const { return buildingsUnderConstruction; }
 	std::string getPreamble() override { return preamble; }
 private:
 	std::vector<BWAPI::Unit> builders;
-	std::map<BWAPI::Unit, BWAPI::Unit> buildingsUnderConstruction; //Worker mapped to Building
+	std::vector<ConstructionPair> buildingsUnderConstruction;
+
 	std::string preamble = "Construction Manager: ";
 	std::vector<BWAPI::UnitType> buildOrders;
 	ResourceManager* rRef;

@@ -10,7 +10,7 @@ public:
 	void unitCreatedUpdate();
 	void unitDestroyedUpdate();
 	void addUnit(BWAPI::Unit u);
-	int workerCount() { return resourceCollectors.size(); }
+	int getWorkerCount() { return resourceCollectors.size(); }
 	BWAPI::Unit& requestUnit();
 	std::string getPreamble() override { return preamble; }
 private:

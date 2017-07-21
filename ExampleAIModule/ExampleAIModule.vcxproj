@@ -97,6 +97,7 @@
     <ClCompile Include="BuildingManager.cpp" />
     <ClCompile Include="BuildOrderManager.cpp" />
     <ClCompile Include="ConstructionManager.cpp" />
+    <ClCompile Include="ConstructionPair.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ScoutManager.cpp" />
     <ClCompile Include="Source\Dll.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="BuildingManager.h" />
     <ClInclude Include="BuildOrderManager.h" />
     <ClInclude Include="ConstructionManager.h" />
+    <ClInclude Include="ConstructionPair.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ScoutManager.h" />
     <ClInclude Include="Source\Belisarius.h" />

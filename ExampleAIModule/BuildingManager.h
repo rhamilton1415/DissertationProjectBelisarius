@@ -15,6 +15,7 @@ public:
 	void addUnit(BWAPI::Unit u);
 	void addBuildOrder(BWAPI::UnitType uT);
 	int getBuildingCount() { return buildings.size(); }
+	int getBuildingCount(BWAPI::UnitType specificType);
 	const std::vector<BWAPI::UnitType>& getBuildOrders() const { return buildOrders; }
 	std::string getPreamble() override { return preamble; }
 private:
