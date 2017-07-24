@@ -21,14 +21,18 @@ void BuildOrderManager::onFrame()
 		nextOrder = getNextBuildRecommendation(); //don't spam it I guess
 		broadcast(nextOrder.getName() + " has been queued");
 	}
-	if (Broodwar->self()->minerals() >= nextOrder.mineralPrice())
+	else //if (Broodwar->self()->minerals() >= nextOrder.mineralPrice())
 	{
-		if (nextOrder == BWAPI::UnitTypes::Buildings) //The construction manager will deal with it
+		if (nextOrder.isBuilding()) //The construction manager will deal with it also don't spam
 		{
-			cRef->addBuildOrder(nextOrder);
-			nextOrder = NULL; //reset the flag
+			if (Broodwar->self()->minerals() > (nextOrder.mineralPrice() + cRef->getMineralDebt()))
+			{
+				cRef->addBuildOrder(nextOrder);
+				nextOrder = NULL; //reset the flag
+			}
 		}
-		else //The building manager will deal with it
+		//It's a unit and therefore should be sent to the building manager for training
+		else if(Broodwar->self()->minerals() > (nextOrder.mineralPrice() + bRef->getMineralDebt()))//The building manager will deal with it also don't spam
 		{
 			bRef->addBuildOrder(nextOrder);
 			nextOrder = NULL;
@@ -44,7 +48,7 @@ BWAPI::UnitType BuildOrderManager::getNextBuildRecommendation()
 	BWAPI::UnitType workerRecommendation = BWAPI::UnitTypes::Terran_SCV;
 	double workerUnitPriority;
 	int workerCount = rRef->getWorkerCount() + cRef->getWorkerCount();
-	workerUnitPriority = 1 - (workerCount / 10);
+	workerUnitPriority = (1.0 - (workerCount / 10.0));
 
 	//Calculate the priority for expanding the combat capabilities
 	BWAPI::UnitType combatUnitRecommendation;
@@ -77,6 +81,7 @@ BWAPI::UnitType BuildOrderManager::getNextBuildRecommendation()
 	{
 		buildingPriority = 0;
 	}
+	broadcast(std::to_string(buildingPriority) + " " + std::to_string(workerUnitPriority) + " " + std::to_string(combatUnitPriority));
 	if (buildingPriority > combatUnitPriority && buildingPriority > workerUnitPriority)
 	{
 		return buildingRecommendation;

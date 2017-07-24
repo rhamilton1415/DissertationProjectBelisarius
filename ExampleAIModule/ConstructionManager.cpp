@@ -169,6 +169,7 @@ void ConstructionManager::constructionCompleted(BWAPI::Unit completedBuilding)
 				buildingsUnderConstruction.erase(buildingsUnderConstruction.begin() + i);
 				broadcast("Building completed, worker added back into operating pool");
 				return;
+				//TODO release workers here if there are more builders than build orders
 			}
 		}
 	}
@@ -199,6 +200,15 @@ int ConstructionManager::orderCount(BWAPI::UnitType specificUnitType)
 		}
 	}
 	return count;
+}
+int ConstructionManager::getMineralDebt()
+{
+	int cost = 0;
+	for (int i = 0; i < buildOrders.size(); i++)
+	{
+		cost += buildOrders.at(i).mineralPrice();
+	}
+	return cost;
 }
 void ConstructionManager::unitDestroyedUpdate()
 {

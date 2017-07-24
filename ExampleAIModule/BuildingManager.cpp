@@ -41,80 +41,41 @@ void BuildingManager::onFrame()
 			continue;
 		}
 
-		//If the unit is busy, don't spam it with orders
-		if (!u->isIdle())
-		{
-			continue;
-		}
+		//If the unit is busy, don't spam it with orders actually you can
+		//if (!u->isIdle())
+		//{
+		//	continue;
+		//}
 
 		// Finally make the unit do some stuff!
 		//iterate through all the build orders until you find one which this building can make
 		for (int i = 0; i < buildOrders.size(); i++)
 		{
-			if (u->canBuild(buildOrders.at(i))) //If the current building is able to make the build order
+			//get the building to train the build order
+			if (!u->train(buildOrders.at(i)))
 			{
-				//get the building to train the build order
-				if (!u->train(buildOrders.at(i)))
+				if (Broodwar->self()->minerals() < buildOrders.at(i).mineralPrice())
 				{
-					// If that fails, draw the error at the location so that you can visibly see what went wrong!
-					// However, drawing the error once will only appear for a single frame
-					// so create an event that keeps it on the screen for some frames
-					Position pos = u->getPosition();
-					Error lastErr = Broodwar->getLastError();
-					Broodwar->registerEvent([pos, lastErr](Game*) { Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
-						nullptr,    // condition
-						Broodwar->getLatencyFrames());  // frames to run
-
-														// Retrieve the supply provider type in the case that we have run out of supplies
-					UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
-					static int lastChecked = 0;
-
-					// If we are supply blocked and haven't tried constructing more recently
-					if (lastErr == Errors::Insufficient_Supply &&
-						lastChecked + 400 < Broodwar->getFrameCount() &&
-						Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
-					{
-						lastChecked = Broodwar->getFrameCount();
-
-						// Retrieve a unit that is capable of constructing the supply needed
-						Unit supplyBuilder = u->getClosestUnit(GetType == supplyProviderType.whatBuilds().first &&
-							(IsIdle || IsGatheringMinerals) &&
-							IsOwned);
-						// If a unit was found
-						if (supplyBuilder)
-						{
-							if (supplyProviderType.isBuilding())
-							{
-								TilePosition targetBuildLocation = Broodwar->getBuildLocation(supplyProviderType, supplyBuilder->getTilePosition());
-								if (targetBuildLocation)
-								{
-									// Register an event that draws the target build location
-									Broodwar->registerEvent([targetBuildLocation, supplyProviderType](Game*)
-									{
-										Broodwar->drawBoxMap(Position(targetBuildLocation),
-											Position(targetBuildLocation + supplyProviderType.tileSize()),
-											Colors::Blue);
-									},
-										nullptr,  // condition
-										supplyProviderType.buildTime() + 100);  // frames to run
-
-																				// Order the builder to construct the supply structure
-									supplyBuilder->build(supplyProviderType, targetBuildLocation);
-								}
-							}
-							else
-							{
-								// Train the supply provider (Overlord) if the provider is not a structure
-								supplyBuilder->train(supplyProviderType);
-							}
-						} // closure: supplyBuilder is valid
-					} // closure: insufficient supply
-				} // closure: failed to train idle unit
-				else
-				{
-					buildOrders.erase((buildOrders.begin()+i)); //erase the build order as it is already being constructed
-					continue;
+					broadcast("Not enough minerals for the current order");
 				}
+				if (Broodwar->self()->gas() < buildOrders.at(i).gasPrice())
+				{
+					broadcast("Not enough gas for current order");
+				}
+				if (buildOrders.at(i).isBuilding())
+				{
+					broadcast("Bad Order: " + buildOrders.at(i).getName() + " cannot be built here");
+				}
+				if (u->getTrainingQueue().size() == 5)
+				{
+					broadcast("Unit cannot be queued - queue is full");
+				}
+			}
+			else
+			{
+				broadcast("Training " + buildOrders.at(i).getName());
+				buildOrders.erase((buildOrders.begin()+i)); //erase the build order as it is already being constructed
+				continue;
 			}
 
 		}
@@ -134,7 +95,7 @@ void BuildingManager::addUnit(BWAPI::Unit u)
 	}
 	catch (...)
 	{
-		BWAPI::Broodwar->sendText("hi");
+		BWAPI::Broodwar->sendText("Something went wrong...");
 	}
 }
 void BuildingManager::addBuildOrder(BWAPI::UnitType uT)
@@ -142,6 +103,7 @@ void BuildingManager::addBuildOrder(BWAPI::UnitType uT)
 	//TODO add check to see if this is a valid build order
 	//Although the BOM should do this too
 	buildOrders.push_back(uT);
+	broadcast("Build order recieved");
 }
 int BuildingManager::getBuildingCount(BWAPI::UnitType uT)
 {
@@ -154,4 +116,53 @@ int BuildingManager::getBuildingCount(BWAPI::UnitType uT)
 		}
 	}
 	return count;
+}
+int BuildingManager::getOrders(BWAPI::UnitType orderType)
+{
+	int count = 0;
+	//iterate through the build order queue
+	for (int i = 0; i < buildOrders.size(); i++)
+	{
+		if (buildOrders.at(i) == orderType)
+		{
+			count++;
+		}
+	}
+	//iterate through the buildings training queues
+	for (auto& u : buildings)
+	{
+		for (int i = 0; i < u->getTrainingQueue().size(); i++)
+		{
+			if (u->getTrainingQueue().at(i) == orderType)
+			{
+				count++;
+			}
+		}
+	}
+}
+int BuildingManager::getOrders()
+{
+	int count = buildOrders.size();
+	//iterate through the buildings training queues
+	for (auto& u : buildings)
+	{
+		count += u->getTrainingQueue().size();
+	}
+	return count;
+}
+int BuildingManager::getMineralDebt()
+{
+	int cost = 0;
+	for (int i = 0; i < buildOrders.size(); i++)
+	{
+		cost += buildOrders.at(i).mineralPrice();
+	}
+	for (auto& u : buildings)
+	{
+		for (int i = 1; i < u->getTrainingQueue().size(); i++) //Start at one because index 0 will have already been paid for. 
+		{
+			cost += u->getTrainingQueue().at(i).mineralPrice();
+		}
+	}
+	return cost;
 }
