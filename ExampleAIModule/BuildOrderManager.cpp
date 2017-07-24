@@ -16,15 +16,25 @@ BuildOrderManager::~BuildOrderManager()
 
 void BuildOrderManager::onFrame()
 {
-	if (/*rRef->workerCount() < 6 && bRef->getBuildOrders().size() == 0*/false)
+	if (nextOrder == NULL)
 	{
-		bRef->addBuildOrder(BWAPI::UnitTypes::Terran_SCV);
+		nextOrder = getNextBuildRecommendation(); //don't spam it I guess
+		broadcast(nextOrder.getName() + " has been queued");
 	}
-	else if((Broodwar->self()->minerals() >= UnitTypes::Terran_Barracks.mineralPrice()*2) && (cRef->orderCount()==0) && (bRef->getBuildingCount(UnitTypes::Terran_Refinery)==0)) //if we have enough minerals and no current orders
+	if (Broodwar->self()->minerals() >= nextOrder.mineralPrice())
 	{
-		cRef->addBuildOrder(BWAPI::UnitTypes::Terran_Barracks);
-		cRef->addBuildOrder(BWAPI::UnitTypes::Terran_Barracks);
+		if (nextOrder == BWAPI::UnitTypes::Buildings) //The construction manager will deal with it
+		{
+			cRef->addBuildOrder(nextOrder);
+			nextOrder = NULL; //reset the flag
+		}
+		else //The building manager will deal with it
+		{
+			bRef->addBuildOrder(nextOrder);
+			nextOrder = NULL;
+		}
 	}
+
 }
 
 BWAPI::UnitType BuildOrderManager::getNextBuildRecommendation()
@@ -39,18 +49,44 @@ BWAPI::UnitType BuildOrderManager::getNextBuildRecommendation()
 	//Calculate the priority for expanding the combat capabilities
 	BWAPI::UnitType combatUnitRecommendation;
 	double combatUnitPriority;
-
-	//Calculate the priority for expanding the infrastructure
-	BWAPI::UnitType buildingRecommendation;
-	double buildingPrioirty;
-	//If we don't have a refinery, that'll be the only building in consideration
-	if (!bRef->getBuildingCount(BWAPI::UnitTypes::Terran_Refinery > 0))
+	if (bRef->getBuildingCount(BWAPI::UnitTypes::Terran_Barracks) > 0)
 	{
-		buildingRecommendation = BWAPI::UnitTypes::Terran_Refinery;
-		buildingPrioirty = 0.5;
+		combatUnitRecommendation = BWAPI::UnitTypes::Terran_Marine;
+		combatUnitPriority = 0.4;
 	}
 	else
 	{
+		combatUnitPriority = 0;
+	}
 
+	//Calculate the priority for expanding the infrastructure
+	BWAPI::UnitType buildingRecommendation;
+	double buildingPriority;
+	//If we don't have a refinery, that'll be the only building in consideration
+	if (bRef->getBuildingCount(BWAPI::UnitTypes::Terran_Refinery) < 1)
+	{
+		buildingRecommendation = BWAPI::UnitTypes::Terran_Refinery;
+		buildingPriority = 0.5;
+	}
+	else if(bRef->getBuildingCount(BWAPI::UnitTypes::Terran_Barracks) <1)
+	{
+		buildingRecommendation = BWAPI::UnitTypes::Terran_Barracks;
+		buildingPriority = 0.5;
+	}
+	else
+	{
+		buildingPriority = 0;
+	}
+	if (buildingPriority > combatUnitPriority && buildingPriority > workerUnitPriority)
+	{
+		return buildingRecommendation;
+	}
+	else if (combatUnitPriority > workerUnitPriority)
+	{
+		return combatUnitRecommendation;
+	}
+	else
+	{
+		return workerRecommendation;
 	}
 }

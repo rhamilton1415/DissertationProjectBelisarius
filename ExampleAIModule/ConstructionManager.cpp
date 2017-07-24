@@ -32,7 +32,7 @@ void ConstructionManager::onFrame()
 	int unfinishedBuildings = 0;
 	for (int i = 0; i < buildingsUnderConstruction.size(); i++)
 	{
-		if (buildingsUnderConstruction.at(i).getWorker() == NULL)
+		if (!buildingsUnderConstruction.at(i).getWorker()->exists())//if the worker has died
 		{
 			unfinishedBuildings++;
 		}
@@ -53,14 +53,6 @@ void ConstructionManager::onFrame()
 	for (int i = 0; i < builders.size(); i++)
 	{
 		BWAPI::Unit& u = builders.at(i);
-		for (int i = 0; i < buildingsUnderConstruction.size(); i++)
-		{
-			//don't find a new job for a worker who already has a job
-			if (buildingsUnderConstruction.at(i).getWorker() == u)
-			{
-				continue;
-			}
-		}
 
 		// Ignore the unit if it no longer exists
 		// Make sure to include this block when handling any Unit pointer!
@@ -84,7 +76,31 @@ void ConstructionManager::onFrame()
 		// If the unit is a worker unit
 		if (u->getType().isWorker())
 		{
-			
+			for (int i = 0; i < buildingsUnderConstruction.size(); i++)
+			{
+				//don't find a new job for a worker who already has a job
+				if (buildingsUnderConstruction.at(i).getWorker() == u)
+				{
+					//You can do it!
+					if (!u->build(buildingsUnderConstruction.at(i).getBuilding()->getType(), buildingsUnderConstruction.at(i).getBuilding()->getTilePosition()))
+					{
+						//something went wrong
+					}
+					continue;
+				}
+				else if (!buildingsUnderConstruction.at(i).getWorker()->exists()) //If the Buildings' worker has died
+				{
+
+					if (!u->build(buildingsUnderConstruction.at(i).getBuilding()->getType(), buildingsUnderConstruction.at(i).getBuilding()->getTilePosition()))
+					{
+						//something went wrong
+					}
+					else
+					{
+						buildingsUnderConstruction.at(i).setWorker(u);
+					}
+				}
+			}
 			// If the worker is carrying cargo, order it to return before doing anything else
 			if (u->isCarryingGas() || u->isCarryingMinerals())
 			{
@@ -131,7 +147,7 @@ void ConstructionManager::addBuildingUnderConstruction(BWAPI::Unit building)
 	buildOrders.erase(std::find(buildOrders.begin(), buildOrders.end(), building->getType()));
 
 	//Remove the worker from the builders list as it can't work on any new tasks
-	builders.erase(std::find(builders.begin(), builders.end(), building->getBuildUnit()));
+	//builders.erase(std::find(builders.begin(), builders.end(), building->getBuildUnit()));
 
 	//When the building is completed, make sure to ping this agent so that the entry in the map can be handled
 	broadcast("Construction started on " + building->getType().getName());
@@ -148,7 +164,7 @@ void ConstructionManager::constructionCompleted(BWAPI::Unit completedBuilding)
 				//The worker may automatically pick up a new task; stop this
 				buildingsUnderConstruction.at(i).getWorker()->stop();
 				//add the builder back into the pool
-				builders.push_back(buildingsUnderConstruction.at(i).getWorker());
+				//builders.push_back(buildingsUnderConstruction.at(i).getWorker());
 				//remove the construction pair as it is now finished
 				buildingsUnderConstruction.erase(buildingsUnderConstruction.begin() + i);
 				broadcast("Building completed, worker added back into operating pool");
@@ -186,5 +202,4 @@ int ConstructionManager::orderCount(BWAPI::UnitType specificUnitType)
 }
 void ConstructionManager::unitDestroyedUpdate()
 {
-
 }
