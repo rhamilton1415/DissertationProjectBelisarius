@@ -47,15 +47,23 @@ void ConstructionManager::onFrame()
 		}
 		// Ignore the unit if it has one of the following status ailments
 		if (u->isLockedDown() || u->isMaelstrommed() || u->isStasised())
+		{
+			broadcast("is locked down, maelstrommed or stasised");
 			continue;
+		}
 
 		// Ignore the unit if it is in one of the following states
 		if (u->isLoaded() || !u->isPowered() || u->isStuck())
+		{
+			broadcast("is stuck");
 			continue;
-
+		}
 		// Ignore the unit if it is incomplete or busy constructing
 		if (!u->isCompleted() || u->isConstructing())
+		{
+			broadcast("isn't completed or is constructing");
 			continue;
+		}
 
 		// If the worker is carrying cargo, order it to return before doing anything else
 		if (u->isCarryingGas() || u->isCarryingMinerals())
@@ -67,51 +75,76 @@ void ConstructionManager::onFrame()
 		// If the unit is a worker unit
 		if (u->getType().isWorker())
 		{
+			bool taskedFlag = false;
 			for (int i = 0; i < buildingsUnderConstruction.size(); i++)
 			{
-				//don't find a new job for a worker who already has a job
-				if (buildingsUnderConstruction.at(i).getWorker() == u)
+				try
 				{
-					//You can do it!
-					if (!u->build(buildingsUnderConstruction.at(i).getBuilding()->getType(), buildingsUnderConstruction.at(i).getBuilding()->getTilePosition()))
+					//don't find a new job for a worker who already has a job
+					if (buildingsUnderConstruction.at(i).getWorker() == u)
 					{
-						//something went wrong
+						//You can do it!
+						if (!u->build(buildingsUnderConstruction.at(i).getBuilding()->getType(), buildingsUnderConstruction.at(i).getBuilding()->getTilePosition()))
+						{
+							//something went wrong
+						}
+						//Worker is already working
+						taskedFlag = true;
+						continue;
 					}
-					continue;
-				}
-				else if (!buildingsUnderConstruction.at(i).getWorker()->exists()) //If the Buildings' worker has died
-				{
+					else if (!buildingsUnderConstruction.at(i).getWorker()->exists()) //If the Buildings' worker has died
+					{
 
-					if (!u->build(buildingsUnderConstruction.at(i).getBuilding()->getType(), buildingsUnderConstruction.at(i).getBuilding()->getTilePosition()))
-					{
-						//something went wrong
-					}
-					else
-					{
-						buildingsUnderConstruction.at(i).setWorker(u);
+						if (!u->build(buildingsUnderConstruction.at(i).getBuilding()->getType(), buildingsUnderConstruction.at(i).getBuilding()->getTilePosition()))
+						{
+							//something went wrong
+						}
+						else
+						{
+							buildingsUnderConstruction.at(i).setWorker(u);
+						}
+						//Worker has been given a new task
+						taskedFlag = true;
+						continue;
 					}
 				}
+				catch (...)
+				{
+					broadcast("Something went wrong dealing with BuildingsUnderConstruction");
+				}
+			}
+			//If our worker already has a task, don't give him a task from the BuildOrder queue
+			if (taskedFlag)
+			{
+				continue;
 			}
 			// if our worker is idle and stopped(meaning it has not yet been assigned a task by this manager as any previous task will have been cancelled)
 			//second condidition because idle is liberally interpreted 
-			if (u->isIdle())
+			if (u->isIdle() || u->isHoldingPosition() || u->getOrder()==BWAPI::Orders::PlayerGuard)
 			{
 				if (!u->getPowerUp())  // The worker cannot harvest anything if it
 				{                             // is carrying a powerup such as a flag
 											  // Harvest from the nearest mineral patch or gas refinery
-					//build something
-					TilePosition buildPosition = Broodwar->getBuildLocation(buildOrders.at(i), u->getTilePosition());
-					if (!u->build(buildOrders.at(i), buildPosition))
+					//build from the buildOrder queue
+					try
 					{
-						//perform some nonesense 
+						TilePosition buildPosition = Broodwar->getBuildLocation(buildOrders.at(i), u->getTilePosition());
+						if (!u->build(buildOrders.at(i), buildPosition))
+						{
+							//perform some nonesense 
+						}
+						else
+						{
+							//build successful - create an incipient construction pair
+							broadcast(buildOrders.front().getName() + " order being executed by " + std::to_string(u->getID()));
+						}
 					}
-					else
+					catch (std::exception& e)
 					{
-						//build successful - create an incipient construction pair
-						broadcast(buildOrders.front().getName() + " order being executed by " + std::to_string(u->getID()));
+						broadcast("Something went wrong with the BuildOrder queue: " + *e.what());
 					}
-				} // closure: has no powerup
-			} // closure: if idle
+				} 
+			} 
 		}
 
 	} // closure: unit iterator
@@ -241,7 +274,6 @@ void ConstructionManager::addNewWorker()
 	SendInput(1, &ip, sizeof(INPUT));
 	ip.ki.dwFlags = KEYEVENTF_KEYUP;
 	SendInput(1, &ip, sizeof(INPUT));
-	Sleep(1000);
 	try
 	{
 		builders.push_back(rRef->requestUnit());

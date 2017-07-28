@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <BWAPI.h>
+#include <exception>
 using namespace BWAPI;
 using namespace Filter;
 class Agent
