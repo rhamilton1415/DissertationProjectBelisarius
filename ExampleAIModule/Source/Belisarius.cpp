@@ -73,9 +73,15 @@ void Belisarius::onFrame()
 
   //some debugging info
   Broodwar->drawTextScreen(10, 0, "Project Belisarius");
+  /*
   Broodwar->drawTextScreen(10, 20, ("Resource Manager: " + std::to_string(r.getWorkerCount())).c_str());
   Broodwar->drawTextScreen(10, 40, ("Building Manager: " + std::to_string(b.getBuildingCount())).c_str());
-  Broodwar->drawTextScreen(10, 60, ("Construction Manager: "+ std::to_string(c.getWorkerCount()) + " constructing:  " + std::to_string(c.getBuildOrders().size())).c_str());
+  Broodwar->drawTextScreen(10, 60, ("Construction Manager: "+ std::to_string(c.getWorkerCount()) + " orders:  " + std::to_string(c.orderCount())).c_str());
+  */
+  for (int i = 0; i < c.getWorkerCount(); i++)
+  {
+	  Broodwar->drawTextScreen(10, (20+(i*10)), (c.getWorkers().at(i)->getOrder().c_str()));
+  }
   // Return if the game is a replay or is paused
   if ( Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self() )
     return;

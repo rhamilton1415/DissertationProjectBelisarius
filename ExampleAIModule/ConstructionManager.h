@@ -19,8 +19,11 @@ public:
 	int orderCount(); //How many orders are currently being processed
 	int orderCount(BWAPI::UnitType specificType); //how many orders of a specific type are being processed
 	const std::vector<BWAPI::UnitType>& getBuildOrders() const { return buildOrders; }
+	const std::vector<BWAPI::Unit>& getWorkers() const { return builders; }
 	const std::vector<ConstructionPair>& getBuildingsUnderConstruction() const { return buildingsUnderConstruction; }
 	std::string getPreamble() override { return preamble; }
+	void addNewWorker();
+	bool workerRequired();
 	int getMineralDebt(); //The amount of minerals it will cost to clear the build order queue
 private:
 	std::vector<BWAPI::Unit> builders;

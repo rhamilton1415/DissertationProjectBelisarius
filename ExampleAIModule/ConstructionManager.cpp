@@ -1,5 +1,5 @@
 #include "ConstructionManager.h"
-
+#include <Windows.h>
 
 
 ConstructionManager::ConstructionManager(ResourceManager &r)
@@ -14,18 +14,9 @@ ConstructionManager::~ConstructionManager()
 
 void ConstructionManager::onFrame()
 {
-	if (buildOrders.size() == 0)
+	//If there is nothing to do
+	if (buildOrders.size() == 0 && buildingsUnderConstruction.size() == 0)
 	{
-		//If there are no buildings queued, return all the workers to the resource manager
-		for (int i = 0; i < builders.size(); i++)
-		{
-			if (!builders.at(i)->isConstructing()) //If it has finished its job
-			{
-				rRef->addUnit(builders.at(i));
-				builders.erase(builders.begin() + i);
-				Broodwar->sendText("Construction Manager: returning Unit");
-			}
-		}
 		return;
 	}
 	//Units constructing buildings may be killed or otherwise drafted for other tasks - the construction manager must replace them
@@ -38,16 +29,10 @@ void ConstructionManager::onFrame()
 		}
 	}
 
-	//for every order and unfinished building, take a worker from the resourceManager
-	//nick a builder for every buildOrder
-	for (int i = 0; i < (buildOrders.size()+unfinishedBuildings) - builders.size(); i++)
+	//We should have a builder for every build order and building under construction - for every surplus order try and get more workers
+	while (workerRequired())
 	{
-		if (buildOrders.size() == 0)
-		{
-			continue;
-		}
-		builders.push_back(rRef->requestUnit());
-		Broodwar->sendText("Construction Manager: requesting unit");
+		addNewWorker();
 	}
 	// Iterate through all the units that we own
 	for (int i = 0; i < builders.size(); i++)
@@ -71,6 +56,12 @@ void ConstructionManager::onFrame()
 		// Ignore the unit if it is incomplete or busy constructing
 		if (!u->isCompleted() || u->isConstructing())
 			continue;
+
+		// If the worker is carrying cargo, order it to return before doing anything else
+		if (u->isCarryingGas() || u->isCarryingMinerals())
+		{
+			u->returnCargo();
+		}
 		// Finally make the unit do some stuff!
 
 		// If the unit is a worker unit
@@ -101,14 +92,9 @@ void ConstructionManager::onFrame()
 					}
 				}
 			}
-			// If the worker is carrying cargo, order it to return before doing anything else
-			if (u->isCarryingGas() || u->isCarryingMinerals())
-			{
-				u->returnCargo();
-			}
 			// if our worker is idle and stopped(meaning it has not yet been assigned a task by this manager as any previous task will have been cancelled)
 			//second condidition because idle is liberally interpreted 
-			else if (u->isIdle())
+			if (u->isIdle())
 			{
 				if (!u->getPowerUp())  // The worker cannot harvest anything if it
 				{                             // is carrying a powerup such as a flag
@@ -161,13 +147,21 @@ void ConstructionManager::constructionCompleted(BWAPI::Unit completedBuilding)
 		{
 			if (buildingsUnderConstruction.at(i).getBuilding() == completedBuilding)
 			{
-				//The worker may automatically pick up a new task; stop this
 				buildingsUnderConstruction.at(i).getWorker()->stop();
-				//add the builder back into the pool
-				//builders.push_back(buildingsUnderConstruction.at(i).getWorker());
+				//If we no longer need the worker, hand it back to the resource manager
+				if (builders.size() >(buildOrders.size() + buildingsUnderConstruction.size()))
+				{
+					rRef->addUnit(buildingsUnderConstruction.at(i).getWorker());
+					builders.erase(std::find(builders.begin(), builders.end(), buildingsUnderConstruction.at(i).getWorker()));
+					broadcast("Worker no longer required and has been returned to the resource manager");
+				}
+				else
+				{
+					broadcast("Building completed, worker added back into operating pool");
+				}
 				//remove the construction pair as it is now finished
 				buildingsUnderConstruction.erase(buildingsUnderConstruction.begin() + i);
-				broadcast("Building completed, worker added back into operating pool");
+				
 				return;
 				//TODO release workers here if there are more builders than build orders
 			}
@@ -212,4 +206,51 @@ int ConstructionManager::getMineralDebt()
 }
 void ConstructionManager::unitDestroyedUpdate()
 {
+	for (int i = 0; i < builders.size(); i++)
+	{
+		//remove any dead builders from our data structures
+		if (!builders.at(i)->exists())
+		{
+			builders.erase(builders.begin() + i);
+		}
+	}
+}
+bool ConstructionManager::workerRequired()
+{
+	//if there are more tasks than we have workers
+	if ((buildOrders.size() + buildingsUnderConstruction.size()) > builders.size())
+	{
+		//and we have fewer workers than the cap
+		if (builders.size() < maxWorkers)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+//Retrieve a new worker from the resource Manager
+void ConstructionManager::addNewWorker()
+{
+	INPUT ip;
+	ip.type = INPUT_KEYBOARD;
+	ip.ki.wScan = 0;
+	ip.ki.time = 0;
+	ip.ki.dwExtraInfo = 0;
+	ip.ki.wVk = 0x79;
+	ip.ki.dwFlags = 0;
+	SendInput(1, &ip, sizeof(INPUT));
+	ip.ki.dwFlags = KEYEVENTF_KEYUP;
+	SendInput(1, &ip, sizeof(INPUT));
+	Sleep(1000);
+	try
+	{
+		builders.push_back(rRef->requestUnit());
+		broadcast("Unit recieved from Resource Manager");
+	}
+	catch (...)
+	{
+		broadcast(std::to_string(buildOrders.size()));
+		broadcast(std::to_string(buildingsUnderConstruction.size()));
+		broadcast(std::to_string(builders.size()));
+	}
 }
