@@ -21,6 +21,7 @@ public:
 	const std::vector<BWAPI::UnitType>& getBuildOrders() const { return buildOrders; }
 	std::string getPreamble() override { return preamble; }
 	int getMineralDebt(); //The amount of minerals the build order queue will cost to execute
+	int getGasDebt();
 private:
 	std::vector<BWAPI::Unit> buildings;
 	std::string preamble = "Building Manager: ";

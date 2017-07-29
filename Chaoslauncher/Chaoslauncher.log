@@ -859,3 +859,27 @@
 29/07/2017 16:23:38 3024 Call ScWindowCreated for all active Plugins
 29/07/2017 16:23:38 3024 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
 29/07/2017 16:23:38 3024 Starting Starcraft completed
+29/07/2017 17:55:55 3024 Startbutton
+29/07/2017 17:55:55 3024 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
+29/07/2017 17:55:55 3024 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
+29/07/2017 17:55:55 3024 Obtained DebugPrivilege
+29/07/2017 17:55:55 3024 CreateProcess
+29/07/2017 17:55:55 3024 Call ScSuspended for all active Plugins
+29/07/2017 17:55:55 3024 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
+29/07/2017 17:55:55 3024 ResumeThread
+29/07/2017 17:55:55 3024 WaitForInputIdle
+29/07/2017 17:55:55 3024 Call ScWindowCreated for all active Plugins
+29/07/2017 17:55:55 3024 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
+29/07/2017 17:55:55 3024 Starting Starcraft completed
+29/07/2017 18:01:00 3024 Startbutton
+29/07/2017 18:01:00 3024 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
+29/07/2017 18:01:00 3024 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
+29/07/2017 18:01:00 3024 Obtained DebugPrivilege
+29/07/2017 18:01:00 3024 CreateProcess
+29/07/2017 18:01:00 3024 Call ScSuspended for all active Plugins
+29/07/2017 18:01:00 3024 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
+29/07/2017 18:01:00 3024 ResumeThread
+29/07/2017 18:01:00 3024 WaitForInputIdle
+29/07/2017 18:01:00 3024 Call ScWindowCreated for all active Plugins
+29/07/2017 18:01:00 3024 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
+29/07/2017 18:01:00 3024 Starting Starcraft completed

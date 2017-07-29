@@ -194,7 +194,7 @@ void ConstructionManager::constructionCompleted(BWAPI::Unit completedBuilding)
 			{
 				buildingsUnderConstruction.at(i).getWorker()->stop();
 				//If we no longer need the worker, hand it back to the resource manager
-				if (builders.size() >(buildOrders.size() + buildingsUnderConstruction.size()))
+				if (!workerRequired())
 				{
 					rRef->addUnit(buildingsUnderConstruction.at(i).getWorker());
 					builders.erase(std::find(builders.begin(), builders.end(), buildingsUnderConstruction.at(i).getWorker()));

@@ -34,8 +34,11 @@ void BuildOrderManager::onFrame()
 		//It's a unit and therefore should be sent to the building manager for training
 		else if(Broodwar->self()->minerals() >= (nextOrder.mineralPrice() + bRef->getMineralDebt() + cRef->getMineralDebt()))//The building manager will deal with it also don't spam
 		{
-			bRef->addBuildOrder(nextOrder);
-			nextOrder = NULL;
+			if (Broodwar->self()->minerals() >= (nextOrder.mineralPrice() + bRef->getGasDebt()))
+			{
+				bRef->addBuildOrder(nextOrder);
+				nextOrder = NULL;
+			}
 		}
 	}
 

@@ -166,3 +166,18 @@ int BuildingManager::getMineralDebt()
 	}
 	return cost;
 }
+int BuildingManager::getGasDebt() {
+	int cost = 0;
+	for (int i = 0; i < buildOrders.size(); i++)
+	{
+		cost += buildOrders.at(i).gasPrice();
+	}
+	for (auto& u : buildings)
+	{
+		for (int i = 1; i < u->getTrainingQueue().size(); i++) //Start at one because index 0 will have already been paid for. 
+		{
+			cost += u->getTrainingQueue().at(i).gasPrice();
+		}
+	}
+	return cost;
+}
