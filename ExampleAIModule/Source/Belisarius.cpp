@@ -82,6 +82,10 @@ void Belisarius::onFrame()
   {
 	  Broodwar->drawTextScreen(10, (20+(i*10)), (c.getWorkers().at(i)->getOrder().c_str()));
   }
+  for (int i = 0; i < c.orderCount(); i++)
+  {
+	  Broodwar->drawTextScreen(100, (20 + (i * 10)), (c.getAllOrders().at(i).getName().c_str()));
+  }
   // Return if the game is a replay or is paused
   if ( Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self() )
     return;

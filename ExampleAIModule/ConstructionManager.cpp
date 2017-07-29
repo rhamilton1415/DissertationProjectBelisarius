@@ -48,43 +48,39 @@ void ConstructionManager::onFrame()
 		// Ignore the unit if it has one of the following status ailments
 		if (u->isLockedDown() || u->isMaelstrommed() || u->isStasised())
 		{
-			broadcast("is locked down, maelstrommed or stasised");
 			continue;
 		}
-
 		// Ignore the unit if it is in one of the following states
 		if (u->isLoaded() || !u->isPowered() || u->isStuck())
 		{
-			broadcast("is stuck");
 			continue;
 		}
 		// Ignore the unit if it is incomplete or busy constructing
 		if (!u->isCompleted() || u->isConstructing())
 		{
-			broadcast("isn't completed or is constructing");
 			continue;
 		}
-
 		// If the worker is carrying cargo, order it to return before doing anything else
 		if (u->isCarryingGas() || u->isCarryingMinerals())
 		{
+			broadcast("Returning Minerals");
 			u->returnCargo();
+			continue;
 		}
 		// Finally make the unit do some stuff!
-
 		// If the unit is a worker unit
 		if (u->getType().isWorker())
 		{
 			bool taskedFlag = false;
-			for (int i = 0; i < buildingsUnderConstruction.size(); i++)
+			for (int j = 0; j < buildingsUnderConstruction.size(); j++)
 			{
 				try
 				{
 					//don't find a new job for a worker who already has a job
-					if (buildingsUnderConstruction.at(i).getWorker() == u)
+					if (buildingsUnderConstruction.at(j).getWorker() == u)
 					{
 						//You can do it!
-						if (!u->build(buildingsUnderConstruction.at(i).getBuilding()->getType(), buildingsUnderConstruction.at(i).getBuilding()->getTilePosition()))
+						if (!u->build(buildingsUnderConstruction.at(j).getBuilding()->getType(), buildingsUnderConstruction.at(j).getBuilding()->getTilePosition()))
 						{
 							//something went wrong
 						}
@@ -92,16 +88,15 @@ void ConstructionManager::onFrame()
 						taskedFlag = true;
 						continue;
 					}
-					else if (!buildingsUnderConstruction.at(i).getWorker()->exists()) //If the Buildings' worker has died
+					else if (!buildingsUnderConstruction.at(j).getWorker()->exists()) //If the Buildings' worker has died
 					{
-
-						if (!u->build(buildingsUnderConstruction.at(i).getBuilding()->getType(), buildingsUnderConstruction.at(i).getBuilding()->getTilePosition()))
+						if (!u->build(buildingsUnderConstruction.at(j).getBuilding()->getType(), buildingsUnderConstruction.at(j).getBuilding()->getTilePosition()))
 						{
 							//something went wrong
 						}
 						else
 						{
-							buildingsUnderConstruction.at(i).setWorker(u);
+							buildingsUnderConstruction.at(j).setWorker(u);
 						}
 						//Worker has been given a new task
 						taskedFlag = true;
@@ -128,10 +123,20 @@ void ConstructionManager::onFrame()
 					//build from the buildOrder queue
 					try
 					{
-						TilePosition buildPosition = Broodwar->getBuildLocation(buildOrders.at(i), u->getTilePosition());
-						if (!u->build(buildOrders.at(i), buildPosition))
+						int index = i - buildingsUnderConstruction.size();//sorry - a hacky solution to problems caused by dealing with two lists
+						TilePosition buildPosition = Broodwar->getBuildLocation(buildOrders.at(index), u->getTilePosition());
+						if (!u->build(buildOrders.at(index), buildPosition))
 						{
 							//perform some nonesense 
+							broadcast("The build Order: " + buildOrders.at(index).getName() + " could not be built");
+							if (buildPosition == TilePositions::Invalid)
+							{
+								broadcast("No suitable position could be found");
+							}
+							if (Broodwar->self()->minerals() < buildOrders.at(index))
+							{
+								broadcast("Insufficient Minerals");
+							}
 						}
 						else
 						{
@@ -141,7 +146,16 @@ void ConstructionManager::onFrame()
 					}
 					catch (std::exception& e)
 					{
-						broadcast("Something went wrong with the BuildOrder queue: " + *e.what());
+						if (buildOrders.size() >= i - buildingsUnderConstruction.size())
+						{
+							broadcast("More Builders than Tasks");
+							broadcast("Overflow index = " + std::to_string(i - buildingsUnderConstruction.size()));
+						}
+						else
+						{
+							broadcast("The build Order was: " + buildOrders.at(i).getName());
+							broadcast("Something went wrong with the BuildOrder queue: " + *e.what());
+						}
 					}
 				} 
 			} 
@@ -158,8 +172,6 @@ void ConstructionManager::addBuildOrder(BWAPI::UnitType uT)
 void ConstructionManager::addBuildingUnderConstruction(BWAPI::Unit building)
 {
 	//add the building to its worker in the "under construction list"
-	//TODO Sanitise workers
-	//find the linked incipient building and properly initialise it
 	buildingsUnderConstruction.push_back(ConstructionPair(building, building->getBuildUnit()));
 
 	//Remove the order from the build order list so that it won't be duplicated
@@ -264,6 +276,8 @@ bool ConstructionManager::workerRequired()
 //Retrieve a new worker from the resource Manager
 void ConstructionManager::addNewWorker()
 {
+	/*
+	I'm gonna keep this around just incase I need it
 	INPUT ip;
 	ip.type = INPUT_KEYBOARD;
 	ip.ki.wScan = 0;
@@ -274,6 +288,7 @@ void ConstructionManager::addNewWorker()
 	SendInput(1, &ip, sizeof(INPUT));
 	ip.ki.dwFlags = KEYEVENTF_KEYUP;
 	SendInput(1, &ip, sizeof(INPUT));
+	*/
 	try
 	{
 		builders.push_back(rRef->requestUnit());
@@ -285,4 +300,18 @@ void ConstructionManager::addNewWorker()
 		broadcast(std::to_string(buildingsUnderConstruction.size()));
 		broadcast(std::to_string(builders.size()));
 	}
+}
+//Return all Orders being processed as a vector of UnitTypes
+std::vector<BWAPI::UnitType> ConstructionManager::getAllOrders()
+{
+	std::vector<BWAPI::UnitType> orders;
+	for (int i = 0; i < buildOrders.size(); i++)
+	{
+		orders.push_back(buildOrders.at(i));
+	}
+	for (int i = 0; i < buildingsUnderConstruction.size(); i++)
+	{
+		orders.push_back(buildingsUnderConstruction.at(i).getBuilding()->getType());
+	}
+	return orders;
 }

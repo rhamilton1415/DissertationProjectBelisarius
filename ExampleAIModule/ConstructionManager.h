@@ -21,6 +21,7 @@ public:
 	const std::vector<BWAPI::UnitType>& getBuildOrders() const { return buildOrders; }
 	const std::vector<BWAPI::Unit>& getWorkers() const { return builders; }
 	const std::vector<ConstructionPair>& getBuildingsUnderConstruction() const { return buildingsUnderConstruction; }
+	std::vector<BWAPI::UnitType> getAllOrders();
 	std::string getPreamble() override { return preamble; }
 	void addNewWorker();
 	bool workerRequired();

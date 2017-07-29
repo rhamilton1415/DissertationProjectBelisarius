@@ -25,14 +25,14 @@ void BuildOrderManager::onFrame()
 	{
 		if (nextOrder.isBuilding()) //The construction manager will deal with it also don't spam
 		{
-			if (Broodwar->self()->minerals() > (nextOrder.mineralPrice() + cRef->getMineralDebt()))
+			if (Broodwar->self()->minerals() >= (nextOrder.mineralPrice() + bRef->getMineralDebt() + cRef->getMineralDebt()))
 			{
 				cRef->addBuildOrder(nextOrder);
 				nextOrder = NULL; //reset the flag
 			}
 		}
 		//It's a unit and therefore should be sent to the building manager for training
-		else if(Broodwar->self()->minerals() > (nextOrder.mineralPrice() + bRef->getMineralDebt()))//The building manager will deal with it also don't spam
+		else if(Broodwar->self()->minerals() >= (nextOrder.mineralPrice() + bRef->getMineralDebt() + cRef->getMineralDebt()))//The building manager will deal with it also don't spam
 		{
 			bRef->addBuildOrder(nextOrder);
 			nextOrder = NULL;
@@ -64,10 +64,11 @@ BWAPI::UnitType BuildOrderManager::getNextBuildRecommendation()
 	}
 
 	//Calculate the priority for expanding the infrastructure
+	//When checking to see what buildings we have, check the construction manager for queued buildings as well
 	BWAPI::UnitType buildingRecommendation;
 	double buildingPriority;
-	//If we don't have a refinery, that'll be the only building in consideration
-	if (bRef->getBuildingCount(BWAPI::UnitTypes::Terran_Refinery) < 1)
+	//If we don't have a refinery, that'll be the only building in consideration.
+	if ((bRef->getBuildingCount(BWAPI::UnitTypes::Terran_Refinery)+cRef->orderCount(BWAPI::UnitTypes::Terran_Refinery)) < 1)
 	{
 		buildingRecommendation = BWAPI::UnitTypes::Terran_Refinery;
 		buildingPriority = 0.5;
