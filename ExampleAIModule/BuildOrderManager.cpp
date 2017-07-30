@@ -19,7 +19,6 @@ void BuildOrderManager::onFrame()
 	if (nextOrder == NULL)
 	{
 		nextOrder = getNextBuildRecommendation(); //don't spam it I guess
-		broadcast(nextOrder.getName() + " has been queued");
 	}
 	else //if (Broodwar->self()->minerals() >= nextOrder.mineralPrice())
 	{
@@ -28,15 +27,18 @@ void BuildOrderManager::onFrame()
 			if (Broodwar->self()->minerals() >= (nextOrder.mineralPrice() + bRef->getMineralDebt() + cRef->getMineralDebt()))
 			{
 				cRef->addBuildOrder(nextOrder);
+				broadcast(nextOrder.getName() + " has been queued (Building)");
 				nextOrder = NULL; //reset the flag
 			}
 		}
 		//It's a unit and therefore should be sent to the building manager for training
-		else if(Broodwar->self()->minerals() >= (nextOrder.mineralPrice() + bRef->getMineralDebt() + cRef->getMineralDebt()))//The building manager will deal with it also don't spam
+		//Make sure we have both enough minerals and gas
+		else if(Broodwar->self()->minerals() >= (nextOrder.mineralPrice() + bRef->getMineralDebt() + cRef->getMineralDebt()))
 		{
-			if (Broodwar->self()->minerals() >= (nextOrder.mineralPrice() + bRef->getGasDebt()))
+			if (Broodwar->self()->gas() >= (nextOrder.gasPrice() + bRef->getGasDebt()))
 			{
 				bRef->addBuildOrder(nextOrder);
+				broadcast(nextOrder.getName() + " has been queued (Unit)");
 				nextOrder = NULL;
 			}
 		}
@@ -85,7 +87,6 @@ BWAPI::UnitType BuildOrderManager::getNextBuildRecommendation()
 	{
 		buildingPriority = 0;
 	}
-	broadcast(std::to_string(buildingPriority) + " " + std::to_string(workerUnitPriority) + " " + std::to_string(combatUnitPriority));
 	if (buildingPriority > combatUnitPriority && buildingPriority > workerUnitPriority)
 	{
 		return buildingRecommendation;

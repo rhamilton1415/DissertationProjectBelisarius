@@ -63,9 +63,12 @@ void ConstructionManager::onFrame()
 		// If the worker is carrying cargo, order it to return before doing anything else
 		if (u->isCarryingGas() || u->isCarryingMinerals())
 		{
-			broadcast("Returning Minerals");
 			u->returnCargo();
 			continue;
+		}
+		if (u->isGatheringGas() || u->isGatheringMinerals())
+		{
+			u->stop();
 		}
 		// Finally make the unit do some stuff!
 		// If the unit is a worker unit
@@ -140,8 +143,7 @@ void ConstructionManager::onFrame()
 						}
 						else
 						{
-							//build successful - create an incipient construction pair
-							broadcast(buildOrders.front().getName() + " order being executed by " + std::to_string(u->getID()));
+							//Success
 						}
 					}
 					catch (std::exception& e)
