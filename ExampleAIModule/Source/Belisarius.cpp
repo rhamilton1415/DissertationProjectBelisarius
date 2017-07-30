@@ -168,20 +168,25 @@ void Belisarius::onUnitCreate(BWAPI::Unit unit)
   }
   else //in future ping all the top level agents with this so that they can decide where to put them
   {
-	  
 	  //If it's a worker, assing it to the resource collector by default, as workers should by default be resource collecting
 	  //If other services want workers they should request them from the resourceManager
-	  if (unit->getType().isWorker())
+	  if (unit->getPlayer() == Broodwar->self())
 	  {
-		  r.addUnit(unit);
-	  }
-	  else if (unit->getType().isBuilding() && (unit->getPlayer() == Broodwar->self())) //If it's a building, give it to the building manager
-	  {
-		  b.addUnit(unit);
-	  }
-	  else if (unit->getPlayer()==Broodwar->self() && unit->isBeingConstructed())
-	  {
-		  
+		  if (unit->getType().isWorker())
+		  {
+			  r.addUnit(unit);
+		  }
+		  else if (unit->getType().isBuilding())
+		  {
+			  if (unit->isBeingConstructed())
+			  {
+				  c.addBuildingUnderConstruction(unit);
+			  }
+			  else
+			  {
+				  b.addUnit(unit);
+			  }
+		  }
 	  }
   }
 }
@@ -204,9 +209,19 @@ void Belisarius::onUnitMorph(BWAPI::Unit unit)
       Broodwar->sendText("%.2d:%.2d: %s morphs a %s", minutes, seconds, unit->getPlayer()->getName().c_str(), unit->getType().c_str());
     }
   }
-  if (unit->getPlayer() == Broodwar->self())
+  if (unit->getPlayer() == Broodwar->self() && unit->getType().isBuilding())
   {
-	  c.addBuildingUnderConstruction(unit);
+	  if (unit->getType().isBuilding())
+	  {
+		  if (unit->isBeingConstructed())
+		  {
+			  c.addBuildingUnderConstruction(unit);
+		  }
+		  else
+		  {
+			  b.addUnit(unit);
+		  }
+	  }
   }
 }
 
