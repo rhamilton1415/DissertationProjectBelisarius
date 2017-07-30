@@ -19,5 +19,6 @@ private:
 	std::string preamble = "Build Order Manager: ";
 	BWAPI::UnitType nextOrder = BWAPI::UnitTypes::None;
 	BWAPI::UnitType getNextBuildRecommendation();
+	std::map<BWAPI::UnitType, int> getPlayerState();
 };
 

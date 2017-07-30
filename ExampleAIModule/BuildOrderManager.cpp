@@ -52,13 +52,32 @@ BWAPI::UnitType BuildOrderManager::getNextBuildRecommendation()
 	//Calculate the priority for building a new worker
 	BWAPI::UnitType workerRecommendation = BWAPI::UnitTypes::Terran_SCV;
 	double workerUnitPriority;
-	int workerCount = rRef->getWorkerCount() + cRef->getWorkerCount();
-	workerUnitPriority = (1.0 - (workerCount / 10.0));
 
 	//Calculate the priority for expanding the combat capabilities
 	BWAPI::UnitType combatUnitRecommendation;
 	double combatUnitPriority;
-	if (bRef->getBuildingCount(BWAPI::UnitTypes::Terran_Barracks) > 0 && Broodwar->self()->isUnitAvailable(BWAPI::UnitTypes::Terran_Marine))
+
+	//Calculate the priority for expanding the infrastructure
+	BWAPI::UnitType buildingRecommendation;
+	double buildingPriority;
+
+	int remainingSupply = Broodwar->self()->supplyTotal() - Broodwar->self()->supplyUsed();
+	int workerCount = rRef->getWorkerCount() + cRef->getWorkerCount();
+
+	if (remainingSupply > 0)
+	{
+		workerUnitPriority = (1.0 - (workerCount / 10.0));
+		if (workerUnitPriority <= 0)
+		{
+			workerUnitPriority = 0.1;
+		}
+	}
+	else
+	{
+		workerUnitPriority = 0;
+	}
+
+	if (bRef->getBuildingCount(BWAPI::UnitTypes::Terran_Barracks) > 0 && remainingSupply>0)
 	{
 		combatUnitRecommendation = BWAPI::UnitTypes::Terran_Marine;
 		combatUnitPriority = 0.4;
@@ -67,11 +86,8 @@ BWAPI::UnitType BuildOrderManager::getNextBuildRecommendation()
 	{
 		combatUnitPriority = 0;
 	}
-
-	//Calculate the priority for expanding the infrastructure
+	
 	//When checking to see what buildings we have, check the construction manager for queued buildings as well
-	BWAPI::UnitType buildingRecommendation;
-	double buildingPriority;
 	//If we don't have a refinery, that'll be the only building in consideration.
 	if ((bRef->getBuildingCount(BWAPI::UnitTypes::Terran_Refinery)+cRef->orderCount(BWAPI::UnitTypes::Terran_Refinery)) < 1)
 	{
@@ -82,6 +98,11 @@ BWAPI::UnitType BuildOrderManager::getNextBuildRecommendation()
 	{
 		buildingRecommendation = BWAPI::UnitTypes::Terran_Barracks;
 		buildingPriority = 0.5;
+	}
+	else if(remainingSupply + (cRef->orderCount(BWAPI::UnitTypes::Terran_Supply_Depot)*8)) //One supply depo gives 8 supply
+	{
+		buildingRecommendation = BWAPI::UnitTypes::Terran_Supply_Depot;
+		buildingPriority = 1 - ((remainingSupply + (cRef->orderCount(BWAPI::UnitTypes::Terran_Supply_Depot) * 8)) / 5);
 	}
 	else
 	{
@@ -102,4 +123,14 @@ BWAPI::UnitType BuildOrderManager::getNextBuildRecommendation()
 	{
 		return workerRecommendation;
 	}
+}
+
+std::map<BWAPI::UnitType, int> BuildOrderManager::getPlayerState()
+{
+	std::map<BWAPI::UnitType, int> playerState;
+	for (auto & u : Broodwar->self()->getUnits())
+	{
+		playerState.at(u->getType())++;
+	}
+	return playerState;
 }

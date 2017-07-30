@@ -54,10 +54,8 @@ void BuildingManager::onFrame()
 			//get the building to train the build order
 			if (!u->train(buildOrders.at(i)))
 			{
-				broadcast("Training " + buildOrders.at(i).getName() + " failed");
 				if (!u->canTrain(buildOrders.at(i)))
 				{
-					broadcast(u->getType().getName() + " cannot build " + buildOrders.at(i).getName());
 					continue;
 				}
 				if (Broodwar->self()->minerals() < buildOrders.at(i).mineralPrice())
