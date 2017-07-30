@@ -16,9 +16,9 @@ BuildOrderManager::~BuildOrderManager()
 
 void BuildOrderManager::onFrame()
 {
-	if (nextOrder == NULL)
+	if (nextOrder == BWAPI::UnitTypes::None) //TODO Murder the person who set NULL to mean something in this namespace
 	{
-		nextOrder = getNextBuildRecommendation(); //don't spam it I guess
+		nextOrder = getNextBuildRecommendation();
 	}
 	else //if (Broodwar->self()->minerals() >= nextOrder.mineralPrice())
 	{
@@ -28,7 +28,7 @@ void BuildOrderManager::onFrame()
 			{
 				cRef->addBuildOrder(nextOrder);
 				broadcast(nextOrder.getName() + " has been queued (Building)");
-				nextOrder = NULL; //reset the flag
+				nextOrder = BWAPI::UnitTypes::None; //reset the flag
 			}
 		}
 		//It's a unit and therefore should be sent to the building manager for training
@@ -39,7 +39,7 @@ void BuildOrderManager::onFrame()
 			{
 				bRef->addBuildOrder(nextOrder);
 				broadcast(nextOrder.getName() + " has been queued (Unit)");
-				nextOrder = NULL;
+				nextOrder = BWAPI::UnitTypes::None;
 			}
 		}
 	}
@@ -87,6 +87,9 @@ BWAPI::UnitType BuildOrderManager::getNextBuildRecommendation()
 	{
 		buildingPriority = 0;
 	}
+	broadcast("Building Priority: " + std::to_string(buildingPriority));
+	broadcast("Worker Priority: " + std::to_string(workerUnitPriority));
+	broadcast("Combat Priority: " + std::to_string(combatUnitPriority));
 	if (buildingPriority > combatUnitPriority && buildingPriority > workerUnitPriority)
 	{
 		return buildingRecommendation;

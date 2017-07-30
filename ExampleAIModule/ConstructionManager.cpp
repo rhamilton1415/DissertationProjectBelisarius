@@ -172,7 +172,6 @@ void ConstructionManager::onFrame()
 
 void ConstructionManager::addBuildOrder(BWAPI::UnitType uT)
 {
-	broadcast("Build order recieved");
 	buildOrders.push_back(uT);
 }
 void ConstructionManager::addBuildingUnderConstruction(BWAPI::Unit building)
@@ -203,11 +202,10 @@ void ConstructionManager::constructionCompleted(BWAPI::Unit completedBuilding)
 				{
 					rRef->addUnit(buildingsUnderConstruction.at(i).getWorker());
 					builders.erase(std::find(builders.begin(), builders.end(), buildingsUnderConstruction.at(i).getWorker()));
-					broadcast("Worker no longer required and has been returned to the resource manager");
 				}
 				else
 				{
-					broadcast("Building completed, worker added back into operating pool");
+					//We still need the worker
 				}
 				//remove the construction pair as it is now finished
 				buildingsUnderConstruction.erase(buildingsUnderConstruction.begin() + i);
@@ -297,7 +295,6 @@ void ConstructionManager::addNewWorker()
 	try
 	{
 		builders.push_back(rRef->requestUnit());
-		broadcast("Unit recieved from Resource Manager");
 	}
 	catch (...)
 	{

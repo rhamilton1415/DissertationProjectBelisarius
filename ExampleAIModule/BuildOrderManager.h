@@ -17,7 +17,7 @@ private:
 	BuildingManager* bRef;
 	ConstructionManager* cRef;
 	std::string preamble = "Build Order Manager: ";
-	BWAPI::UnitType nextOrder = NULL;
+	BWAPI::UnitType nextOrder = BWAPI::UnitTypes::None;
 	BWAPI::UnitType getNextBuildRecommendation();
 };
 
