@@ -58,7 +58,7 @@ BWAPI::UnitType BuildOrderManager::getNextBuildRecommendation()
 	//Calculate the priority for expanding the combat capabilities
 	BWAPI::UnitType combatUnitRecommendation;
 	double combatUnitPriority;
-	if (bRef->getBuildingCount(BWAPI::UnitTypes::Terran_Barracks) > 0)
+	if (bRef->getBuildingCount(BWAPI::UnitTypes::Terran_Barracks) > 0 && Broodwar->self()->isUnitAvailable(BWAPI::UnitTypes::Terran_Marine))
 	{
 		combatUnitRecommendation = BWAPI::UnitTypes::Terran_Marine;
 		combatUnitPriority = 0.4;
@@ -78,7 +78,7 @@ BWAPI::UnitType BuildOrderManager::getNextBuildRecommendation()
 		buildingRecommendation = BWAPI::UnitTypes::Terran_Refinery;
 		buildingPriority = 0.5;
 	}
-	else if(bRef->getBuildingCount(BWAPI::UnitTypes::Terran_Barracks) <1)
+	else if(bRef->getBuildingCount(BWAPI::UnitTypes::Terran_Barracks)+cRef->orderCount(BWAPI::UnitTypes::Terran_Barracks) <1)
 	{
 		buildingRecommendation = BWAPI::UnitTypes::Terran_Barracks;
 		buildingPriority = 0.5;

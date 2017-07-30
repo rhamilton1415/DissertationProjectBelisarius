@@ -2,8 +2,9 @@
 
 
 
-TacticalManager::TacticalManager()
+TacticalManager::TacticalManager(std::string name)
 {
+	preamble = name;
 }
 
 

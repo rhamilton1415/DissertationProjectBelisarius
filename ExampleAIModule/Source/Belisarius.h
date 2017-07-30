@@ -5,6 +5,9 @@
 #include "..\BuildingManager.h"
 #include "..\ConstructionManager.h"
 #include "..\BuildOrderManager.h"
+#include "..\StrategyManager.h"
+#include "..\TacticalManager.h"
+#include "..\AdvesarialIntelligenceManager.h"
 // Remember not to use "Broodwar" in any global class constructor!
 
 class Belisarius : public BWAPI::AIModule
@@ -35,4 +38,5 @@ public:
   BuildingManager b = BuildingManager(r);
   ConstructionManager c = ConstructionManager(r);
   BuildOrderManager bOM = BuildOrderManager(r, b, c);
+  std::vector<AdvesarialIntelligenceManager> players;
 };

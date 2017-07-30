@@ -139,6 +139,21 @@ void Belisarius::onNukeDetect(BWAPI::Position target)
 
 void Belisarius::onUnitDiscover(BWAPI::Unit unit)
 {
+	if (!(unit->getPlayer() == Broodwar->self()))
+	{
+		if (unit->getType().getRace() == BWAPI::Races::Terran)
+		{
+			Broodwar->sendText(("Unit Discovered " + unit->getType().getName()).c_str());
+		}
+		else if (unit->getType().getRace() == BWAPI::Races::Protoss)
+		{
+			Broodwar->sendText(("Unit Discovered " + unit->getType().getName()).c_str());
+		}
+		else if (unit->getType().getRace() == BWAPI::Races::Zerg)
+		{
+			Broodwar->sendText(("Unit Discovered " + unit->getType().getName()).c_str());
+		}
+	}
 }
 
 void Belisarius::onUnitEvade(BWAPI::Unit unit)
