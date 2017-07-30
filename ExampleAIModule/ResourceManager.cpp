@@ -83,7 +83,7 @@ BWAPI::Unit& ResourceManager::requestUnit()
 {
 		//remove the reference from the resourceCollecters vector and then return it
 		BWAPI::Unit& u = resourceCollectors.back();
-		resourceCollectors.pop_back();
+		resourceCollectors.erase(std::find(resourceCollectors.begin(), resourceCollectors.end(), u));
 		u->stop();
 		return u;
 }

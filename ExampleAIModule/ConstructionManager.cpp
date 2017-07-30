@@ -146,10 +146,14 @@ void ConstructionManager::onFrame()
 					}
 					catch (std::exception& e)
 					{
+						//If there are too many builders, this will fail because a builder will be asked to construct a non-existant buildOrder
 						if (buildOrders.size() >= i - buildingsUnderConstruction.size())
 						{
 							broadcast("More Builders than Tasks");
-							broadcast("Overflow index = " + std::to_string(i - buildingsUnderConstruction.size()));
+							if ((buildOrders.size() + buildingsUnderConstruction.size()) >= builders.size())
+							{
+								broadcast("There are not more Builders than tasks - something went wrong...");
+							}
 						}
 						else
 						{
@@ -185,7 +189,6 @@ void ConstructionManager::addBuildingUnderConstruction(BWAPI::Unit building)
 }
 void ConstructionManager::constructionCompleted(BWAPI::Unit completedBuilding)
 {
-	
 	try
 	{
 		for (int i = 0; i < buildingsUnderConstruction.size(); i++) //Find the building in the list so it can be removed
