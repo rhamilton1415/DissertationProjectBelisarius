@@ -12,6 +12,7 @@ public:
 	~BuildOrderManager();
 	void onFrame();
 	std::string getPreamble() override { return preamble; }
+	void printPlayerState();
 private:
 	ResourceManager* rRef;
 	BuildingManager* bRef;

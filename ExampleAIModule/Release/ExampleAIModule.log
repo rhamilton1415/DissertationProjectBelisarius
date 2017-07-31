@@ -2,9 +2,9 @@
   BuildOrderManager.cpp
      Creating library Release\Belisarius.lib and object Release\Belisarius.exp
   Generating code
-  2 of 4401 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  21 of 4497 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    49 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   ExampleAIModule.vcxproj -> C:\Users\Robert\BWAPI\Release\Belisarius.dll
   ExampleAIModule.vcxproj -> C:\Users\Robert\BWAPI\Release\Belisarius.pdb (Full PDB)

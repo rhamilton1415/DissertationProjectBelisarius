@@ -19,6 +19,7 @@ public:
 	int getBuildingCount() { return buildings.size(); }
 	int getBuildingCount(BWAPI::UnitType specificType);
 	const std::vector<BWAPI::UnitType>& getBuildOrders() const { return buildOrders; }
+	const std::vector<BWAPI::UnitType> getUnitsBeingTrained();
 	std::string getPreamble() override { return preamble; }
 	int getMineralDebt(); //The amount of minerals the build order queue will cost to execute
 	int getGasDebt();

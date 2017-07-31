@@ -185,3 +185,19 @@ int BuildingManager::getGasDebt() {
 	}
 	return cost;
 }
+const std::vector<BWAPI::UnitType> BuildingManager::getUnitsBeingTrained()
+{
+	std::vector<BWAPI::UnitType> units;
+	for (auto& u : buildings)
+	{
+		try
+		{
+			units.push_back(u->getTrainingQueue().at(0)); //The top order will have been removed from the build orders as it has been paid for. 
+		}
+		catch (...)//If it doesn't have a training queue probably
+		{
+
+		}
+	}
+	return units;
+}

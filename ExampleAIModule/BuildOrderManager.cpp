@@ -113,9 +113,9 @@ BWAPI::UnitType BuildOrderManager::getNextBuildRecommendation()
 	{
 		buildingPriority = 0;
 	}
-	broadcast("Building Priority: " + std::to_string(buildingPriority));
+	/*broadcast("Building Priority: " + std::to_string(buildingPriority));
 	broadcast("Worker Priority: " + std::to_string(workerUnitPriority));
-	broadcast("Combat Priority: " + std::to_string(combatUnitPriority));
+	broadcast("Combat Priority: " + std::to_string(combatUnitPriority));*/
 	if (buildingPriority > combatUnitPriority && buildingPriority > workerUnitPriority)
 	{
 		return buildingRecommendation;
@@ -138,4 +138,58 @@ std::map<BWAPI::UnitType, int> BuildOrderManager::getPlayerState()
 		playerState.at(u->getType())++;
 	}
 	return playerState;
+}
+
+void BuildOrderManager::printPlayerState()
+{
+	try 
+	{
+		std::map<BWAPI::UnitType, int> playerState;
+		std::map<BWAPI::UnitType, int> queued;
+		for (auto & u : Broodwar->self()->getUnits())
+		{
+			if (u->isCompleted())
+			{
+				playerState[u->getType()] += 1;
+			}
+			else
+			{
+				queued[u->getType()] += 1;
+			}
+		}
+		for (auto & u : cRef->getBuildOrders()) //All the buildings in the construction queue which haven't been started yet
+		{
+			queued[u] += 1;
+		}
+		for (auto& u : bRef->getBuildOrders()) //All the Units in the training queue which haven't been paid for yet
+		{
+			queued[u] += 1;
+		}
+		for (auto& u : bRef->getUnitsBeingTrained()) //All the Units in the training queue which have been paid for
+		{
+			//queued[u] += 1;
+		}
+		queued[nextOrder] += 1;
+		int count = 0;
+		Broodwar->drawTextScreen(10, 20 + (count * 10), std::string("Available:").c_str());
+		count++;
+		for (std::map<BWAPI::UnitType, int>::const_iterator it = playerState.begin(); it != playerState.end(); ++it)
+		{
+			Broodwar->drawTextScreen(15, 20 + (count * 10), (it->first.getName() + " " + std::to_string(playerState.at(it->first))).c_str());
+			count++;
+		}
+		count++;
+		Broodwar->drawTextScreen(10, 20 + (count * 10), std::string("Queued:").c_str());
+		count++;
+		for (std::map<BWAPI::UnitType, int>::const_iterator it = queued.begin(); it != queued.end(); ++it)
+		{
+			Broodwar->drawTextScreen(15, 20 + (count * 10), (it->first.getName() + " " + std::to_string(queued.at(it->first))).c_str());
+			count++;
+		}
+	}
+	catch (std::exception& e)
+	{
+		Broodwar->drawTextScreen(10,20, e.what());
+	}
+
 }
