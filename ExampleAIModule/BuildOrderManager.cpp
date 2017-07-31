@@ -16,6 +16,7 @@ BuildOrderManager::~BuildOrderManager()
 
 void BuildOrderManager::onFrame()
 {
+	int remainingSupply = Broodwar->self()->supplyTotal() - Broodwar->self()->supplyUsed();
 	if (nextOrder == BWAPI::UnitTypes::None) //TODO Murder the person who set NULL to mean something in this namespace
 	{
 		nextOrder = getNextBuildRecommendation();
@@ -37,9 +38,13 @@ void BuildOrderManager::onFrame()
 		{
 			if (Broodwar->self()->gas() >= (nextOrder.gasPrice() + bRef->getGasDebt()))
 			{
-				bRef->addBuildOrder(nextOrder);
-				broadcast(nextOrder.getName() + " has been queued (Unit)");
-				nextOrder = BWAPI::UnitTypes::None;
+				//Make sure we have enough supply as well - the BOM algorithm considers incipient supply as actual supply
+				if (nextOrder.supplyRequired() <= remainingSupply)
+				{
+					bRef->addBuildOrder(nextOrder);
+					broadcast(nextOrder.getName() + " has been queued (Unit)");
+					nextOrder = BWAPI::UnitTypes::None;
+				}
 			}
 		}
 	}
