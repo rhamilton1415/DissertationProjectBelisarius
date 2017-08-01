@@ -1,9 +1,17 @@
 #include "Belisarius.h"
 #include <iostream>
+#include <thread>
+#include <cpprest/http_client.h>
+#include <cpprest/filestream.h>
 
 using namespace BWAPI;
 using namespace Filter;
-
+using namespace utility;                    // Common utilities like string conversions
+using namespace web;                        // Common features like URIs.
+using namespace web::http;                  // Common HTTP functionality
+using namespace web::http::client;          // HTTP client features
+using namespace concurrency;
+using namespace concurrency::streams;
 void Belisarius::onStart()
 {
 	//BWTA::readMap(); pls update
@@ -51,7 +59,6 @@ void Belisarius::onStart()
 	  //ResourceManager *r = new ResourceManager();
 
   }
-
 }
 
 void Belisarius::onEnd(bool isWinner)
@@ -143,15 +150,15 @@ void Belisarius::onUnitDiscover(BWAPI::Unit unit)
 	{
 		if (unit->getType().getRace() == BWAPI::Races::Terran)
 		{
-			Broodwar->sendText(("Unit Discovered " + unit->getType().getName()).c_str());
+			//Broodwar->sendText(("Unit Discovered " + unit->getType().getName()).c_str());
 		}
 		else if (unit->getType().getRace() == BWAPI::Races::Protoss)
 		{
-			Broodwar->sendText(("Unit Discovered " + unit->getType().getName()).c_str());
+			//Broodwar->sendText(("Unit Discovered " + unit->getType().getName()).c_str());
 		}
 		else if (unit->getType().getRace() == BWAPI::Races::Zerg)
 		{
-			Broodwar->sendText(("Unit Discovered " + unit->getType().getName()).c_str());
+			//Broodwar->sendText(("Unit Discovered " + unit->getType().getName()).c_str());
 		}
 	}
 }

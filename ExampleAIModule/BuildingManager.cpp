@@ -77,7 +77,7 @@ void BuildingManager::onFrame()
 			}
 			else
 			{
-				broadcast("Training " + buildOrders.at(i).getName());
+				//broadcast("Training " + buildOrders.at(i).getName());
 				buildOrders.erase((buildOrders.begin()+i)); //erase the build order as it is already being constructed
 				continue;
 			}
@@ -90,7 +90,6 @@ void BuildingManager::addUnit(BWAPI::Unit u)
 {
 	try
 	{
-		std::string str = preamble + "Building aquired " + u->getType().getName() + " " + std::to_string(u->getID());
 		//don't add duplicates, don't know why it happens but it can
 		if (!std::binary_search(buildings.begin(), buildings.end(), u))
 		{
@@ -107,7 +106,7 @@ void BuildingManager::addBuildOrder(BWAPI::UnitType uT)
 	//TODO add check to see if this is a valid build order
 	//Although the BOM should do this too
 	buildOrders.push_back(uT);
-	broadcast("Build order recieved");
+	//broadcast("Build order recieved");
 }
 int BuildingManager::getBuildingCount(BWAPI::UnitType uT)
 {

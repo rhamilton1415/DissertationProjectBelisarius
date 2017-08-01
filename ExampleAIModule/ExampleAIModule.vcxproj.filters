@@ -25,4 +25,7 @@
     <ClInclude Include="ConstructionManager.h" />
     <ClInclude Include="ConstructionPair.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
 </Project>

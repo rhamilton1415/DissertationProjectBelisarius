@@ -181,6 +181,8 @@ void BuildOrderManager::printPlayerState()
 		Broodwar->drawTextScreen(10, 20 + (count * 10), std::string("Next Order:").c_str());
 		count++;
 		Broodwar->drawTextScreen(15, 20 + (count * 10), (nextOrder.getName()).c_str());
+		count++;
+		//Broodwar->drawTextScreen(10, 20 + (count * 10), connect().c_str());
 	}
 	catch (std::exception& e)
 	{

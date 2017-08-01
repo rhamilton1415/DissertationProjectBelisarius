@@ -186,7 +186,7 @@ void ConstructionManager::addBuildingUnderConstruction(BWAPI::Unit building)
 	//builders.erase(std::find(builders.begin(), builders.end(), building->getBuildUnit()));
 
 	//When the building is completed, make sure to ping this agent so that the entry in the map can be handled
-	broadcast("Construction started on " + building->getType().getName());
+	//broadcast("Construction started on " + building->getType().getName());
 }
 void ConstructionManager::constructionCompleted(BWAPI::Unit completedBuilding)
 {
