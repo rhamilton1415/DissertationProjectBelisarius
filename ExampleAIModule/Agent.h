@@ -10,6 +10,7 @@ public:
 	Agent();
 	~Agent();
 	virtual std::string getPreamble() { return preamble; }
+	std::string connect();
 protected:
 	void broadcast(std::string message);
 	std::string preamble = "this needs to be set ";

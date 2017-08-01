@@ -113,9 +113,6 @@ BWAPI::UnitType BuildOrderManager::getNextBuildRecommendation()
 	{
 		buildingPriority = 0;
 	}
-	/*broadcast("Building Priority: " + std::to_string(buildingPriority));
-	broadcast("Worker Priority: " + std::to_string(workerUnitPriority));
-	broadcast("Combat Priority: " + std::to_string(combatUnitPriority));*/
 	if (buildingPriority > combatUnitPriority && buildingPriority > workerUnitPriority)
 	{
 		return buildingRecommendation;
@@ -139,7 +136,6 @@ std::map<BWAPI::UnitType, int> BuildOrderManager::getPlayerState()
 	}
 	return playerState;
 }
-
 void BuildOrderManager::printPlayerState()
 {
 	try 
@@ -165,11 +161,6 @@ void BuildOrderManager::printPlayerState()
 		{
 			queued[u] += 1;
 		}
-		for (auto& u : bRef->getUnitsBeingTrained()) //All the Units in the training queue which have been paid for
-		{
-			//queued[u] += 1;
-		}
-		queued[nextOrder] += 1;
 		int count = 0;
 		Broodwar->drawTextScreen(10, 20 + (count * 10), std::string("Available:").c_str());
 		count++;
@@ -186,6 +177,10 @@ void BuildOrderManager::printPlayerState()
 			Broodwar->drawTextScreen(15, 20 + (count * 10), (it->first.getName() + " " + std::to_string(queued.at(it->first))).c_str());
 			count++;
 		}
+		count++;
+		Broodwar->drawTextScreen(10, 20 + (count * 10), std::string("Next Order:").c_str());
+		count++;
+		Broodwar->drawTextScreen(15, 20 + (count * 10), (nextOrder.getName()).c_str());
 	}
 	catch (std::exception& e)
 	{
