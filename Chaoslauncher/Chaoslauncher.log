@@ -1,357 +1,57 @@
-01/08/2017 10:30:02 10340 Logging started
-01/08/2017 10:30:02 10340 Begin Startup
-01/08/2017 10:30:02 10340 Chaosauncher 0.5.4.4 on NT 6.2.9200  at C:\Users\Robert\BWAPI\Chaoslauncher\Chaoslauncher.exe
-01/08/2017 10:30:02 10340 Load Settings
-01/08/2017 10:30:02 10340 GamePath: C:\Users\Robert\Documents\Starcraft\
-01/08/2017 10:30:02 10340 Load Plugins
-01/08/2017 10:30:02 10340 AdvLoaderPluginPath: \Plugins\
-01/08/2017 10:30:02 10340 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\iccscbn.icc
-01/08/2017 10:30:06 10340 Plugin loaded ICCup
-01/08/2017 10:30:06 10340 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\APMAlert.bwl
-01/08/2017 10:30:06 10340 Plugin loaded APMAlert (1.16.1)
-01/08/2017 10:30:06 10340 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\BWAPI_PluginInjector.bwl
-01/08/2017 10:30:06 10340 Plugin loaded BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 10:30:06 10340 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\BWAPI_PluginInjectord.bwl
-01/08/2017 10:30:06 10340 Plugin loaded BWAPI 4.2.0 Injector [DEBUG]
-01/08/2017 10:30:06 10340 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\Chaosplugin.bwl
-01/08/2017 10:30:06 10340 Plugin loaded Chaosplugin for 1.16.1
-01/08/2017 10:30:06 10340 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\LatencyChanger.bwl
-01/08/2017 10:30:07 10340 Plugin loaded LatencyChanger for 1.16.1
-01/08/2017 10:30:07 10340 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\repfix.bwl
-01/08/2017 10:30:07 10340 Plugin loaded RepFix
-01/08/2017 10:30:07 10340 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\RWAPlayer.bwl
-01/08/2017 10:30:07 10340 Plugin loaded RWAPlayer (1.16.1)
-01/08/2017 10:30:07 10340 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\RWARecorder.bwl
-01/08/2017 10:30:07 10340 Plugin loaded RWARecorder (1.16.1)
-01/08/2017 10:30:07 10340 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\Stormplugin.bwl
-01/08/2017 10:30:07 10340 Plugin loaded Stormplugin for 1.16.1
-01/08/2017 10:30:07 10340 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\wmode.bwl
-01/08/2017 10:30:07 10340 Plugin loaded W-MODE 1.02
-01/08/2017 10:30:07 10340 Load Tools
-01/08/2017 10:30:07 10340 Init GUI
-01/08/2017 10:30:07 10340 Get Starcraftversions
-01/08/2017 10:30:07 10340 Init complete
-01/08/2017 10:30:11 10340 Startbutton
-01/08/2017 10:30:11 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 10:30:11 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 10:30:11 10340 Obtained DebugPrivilege
-01/08/2017 10:30:11 10340 CreateProcess
-01/08/2017 10:30:11 10340 Call ScSuspended for all active Plugins
-01/08/2017 10:30:11 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 10:30:11 10340 ResumeThread
-01/08/2017 10:30:11 10340 WaitForInputIdle
-01/08/2017 10:30:12 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 10:30:12 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 10:30:12 10340 Starting Starcraft completed
-01/08/2017 13:37:29 10340 Startbutton
-01/08/2017 13:37:29 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 13:37:29 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 13:37:29 10340 Obtained DebugPrivilege
-01/08/2017 13:37:29 10340 CreateProcess
-01/08/2017 13:37:29 10340 Call ScSuspended for all active Plugins
-01/08/2017 13:37:29 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 13:37:29 10340 ResumeThread
-01/08/2017 13:37:29 10340 WaitForInputIdle
-01/08/2017 13:37:29 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 13:37:29 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 13:37:29 10340 Starting Starcraft completed
-01/08/2017 13:39:46 10340 Startbutton
-01/08/2017 13:39:46 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 13:39:46 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 13:39:46 10340 Obtained DebugPrivilege
-01/08/2017 13:39:46 10340 CreateProcess
-01/08/2017 13:39:46 10340 Call ScSuspended for all active Plugins
-01/08/2017 13:39:46 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 13:39:46 10340 ResumeThread
-01/08/2017 13:39:46 10340 WaitForInputIdle
-01/08/2017 13:39:46 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 13:39:46 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 13:39:46 10340 Starting Starcraft completed
-01/08/2017 13:41:04 10340 Startbutton
-01/08/2017 13:41:04 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 13:41:04 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 13:41:04 10340 Obtained DebugPrivilege
-01/08/2017 13:41:04 10340 CreateProcess
-01/08/2017 13:41:04 10340 Call ScSuspended for all active Plugins
-01/08/2017 13:41:04 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 13:41:04 10340 ResumeThread
-01/08/2017 13:41:04 10340 WaitForInputIdle
-01/08/2017 13:41:04 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 13:41:04 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 13:41:04 10340 Starting Starcraft completed
-01/08/2017 13:42:41 10340 Startbutton
-01/08/2017 13:42:41 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 13:42:41 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 13:42:41 10340 Obtained DebugPrivilege
-01/08/2017 13:42:41 10340 CreateProcess
-01/08/2017 13:42:41 10340 Call ScSuspended for all active Plugins
-01/08/2017 13:42:41 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 13:42:41 10340 ResumeThread
-01/08/2017 13:42:41 10340 WaitForInputIdle
-01/08/2017 13:42:41 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 13:42:41 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 13:42:41 10340 Starting Starcraft completed
-01/08/2017 13:49:14 10340 Startbutton
-01/08/2017 13:49:14 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 13:49:14 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 13:49:14 10340 Obtained DebugPrivilege
-01/08/2017 13:49:14 10340 CreateProcess
-01/08/2017 13:49:14 10340 Call ScSuspended for all active Plugins
-01/08/2017 13:49:14 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 13:49:14 10340 ResumeThread
-01/08/2017 13:49:14 10340 WaitForInputIdle
-01/08/2017 13:49:14 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 13:49:14 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 13:49:14 10340 Starting Starcraft completed
-01/08/2017 13:54:13 10340 Startbutton
-01/08/2017 13:54:13 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 13:54:13 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 13:54:13 10340 Obtained DebugPrivilege
-01/08/2017 13:54:13 10340 CreateProcess
-01/08/2017 13:54:13 10340 Call ScSuspended for all active Plugins
-01/08/2017 13:54:13 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 13:54:13 10340 ResumeThread
-01/08/2017 13:54:13 10340 WaitForInputIdle
-01/08/2017 13:54:13 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 13:54:13 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 13:54:13 10340 Starting Starcraft completed
-01/08/2017 14:01:13 10340 Startbutton
-01/08/2017 14:01:13 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 14:01:13 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 14:01:13 10340 Obtained DebugPrivilege
-01/08/2017 14:01:13 10340 CreateProcess
-01/08/2017 14:01:13 10340 Call ScSuspended for all active Plugins
-01/08/2017 14:01:13 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:01:13 10340 ResumeThread
-01/08/2017 14:01:13 10340 WaitForInputIdle
-01/08/2017 14:01:13 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 14:01:13 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:01:13 10340 Starting Starcraft completed
-01/08/2017 14:06:25 10340 Startbutton
-01/08/2017 14:06:25 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 14:06:25 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 14:06:25 10340 Obtained DebugPrivilege
-01/08/2017 14:06:25 10340 CreateProcess
-01/08/2017 14:06:25 10340 Call ScSuspended for all active Plugins
-01/08/2017 14:06:25 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:06:25 10340 ResumeThread
-01/08/2017 14:06:25 10340 WaitForInputIdle
-01/08/2017 14:06:25 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 14:06:25 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:06:25 10340 Starting Starcraft completed
-01/08/2017 14:07:05 10340 Startbutton
-01/08/2017 14:07:05 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 14:07:05 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 14:07:05 10340 Obtained DebugPrivilege
-01/08/2017 14:07:05 10340 CreateProcess
-01/08/2017 14:07:06 10340 Call ScSuspended for all active Plugins
-01/08/2017 14:07:06 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:07:06 10340 ResumeThread
-01/08/2017 14:07:06 10340 WaitForInputIdle
-01/08/2017 14:07:06 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 14:07:06 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:07:06 10340 Starting Starcraft completed
-01/08/2017 14:07:52 10340 Startbutton
-01/08/2017 14:07:52 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 14:07:52 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 14:07:52 10340 Obtained DebugPrivilege
-01/08/2017 14:07:52 10340 CreateProcess
-01/08/2017 14:07:52 10340 Call ScSuspended for all active Plugins
-01/08/2017 14:07:52 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:07:52 10340 ResumeThread
-01/08/2017 14:07:52 10340 WaitForInputIdle
-01/08/2017 14:07:53 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 14:07:53 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:07:53 10340 Starting Starcraft completed
-01/08/2017 14:29:47 10340 Startbutton
-01/08/2017 14:29:47 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 14:29:47 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 14:29:47 10340 Obtained DebugPrivilege
-01/08/2017 14:29:47 10340 CreateProcess
-01/08/2017 14:29:47 10340 Call ScSuspended for all active Plugins
-01/08/2017 14:29:47 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:29:47 10340 ResumeThread
-01/08/2017 14:29:47 10340 WaitForInputIdle
-01/08/2017 14:29:48 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 14:29:48 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:29:48 10340 Starting Starcraft completed
-01/08/2017 14:30:26 10340 Startbutton
-01/08/2017 14:30:26 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 14:30:26 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 14:30:26 10340 Obtained DebugPrivilege
-01/08/2017 14:30:26 10340 CreateProcess
-01/08/2017 14:30:26 10340 Call ScSuspended for all active Plugins
-01/08/2017 14:30:26 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:30:26 10340 ResumeThread
-01/08/2017 14:30:26 10340 WaitForInputIdle
-01/08/2017 14:30:26 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 14:30:26 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:30:26 10340 Starting Starcraft completed
-01/08/2017 14:31:41 10340 Startbutton
-01/08/2017 14:31:41 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 14:31:41 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 14:31:41 10340 Obtained DebugPrivilege
-01/08/2017 14:31:41 10340 CreateProcess
-01/08/2017 14:31:41 10340 Call ScSuspended for all active Plugins
-01/08/2017 14:31:41 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:31:41 10340 ResumeThread
-01/08/2017 14:31:41 10340 WaitForInputIdle
-01/08/2017 14:31:41 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 14:31:41 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:31:41 10340 Starting Starcraft completed
-01/08/2017 14:32:40 10340 Startbutton
-01/08/2017 14:32:40 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 14:32:40 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 14:32:40 10340 Obtained DebugPrivilege
-01/08/2017 14:32:40 10340 CreateProcess
-01/08/2017 14:32:40 10340 Call ScSuspended for all active Plugins
-01/08/2017 14:32:40 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:32:40 10340 ResumeThread
-01/08/2017 14:32:40 10340 WaitForInputIdle
-01/08/2017 14:32:40 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 14:32:40 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:32:40 10340 Starting Starcraft completed
-01/08/2017 14:35:00 10340 Startbutton
-01/08/2017 14:35:00 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 14:35:00 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 14:35:00 10340 Obtained DebugPrivilege
-01/08/2017 14:35:00 10340 CreateProcess
-01/08/2017 14:35:00 10340 Call ScSuspended for all active Plugins
-01/08/2017 14:35:00 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:35:00 10340 ResumeThread
-01/08/2017 14:35:00 10340 WaitForInputIdle
-01/08/2017 14:35:00 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 14:35:00 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 14:35:00 10340 Starting Starcraft completed
-01/08/2017 16:34:11 10340 Startbutton
-01/08/2017 16:34:11 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 16:34:11 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 16:34:11 10340 Obtained DebugPrivilege
-01/08/2017 16:34:11 10340 CreateProcess
-01/08/2017 16:34:11 10340 Call ScSuspended for all active Plugins
-01/08/2017 16:34:11 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 16:34:11 10340 ResumeThread
-01/08/2017 16:34:11 10340 WaitForInputIdle
-01/08/2017 16:34:12 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 16:34:12 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 16:34:12 10340 Starting Starcraft completed
-01/08/2017 16:54:30 10340 Startbutton
-01/08/2017 16:54:30 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 16:54:30 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 16:54:30 10340 Obtained DebugPrivilege
-01/08/2017 16:54:30 10340 CreateProcess
-01/08/2017 16:54:30 10340 Call ScSuspended for all active Plugins
-01/08/2017 16:54:30 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 16:54:30 10340 ResumeThread
-01/08/2017 16:54:30 10340 WaitForInputIdle
-01/08/2017 16:54:30 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 16:54:30 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 16:54:30 10340 Starting Starcraft completed
-01/08/2017 16:59:11 10340 Startbutton
-01/08/2017 16:59:11 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 16:59:11 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 16:59:11 10340 Obtained DebugPrivilege
-01/08/2017 16:59:11 10340 CreateProcess
-01/08/2017 16:59:11 10340 Call ScSuspended for all active Plugins
-01/08/2017 16:59:11 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 16:59:11 10340 ResumeThread
-01/08/2017 16:59:11 10340 WaitForInputIdle
-01/08/2017 16:59:11 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 16:59:11 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 16:59:11 10340 Starting Starcraft completed
-01/08/2017 17:03:48 10340 Startbutton
-01/08/2017 17:03:48 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 17:03:48 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 17:03:48 10340 Obtained DebugPrivilege
-01/08/2017 17:03:48 10340 CreateProcess
-01/08/2017 17:03:48 10340 Call ScSuspended for all active Plugins
-01/08/2017 17:03:48 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 17:03:48 10340 ResumeThread
-01/08/2017 17:03:48 10340 WaitForInputIdle
-01/08/2017 17:03:48 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 17:03:48 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 17:03:48 10340 Starting Starcraft completed
-01/08/2017 17:05:49 10340 Startbutton
-01/08/2017 17:05:49 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 17:05:49 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 17:05:49 10340 Obtained DebugPrivilege
-01/08/2017 17:05:49 10340 CreateProcess
-01/08/2017 17:05:49 10340 Call ScSuspended for all active Plugins
-01/08/2017 17:05:49 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 17:05:49 10340 ResumeThread
-01/08/2017 17:05:49 10340 WaitForInputIdle
-01/08/2017 17:05:50 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 17:05:50 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 17:05:50 10340 Starting Starcraft completed
-01/08/2017 17:11:47 10340 Startbutton
-01/08/2017 17:11:47 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 17:11:47 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 17:11:47 10340 Obtained DebugPrivilege
-01/08/2017 17:11:47 10340 CreateProcess
-01/08/2017 17:11:47 10340 Call ScSuspended for all active Plugins
-01/08/2017 17:11:47 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 17:11:47 10340 ResumeThread
-01/08/2017 17:11:47 10340 WaitForInputIdle
-01/08/2017 17:11:47 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 17:11:47 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 17:11:47 10340 Starting Starcraft completed
-01/08/2017 17:15:47 10340 Startbutton
-01/08/2017 17:15:47 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 17:15:47 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 17:15:47 10340 Obtained DebugPrivilege
-01/08/2017 17:15:47 10340 CreateProcess
-01/08/2017 17:15:48 10340 Call ScSuspended for all active Plugins
-01/08/2017 17:15:48 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 17:15:48 10340 ResumeThread
-01/08/2017 17:15:48 10340 WaitForInputIdle
-01/08/2017 17:15:48 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 17:15:48 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 17:15:48 10340 Starting Starcraft completed
-01/08/2017 17:26:59 10340 Startbutton
-01/08/2017 17:26:59 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 17:26:59 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 17:26:59 10340 Obtained DebugPrivilege
-01/08/2017 17:26:59 10340 CreateProcess
-01/08/2017 17:26:59 10340 Call ScSuspended for all active Plugins
-01/08/2017 17:26:59 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 17:26:59 10340 ResumeThread
-01/08/2017 17:26:59 10340 WaitForInputIdle
-01/08/2017 17:26:59 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 17:26:59 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 17:26:59 10340 Starting Starcraft completed
-01/08/2017 17:29:54 10340 Startbutton
-01/08/2017 17:29:54 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 17:29:54 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 17:29:54 10340 Obtained DebugPrivilege
-01/08/2017 17:29:54 10340 CreateProcess
-01/08/2017 17:29:54 10340 Call ScSuspended for all active Plugins
-01/08/2017 17:29:54 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 17:29:54 10340 ResumeThread
-01/08/2017 17:29:54 10340 WaitForInputIdle
-01/08/2017 17:29:55 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 17:29:55 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 17:29:55 10340 Starting Starcraft completed
-01/08/2017 17:30:38 10340 Startbutton
-01/08/2017 17:30:38 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 17:30:38 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 17:30:38 10340 Obtained DebugPrivilege
-01/08/2017 17:30:38 10340 CreateProcess
-01/08/2017 17:30:38 10340 Call ScSuspended for all active Plugins
-01/08/2017 17:30:38 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 17:30:38 10340 ResumeThread
-01/08/2017 17:30:38 10340 WaitForInputIdle
-01/08/2017 17:30:38 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 17:30:38 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 17:30:38 10340 Starting Starcraft completed
-01/08/2017 17:33:27 10340 Startbutton
-01/08/2017 17:33:27 10340 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
-01/08/2017 17:33:27 10340 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
-01/08/2017 17:33:27 10340 Obtained DebugPrivilege
-01/08/2017 17:33:27 10340 CreateProcess
-01/08/2017 17:33:27 10340 Call ScSuspended for all active Plugins
-01/08/2017 17:33:27 10340 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 17:33:27 10340 ResumeThread
-01/08/2017 17:33:27 10340 WaitForInputIdle
-01/08/2017 17:33:28 10340 Call ScWindowCreated for all active Plugins
-01/08/2017 17:33:28 10340 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
-01/08/2017 17:33:28 10340 Starting Starcraft completed
+03/08/2017 13:10:41 16164 Logging started
+03/08/2017 13:10:41 16164 Begin Startup
+03/08/2017 13:10:41 16164 Chaosauncher 0.5.4.4 on NT 6.2.9200  at C:\Users\Robert\BWAPI\Chaoslauncher\Chaoslauncher.exe
+03/08/2017 13:10:41 16164 Load Settings
+03/08/2017 13:10:41 16164 GamePath: C:\Users\Robert\Documents\Starcraft\
+03/08/2017 13:10:41 16164 Load Plugins
+03/08/2017 13:10:41 16164 AdvLoaderPluginPath: \Plugins\
+03/08/2017 13:10:41 16164 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\iccscbn.icc
+03/08/2017 13:10:41 16164 Plugin loaded ICCup
+03/08/2017 13:10:41 16164 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\APMAlert.bwl
+03/08/2017 13:10:41 16164 Plugin loaded APMAlert (1.16.1)
+03/08/2017 13:10:41 16164 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\BWAPI_PluginInjector.bwl
+03/08/2017 13:10:41 16164 Plugin loaded BWAPI 4.2.0 Injector [RELEASE]
+03/08/2017 13:10:41 16164 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\BWAPI_PluginInjectord.bwl
+03/08/2017 13:10:41 16164 Plugin loaded BWAPI 4.2.0 Injector [DEBUG]
+03/08/2017 13:10:41 16164 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\Chaosplugin.bwl
+03/08/2017 13:10:41 16164 Plugin loaded Chaosplugin for 1.16.1
+03/08/2017 13:10:41 16164 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\LatencyChanger.bwl
+03/08/2017 13:10:41 16164 Plugin loaded LatencyChanger for 1.16.1
+03/08/2017 13:10:41 16164 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\repfix.bwl
+03/08/2017 13:10:41 16164 Plugin loaded RepFix
+03/08/2017 13:10:41 16164 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\RWAPlayer.bwl
+03/08/2017 13:10:41 16164 Plugin loaded RWAPlayer (1.16.1)
+03/08/2017 13:10:41 16164 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\RWARecorder.bwl
+03/08/2017 13:10:41 16164 Plugin loaded RWARecorder (1.16.1)
+03/08/2017 13:10:41 16164 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\Stormplugin.bwl
+03/08/2017 13:10:41 16164 Plugin loaded Stormplugin for 1.16.1
+03/08/2017 13:10:41 16164 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\wmode.bwl
+03/08/2017 13:10:41 16164 Plugin loaded W-MODE 1.02
+03/08/2017 13:10:41 16164 Load Tools
+03/08/2017 13:10:41 16164 Init GUI
+03/08/2017 13:10:41 16164 Get Starcraftversions
+03/08/2017 13:10:41 16164 Init complete
+03/08/2017 13:10:44 16164 Startbutton
+03/08/2017 13:10:44 16164 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
+03/08/2017 13:10:44 16164 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
+03/08/2017 13:10:44 16164 Obtained DebugPrivilege
+03/08/2017 13:10:44 16164 CreateProcess
+03/08/2017 13:10:44 16164 Call ScSuspended for all active Plugins
+03/08/2017 13:10:44 16164 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
+03/08/2017 13:10:44 16164 ResumeThread
+03/08/2017 13:10:44 16164 WaitForInputIdle
+03/08/2017 13:10:44 16164 Call ScWindowCreated for all active Plugins
+03/08/2017 13:10:44 16164 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
+03/08/2017 13:10:44 16164 Starting Starcraft completed
+03/08/2017 13:17:07 16164 Startbutton
+03/08/2017 13:17:07 16164 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
+03/08/2017 13:17:07 16164 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
+03/08/2017 13:17:07 16164 Obtained DebugPrivilege
+03/08/2017 13:17:07 16164 CreateProcess
+03/08/2017 13:17:07 16164 Call ScSuspended for all active Plugins
+03/08/2017 13:17:07 16164 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
+03/08/2017 13:17:07 16164 ResumeThread
+03/08/2017 13:17:07 16164 WaitForInputIdle
+03/08/2017 13:17:07 16164 Call ScWindowCreated for all active Plugins
+03/08/2017 13:17:07 16164 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
+03/08/2017 13:17:07 16164 Starting Starcraft completed

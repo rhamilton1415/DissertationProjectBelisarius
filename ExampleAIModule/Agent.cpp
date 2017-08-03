@@ -15,18 +15,5 @@ void Agent::broadcast(std::string message)
 }
 void Agent::connect()
 {
-	pplx::task<std::string> t([]()
-	{
-		try
-		{
-			
-		}
-		catch (...)
-		{
-
-		}
-		return "tasky";
-	});
-	broadcast(t.get());
 	return;
 }

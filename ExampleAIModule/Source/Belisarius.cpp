@@ -3,6 +3,7 @@
 #include <thread>
 #include <cpprest/http_client.h>
 #include <cpprest/filestream.h>
+#include "Connector.h"
 
 using namespace BWAPI;
 using namespace Filter;
@@ -57,8 +58,10 @@ void Belisarius::onStart()
 		  Broodwar << "The matchup is " << Broodwar->self()->getRace() << " vs " << Broodwar->enemy()->getRace() << std::endl;
 	  }
 	  //ResourceManager *r = new ResourceManager();
-
   }
+  bOM.connect();
+  Connectors::Connector c;
+  c.Connect();
 }
 
 void Belisarius::onEnd(bool isWinner)
