@@ -4,7 +4,7 @@
 #include <exception>
 #include <cpprest/http_client.h>
 #include <cpprest/filestream.h>
-
+#include <Connector.h>
 using namespace BWAPI;
 using namespace Filter;
 using namespace utility;                    // Common utilities like string conversions

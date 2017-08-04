@@ -58,6 +58,7 @@ int main(int argc, const char* argv[])
     if (hMod == NULL)
     {
       std::cerr << "ERROR: Failed to load the AI Module" << std::endl;
+	  std::cerr << GetLastError() << std::endl;
       client = new AIModule();
       Broodwar->sendText("Error: Failed to load the AI Module");
     }

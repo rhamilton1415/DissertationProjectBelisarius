@@ -59,9 +59,6 @@ void Belisarius::onStart()
 	  }
 	  //ResourceManager *r = new ResourceManager();
   }
-  bOM.connect();
-  Connectors::Connector c;
-  c.Connect();
 }
 
 void Belisarius::onEnd(bool isWinner)

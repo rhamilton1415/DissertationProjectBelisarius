@@ -126,22 +126,12 @@ BWAPI::UnitType BuildOrderManager::getNextBuildRecommendation()
 		return workerRecommendation;
 	}
 }
-
-std::map<BWAPI::UnitType, int> BuildOrderManager::getPlayerState()
+void BuildOrderManager::buildPlayerState()
 {
-	std::map<BWAPI::UnitType, int> playerState;
-	for (auto & u : Broodwar->self()->getUnits())
+	try
 	{
-		playerState.at(u->getType())++;
-	}
-	return playerState;
-}
-void BuildOrderManager::printPlayerState()
-{
-	try 
-	{
-		std::map<BWAPI::UnitType, int> playerState;
-		std::map<BWAPI::UnitType, int> queued;
+		queued.clear();
+		playerState.clear();
 		for (auto & u : Broodwar->self()->getUnits())
 		{
 			if (u->isCompleted())
@@ -161,6 +151,18 @@ void BuildOrderManager::printPlayerState()
 		{
 			queued[u] += 1;
 		}
+	}
+	catch (...)
+	{
+		Broodwar->drawTextScreen(10, 10, "Building the playerState is what broke it");
+	}
+	
+}
+void BuildOrderManager::printPlayerState()
+{
+	buildPlayerState();
+	try 
+	{
 		int count = 0;
 		Broodwar->drawTextScreen(10, 20 + (count * 10), std::string("Available:").c_str());
 		count++;
@@ -182,11 +184,19 @@ void BuildOrderManager::printPlayerState()
 		count++;
 		Broodwar->drawTextScreen(15, 20 + (count * 10), (nextOrder.getName()).c_str());
 		count++;
-		//Broodwar->drawTextScreen(10, 20 + (count * 10), connect().c_str());
+
+		/*char buffer[MAX_PATH]; Prints the local directory
+		GetModuleFileName(NULL, buffer, MAX_PATH);
+		std::string::size_type pos = std::string(buffer).find_last_of("\\/");
+		Broodwar->drawTextScreen(10, 20 + (count * 10), std::string(buffer).substr(0, pos).c_str());*/
 	}
 	catch (std::exception& e)
 	{
-		Broodwar->drawTextScreen(10,20, e.what());
+		Broodwar->drawTextScreen(10,10, e.what());
 	}
-
+	connectToBOMB();
+}
+void BuildOrderManager::connectToBOMB()
+{
+	c.updateState(queued, playerState);
 }

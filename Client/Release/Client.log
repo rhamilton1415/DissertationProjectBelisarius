@@ -1,0 +1,5 @@
+﻿  Client.cpp
+Client.cpp(42): warning C4018: '<': signed/unsigned mismatch
+Client.cpp(62): warning C4018: '<': signed/unsigned mismatch
+Client.obj : error LNK2001: unresolved external symbol "protected: static class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const * const BWAPI::Type<class BWAPI::UnitType,233>::typeNames" (?typeNames@?$Type@VUnitType@BWAPI@@$0OJ@@BWAPI@@1QBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@B)
+C:\Users\Robert\BWAPI\Release\Client.exe : fatal error LNK1120: 1 unresolved externals

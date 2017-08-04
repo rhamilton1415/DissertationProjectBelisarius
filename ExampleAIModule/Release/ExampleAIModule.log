@@ -1,7 +1,9 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Release\) contains files shared from another project (ExampleAIModule.vcxproj).  This can lead to incorrect clean and rebuild behavior.
      Creating library Release\Belisarius.lib and object Release\Belisarius.exp
   Generating code
-  All 4516 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  2 of 4641 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   ExampleAIModule.vcxproj -> C:\Users\Robert\BWAPI\Release\Belisarius.dll
   ExampleAIModule.vcxproj -> C:\Users\Robert\BWAPI\Release\Belisarius.pdb (Full PDB)
