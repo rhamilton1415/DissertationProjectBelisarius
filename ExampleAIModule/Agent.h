@@ -5,6 +5,7 @@
 #include <cpprest/http_client.h>
 #include <cpprest/filestream.h>
 #include <Connector.h>
+#include <thread>
 using namespace BWAPI;
 using namespace Filter;
 using namespace utility;                    // Common utilities like string conversions

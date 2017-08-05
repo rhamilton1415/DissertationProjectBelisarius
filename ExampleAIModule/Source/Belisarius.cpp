@@ -85,7 +85,6 @@ void Belisarius::onFrame()
   Broodwar->drawTextScreen(10, 40, ("Building Manager: " + std::to_string(b.getBuildingCount())).c_str());
   Broodwar->drawTextScreen(10, 60, ("Construction Manager: "+ std::to_string(c.getWorkerCount()) + " orders:  " + std::to_string(c.getBuildOrders().size())).c_str());
   Broodwar->drawTextScreen(20, 80, ("constructing: " + std::to_string(c.getBuildingsUnderConstruction().size())).c_str());*/
-  bOM.printPlayerState();
   // Return if the game is a replay or is paused
   if ( Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self() )
     return;
@@ -194,6 +193,7 @@ void Belisarius::onUnitCreate(BWAPI::Unit unit)
 	  //If other services want workers they should request them from the resourceManager
 	  if (unit->getPlayer() == Broodwar->self())
 	  {
+		  bOM.buildPlayerState();
 		  if (unit->getType().isWorker())
 		  {
 			  r.addUnit(unit);
@@ -231,8 +231,9 @@ void Belisarius::onUnitMorph(BWAPI::Unit unit)
       Broodwar->sendText("%.2d:%.2d: %s morphs a %s", minutes, seconds, unit->getPlayer()->getName().c_str(), unit->getType().c_str());
     }
   }
-  if (unit->getPlayer() == Broodwar->self() && unit->getType().isBuilding())
+  if (unit->getPlayer() == Broodwar->self())
   {
+	  bOM.buildPlayerState();
 	  if (unit->getType().isBuilding())
 	  {
 		  if (unit->isBeingConstructed())
@@ -258,9 +259,13 @@ void Belisarius::onSaveGame(std::string gameName)
 
 void Belisarius::onUnitComplete(BWAPI::Unit unit)
 {
-	if (unit->getType().isBuilding() && (unit->getPlayer() == Broodwar->self())) //If it's a building, give it to the building manager
+	if (unit->getPlayer() == Broodwar->self())//If it's a building, give it to the building manager
 	{
-		c.constructionCompleted(unit);
-		b.addUnit(unit);
+		bOM.buildPlayerState();
+		if (unit->getType().isBuilding())
+		{
+			c.constructionCompleted(unit);
+			b.addUnit(unit);
+		}
 	}
 }

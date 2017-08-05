@@ -1,7 +1,6 @@
 #include "BuildOrderManager.h"
 
-
-
+void BOMBTest(std::map<BWAPI::UnitType, int> _playerState, std::map<BWAPI::UnitType, int> _queued, Connectors::Connector con);
 BuildOrderManager::BuildOrderManager(ResourceManager &r, BuildingManager &b, ConstructionManager &c)
 {
 	rRef = &r;
@@ -16,11 +15,11 @@ BuildOrderManager::~BuildOrderManager()
 
 void BuildOrderManager::onFrame()
 {
+	printPlayerState();
 	int remainingSupply = Broodwar->self()->supplyTotal() - Broodwar->self()->supplyUsed();
-	if (nextOrder == BWAPI::UnitTypes::None) //TODO Murder the person who set NULL to mean something in this namespace
+	if (nextOrder == BWAPI::UnitTypes::None)
 	{
 		nextOrder = getNextBuildRecommendation();
-		
 	}
 	else //if (Broodwar->self()->minerals() >= nextOrder.mineralPrice())
 	{
@@ -31,6 +30,7 @@ void BuildOrderManager::onFrame()
 				cRef->addBuildOrder(nextOrder);
 				broadcast(nextOrder.getName() + " has been queued (Building)");
 				nextOrder = BWAPI::UnitTypes::None; //reset the flag
+
 				connectToBOMB();
 			}
 		}
@@ -46,6 +46,7 @@ void BuildOrderManager::onFrame()
 					bRef->addBuildOrder(nextOrder);
 					broadcast(nextOrder.getName() + " has been queued (Unit)");
 					nextOrder = BWAPI::UnitTypes::None;
+
 					connectToBOMB();
 				}
 			}
@@ -159,11 +160,10 @@ void BuildOrderManager::buildPlayerState()
 	{
 		Broodwar->drawTextScreen(10, 10, "Building the playerState is what broke it");
 	}
-	
+	connectToBOMB();
 }
 void BuildOrderManager::printPlayerState()
 {
-	buildPlayerState();
 	try 
 	{
 		int count = 0;
@@ -197,17 +197,12 @@ void BuildOrderManager::printPlayerState()
 	{
 		Broodwar->drawTextScreen(10,10, e.what());
 	}
-	//connectToBOMB();
 }
 void BuildOrderManager::connectToBOMB()
 {
-	try
-	{
-		c.updateState(queued, playerState);
-	}
-	catch (...)
-	{
-		broadcast("PlayerState is the same");
-	}
-	broadcast(c.connectionTest());
+	Connectors::Connector::updateState(queued, playerState);
+}
+void BOMBTest(std::map<BWAPI::UnitType, int> _playerState, std::map<BWAPI::UnitType, int> _queued, Connectors::Connector con)
+{
+	Connectors::Connector::updateState(_queued, _playerState);
 }

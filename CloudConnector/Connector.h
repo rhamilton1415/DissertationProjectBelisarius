@@ -15,14 +15,17 @@ using namespace concurrency;
 using namespace concurrency::streams;
 namespace Connectors
 {
+	//This class acts as an interface to the "Build Order Manager B" - the cloud based decision system.
 	class Connector
 	{
 	public:
-		void updateState(std::map<BWAPI::UnitType, int> queued, std::map<BWAPI::UnitType, int> playerState);
-		std::string connectionTest();
+		static void updateState(std::map<BWAPI::UnitType, int> queued, std::map<BWAPI::UnitType, int> playerState);
+		
 	private:
-		static int Connect(std::map<BWAPI::UnitType, int> queued, std::map<BWAPI::UnitType, int> playerState);
-		std::map<BWAPI::UnitType, int> playerState;
-		std::map<BWAPI::UnitType, int> queued;
+		//static int Connect(std::map<BWAPI::UnitType, int> queued, std::map<BWAPI::UnitType, int> playerState);
+		static std::string updateBOMBState();
+		static std::map<BWAPI::UnitType, int> playerState;
+		static std::map<BWAPI::UnitType, int> queued;
+		static http_client client;
 	};
 }

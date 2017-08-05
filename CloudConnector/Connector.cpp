@@ -4,6 +4,9 @@ using namespace std;
 
 namespace Connectors
 {
+	std::map<BWAPI::UnitType, int> Connector::playerState;
+	std::map<BWAPI::UnitType, int> Connector::queued;
+
 	//stolen from stackoverflow
 	template <typename Map>
 	bool map_compare(Map const &lhs, Map const &rhs)
@@ -14,17 +17,15 @@ namespace Connectors
 
 	void Connector::updateState(std::map<BWAPI::UnitType, int> inQueued, std::map<BWAPI::UnitType, int> inPlayerState)
 	{
+		//If there hasn't actually been an update, don't bother
 		if (!map_compare(queued, inQueued) || !map_compare(playerState, inPlayerState))
 		{
 			queued = inQueued;
 			playerState = inPlayerState;
-		}
-		else
-		{
-			throw - 1; //This shouldn't really be activated unless there is a change to shout about
+			updateBOMBState();
 		}
 	}
-	std::string Connector::connectionTest()
+	std::string Connector::updateBOMBState()
 	{
 		try
 		{
@@ -40,18 +41,19 @@ namespace Connectors
 			for (std::map<BWAPI::UnitType, int>::const_iterator it = queued.begin(); it != queued.end(); ++it)
 			{
 				const std::wstring key = std::to_wstring(it->first);
-				queuedJSONobj[key] = json::value::number(playerState.at(it->first)); //build the json object for the map
+				queuedJSONobj[key] = json::value::number(queued.at(it->first)); //build the json object for the map
 			}
 			completeState[L"PlayerState"] = playerStateJSONobj;
 			completeState[L"Queued"] = queuedJSONobj;
-			return utility::conversions::to_utf8string(playerStateJSONobj.serialize());
-			//http_client client(L"http://localhost:80/");
-			//// Manually build up an HTTP request with header and request URI.
-			//http_request request(methods::POST);
-			//request.headers().set_content_type(L"application/json");
-			//request.set_body(completeState);
-			//pplx::task<web::http::http_response> response = client.request(request);
-			//return utility::conversions::to_utf8string(response.get().to_string());
+
+			http_client client(L"http://localhost:80/");
+			// Manually build up an HTTP request with header and request URI.
+			http_request request(methods::POST);
+			request.headers().add(L"State", 1);
+			request.headers().set_content_type(L"application/json");
+			request.set_body(completeState);
+			pplx::task<web::http::http_response> response = client.request(request);
+			return utility::conversions::to_utf8string(response.get().to_string());
 		}
 		catch (const std::exception& e)
 		{
@@ -60,8 +62,8 @@ namespace Connectors
 		
 	}
 
-	int Connector::Connect(std::map<BWAPI::UnitType, int> queued, std::map<BWAPI::UnitType, int> playerState)
+	/*int Connector::Connect(std::map<BWAPI::UnitType, int> queued, std::map<BWAPI::UnitType, int> playerState)
 	{
 		return 0;
-	}
+	}*/
 }

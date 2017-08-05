@@ -4,6 +4,8 @@
 #include "ConstructionManager.h"
 #include "BuildingManager.h"
 
+//This class can perform Strategic decision making locally or use cloud services for the same goal.
+//The local Build Order Manager Agent will be defined - BOMA; the cloud based one - BOMB;
 class BuildOrderManager :
 	public Agent
 {
@@ -19,7 +21,7 @@ private:
 	ResourceManager* rRef;
 	BuildingManager* bRef;
 	ConstructionManager* cRef;
-	Connectors::Connector c;
+	//Connectors::Connector c; It's static now
 	std::string preamble = "Build Order Manager: ";
 	BWAPI::UnitType nextOrder = BWAPI::UnitTypes::None;
 	BWAPI::UnitType getNextBuildRecommendation();
