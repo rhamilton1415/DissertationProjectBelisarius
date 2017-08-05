@@ -19,6 +19,7 @@ namespace Connectors
 	{
 	public:
 		void updateState(std::map<BWAPI::UnitType, int> queued, std::map<BWAPI::UnitType, int> playerState);
+		std::string connectionTest();
 	private:
 		static int Connect(std::map<BWAPI::UnitType, int> queued, std::map<BWAPI::UnitType, int> playerState);
 		std::map<BWAPI::UnitType, int> playerState;

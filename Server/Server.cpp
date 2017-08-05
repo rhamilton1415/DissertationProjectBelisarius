@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include <BWAPI.h>
 #include <cpprest/http_client.h>
 #include <cpprest/http_listener.h>
 #include <cpprest/json.h>
@@ -21,6 +22,8 @@ using namespace std;
 #define TRACE_ACTION(a, k, v) wcout << a << L" (" << k << L", " << v << L")\n"
 
 map<utility::string_t, utility::string_t> dictionary;
+std::map<BWAPI::UnitType, int> playerState;
+std::map<BWAPI::UnitType, int> queued;
 
 /* handlers implementation */
 void handle_get(http_request request)
@@ -40,10 +43,37 @@ void handle_get(http_request request)
 
 	request.reply(status_codes::OK, obj);
 }
+void handle_post(http_request request)
+{
+	try
+	{
+		TRACE(L"\nhandle POST\n");
+		json::value completeState = request.extract_json().get();
+		json::value playerStateJSONobj = completeState[L"PlayerState"];
+		json::value queuedJSONobj = completeState[L"Queued"];
+		std::wcout << playerStateJSONobj.serialize() << std::endl;
+		std::wcout << queuedJSONobj.serialize() << std::endl;
+		/*for (auto iter = playerStateJSONobj.as_object().cbegin(); iter != playerStateJSONobj.as_object().cend(); iter++)
+		{
+			
+		}
+		for (auto iter = queuedJSONobj.as_object().cbegin(); iter != queuedJSONobj.as_object().cend(); iter++)
+		{
+
+		}*/
+		request.reply(status_codes::OK);
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+		request.reply(status_codes::InternalError);
+	}
+}
 int main()
 {
 	http_listener listener(L"http://localhost:80/");
 	listener.support(methods::GET, handle_get);
+	listener.support(methods::POST, handle_post);
 	try
 	{
 		listener

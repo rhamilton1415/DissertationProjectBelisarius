@@ -20,6 +20,7 @@ void BuildOrderManager::onFrame()
 	if (nextOrder == BWAPI::UnitTypes::None) //TODO Murder the person who set NULL to mean something in this namespace
 	{
 		nextOrder = getNextBuildRecommendation();
+		
 	}
 	else //if (Broodwar->self()->minerals() >= nextOrder.mineralPrice())
 	{
@@ -30,6 +31,7 @@ void BuildOrderManager::onFrame()
 				cRef->addBuildOrder(nextOrder);
 				broadcast(nextOrder.getName() + " has been queued (Building)");
 				nextOrder = BWAPI::UnitTypes::None; //reset the flag
+				connectToBOMB();
 			}
 		}
 		//It's a unit and therefore should be sent to the building manager for training
@@ -44,6 +46,7 @@ void BuildOrderManager::onFrame()
 					bRef->addBuildOrder(nextOrder);
 					broadcast(nextOrder.getName() + " has been queued (Unit)");
 					nextOrder = BWAPI::UnitTypes::None;
+					connectToBOMB();
 				}
 			}
 		}
@@ -194,9 +197,17 @@ void BuildOrderManager::printPlayerState()
 	{
 		Broodwar->drawTextScreen(10,10, e.what());
 	}
-	connectToBOMB();
+	//connectToBOMB();
 }
 void BuildOrderManager::connectToBOMB()
 {
-	c.updateState(queued, playerState);
+	try
+	{
+		c.updateState(queued, playerState);
+	}
+	catch (...)
+	{
+		broadcast("PlayerState is the same");
+	}
+	broadcast(c.connectionTest());
 }

@@ -70,15 +70,30 @@ int main()
 		}
 	}
 	playerStateFile.close();
-	std::cout << BWAPI::UnitTypes::Terran_Marine;
+
+	json::value playerStateJSONobj;
 	for (std::map<BWAPI::UnitType, int>::const_iterator it = playerState.begin(); it != playerState.end(); ++it)
 	{
-		std::cout << (std::to_string(it->first) + " " + std::to_string(playerState.at(it->first))) << std::endl;
+		std::string str = std::to_string(it->first);
+		std::wstring widestr = std::wstring(str.begin(), (str.end()));
+		playerStateJSONobj[widestr] = json::value::number(playerState.at(it->first)); //build the json object for the map
+		//std::cout << (std::to_string(it->first) + " " + std::to_string(playerState.at(it->first))) << std::endl;
 	}
+	json::value queuedJSONobj;
 	for (std::map<BWAPI::UnitType, int>::const_iterator it = queued.begin(); it != queued.end(); ++it)
 	{
-		std::cout << (std::to_string(it->first) + " " + std::to_string(queued.at(it->first))) << std::endl;
+		std::string str = std::to_string(it->first);
+		std::wstring widestr = std::wstring(str.begin(), (str.end()));
+		queuedJSONobj[widestr] = json::value::number(playerState.at(it->first)); //build the json object for the map
+		//std::cout << (std::to_string(it->first) + " " + std::to_string(queued.at(it->first))) << std::endl;
 	}
+	for (auto iter = playerStateJSONobj.as_object().cbegin(); iter !=playerStateJSONobj.as_object().cend();iter++)
+	{
+		//const json::value &str = json::value::string(iter->first);
+		//const json::value &v = json::value::string(iter->second);
+		std::wcout << iter->first + iter->second.serialize() << std::endl;
+	}
+
 
 	//web::http::client::http_client client(L"http://localhost:80/");
 	//uri_builder builder(U("/search"));
