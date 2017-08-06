@@ -16,7 +16,7 @@ using namespace concurrency::streams;
 void Belisarius::onStart()
 {
 	//BWTA::readMap(); pls update
-
+	//Set up a connection to the server
   // Print the map name.
   // BWAPI returns std::string when retrieving a string, don't forget to add .c_str() when printing!
   Broodwar << "The map is " << Broodwar->mapName() << "!" << std::endl;
@@ -59,6 +59,9 @@ void Belisarius::onStart()
 	  }
 	  //ResourceManager *r = new ResourceManager();
   }
+  //See if a connection is available
+  std::thread checkCon(Connectors::Connector::establishConnection);
+  checkCon.detach();
 }
 
 void Belisarius::onEnd(bool isWinner)
@@ -80,7 +83,7 @@ void Belisarius::onFrame()
 
   //some debugging info
   Broodwar->drawTextScreen(10, 0, "Project Belisarius");
-  
+  Broodwar->drawTextScreen(10, 10, std::to_string(Connectors::Connector::isConnectionAvailable()).c_str());
  /* Broodwar->drawTextScreen(10, 20, ("Resource Manager: " + std::to_string(r.getWorkerCount())).c_str());
   Broodwar->drawTextScreen(10, 40, ("Building Manager: " + std::to_string(b.getBuildingCount())).c_str());
   Broodwar->drawTextScreen(10, 60, ("Construction Manager: "+ std::to_string(c.getWorkerCount()) + " orders:  " + std::to_string(c.getBuildOrders().size())).c_str());
@@ -94,6 +97,7 @@ void Belisarius::onFrame()
   if ( Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0 )
     return;
 
+  //bOM.printPlayerState();
   r.onFrame(); //try to only ping top level agents from here
   b.onFrame();
   bOM.onFrame();

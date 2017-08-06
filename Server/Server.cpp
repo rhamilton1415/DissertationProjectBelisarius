@@ -38,23 +38,38 @@ void updatePlayerState(json::value completePlayerState);
 /* handlers implementation */
 void handle_get(http_request request)
 {
-	TRACE(L"\nhandle GET\n");
-
-	json::value obj;
-	for (auto const & p : dictionary)
+	try
 	{
-		obj[p.first] = json::value::string(p.second);
+		TRACE(L"\nhandle GET\n");
+		json::value obj;
+		for (auto const & p : dictionary)
+		{
+			obj[p.first] = json::value::string(p.second);
+		}
+		if (request.headers().has(L"Order"))
+		{
+			json::value order = json::value::number(buildOrderManagerB());
+			std::cout << "Sending Build Order: ";
+			std::wcout << order.serialize() << std::endl;
+			request.reply(status_codes::OK, order);
+		}
+		else if (request.headers().has(L"Init"))
+		{
+			request.reply(status_codes::OK);
+		}
+		else
+		{
+			// this is just for debugging
+			utility::stringstream_t stream;
+			obj.serialize(stream);
+			std::wcout << stream.str();
+			request.reply(status_codes::OK, obj);
+		}
 	}
-	if (request.headers().has(L"Order"))
+	catch (...)
 	{
-
+		request.reply(status_codes::InternalError);
 	}
-	// this is just for debugging
-	utility::stringstream_t stream;
-	obj.serialize(stream);
-	std::wcout << stream.str();
-
-	request.reply(status_codes::OK, obj);
 }
 void handle_post(http_request request)
 {

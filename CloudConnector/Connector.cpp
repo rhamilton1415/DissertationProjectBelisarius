@@ -5,7 +5,8 @@ using namespace std;
 namespace Connectors
 {
 	std::map<BWAPI::UnitType, int> Connector::playerState;
-	std::map<BWAPI::UnitType, int> Connector::queued;
+	std::map<BWAPI::UnitType, int> Connector::queued; 
+	bool Connector::connectionAvailable;
 
 	//stolen from stackoverflow
 	template <typename Map>
@@ -14,7 +15,30 @@ namespace Connectors
 		// No predicate needed because there is operator== for pairs already.
 		return lhs.size() == rhs.size() && std::equal(lhs.begin(), lhs.end(), rhs.begin(),rhs.end());
 	}
-
+	void Connector::establishConnection()
+	{
+		try
+		{
+			http_client c(L"https://localhost:80/");
+			http_request r(methods::GET);
+			r.headers().add(L"Init", 1);
+			pplx::task<web::http::http_response> response = c.request(r);
+			//If this succeeds, we can use the cloud server - else the AI will use local maths. 
+			if (response.get().status_code() == http::status_codes::OK)
+			{
+				connectionAvailable = true;
+			}
+			else
+			{
+				connectionAvailable = false;
+			}
+		}
+		catch (const std::exception& e)
+		{
+			BWAPI::Broodwar->sendText(std::string(e.what()).c_str());
+			connectionAvailable = false;
+		}
+	}
 	void Connector::updateState(std::map<BWAPI::UnitType, int> inQueued, std::map<BWAPI::UnitType, int> inPlayerState)
 	{
 		//If there hasn't actually been an update, don't bother
@@ -23,6 +47,22 @@ namespace Connectors
 			queued = inQueued;
 			playerState = inPlayerState;
 			updateBOMBState();
+		}
+	}
+	BWAPI::UnitType Connector::getBOMBOrder()
+	{
+		try
+		{
+			http_client client(L"https//localhost:80/");
+			http_request request(methods::GET);
+			request.headers().add(L"Order", 1);
+			pplx::task<web::http::http_response> response = client.request(request);
+			json::value v = response.get().extract_json().get();
+			return BWAPI::UnitType(v.as_integer());
+		}
+		catch (...) //If the above fails, it may be because the server is unavailable - retry the check.
+		{
+			establishConnection();
 		}
 	}
 	std::string Connector::updateBOMBState()
@@ -46,8 +86,8 @@ namespace Connectors
 			completeState[L"PlayerState"] = playerStateJSONobj;
 			completeState[L"Queued"] = queuedJSONobj;
 
-			http_client client(L"http://localhost:80/");
 			// Manually build up an HTTP request with header and request URI.
+			http_client client(L"https//localhost:80/");
 			http_request request(methods::POST);
 			request.headers().add(L"State", 1);
 			request.headers().set_content_type(L"application/json");
@@ -57,6 +97,7 @@ namespace Connectors
 		}
 		catch (const std::exception& e)
 		{
+			establishConnection();
 			return e.what();
 		}
 		

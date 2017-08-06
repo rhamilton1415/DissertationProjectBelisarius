@@ -1,6 +1,6 @@
 #include "BuildOrderManager.h"
 
-void BOMBTest(std::map<BWAPI::UnitType, int> _playerState, std::map<BWAPI::UnitType, int> _queued, Connectors::Connector con);
+void BOMBUpdate(std::map<BWAPI::UnitType, int> _playerState, std::map<BWAPI::UnitType, int> _queued);
 BuildOrderManager::BuildOrderManager(ResourceManager &r, BuildingManager &b, ConstructionManager &c)
 {
 	rRef = &r;
@@ -15,11 +15,22 @@ BuildOrderManager::~BuildOrderManager()
 
 void BuildOrderManager::onFrame()
 {
-	printPlayerState();
 	int remainingSupply = Broodwar->self()->supplyTotal() - Broodwar->self()->supplyUsed();
 	if (nextOrder == BWAPI::UnitTypes::None)
 	{
-		nextOrder = getNextBuildRecommendation();
+		if (Connectors::Connector::isConnectionAvailable())
+		{
+			nextOrder = Connectors::Connector::getBOMBOrder();
+		}
+		else
+		{
+			nextOrder = getNextBuildRecommendation();
+			//Check again
+			broadcast("Connection unavailable - attempting to reestablish");
+			std::thread checkCon(Connectors::Connector::establishConnection);
+			checkCon.detach();
+		}
+
 	}
 	else //if (Broodwar->self()->minerals() >= nextOrder.mineralPrice())
 	{
@@ -28,10 +39,8 @@ void BuildOrderManager::onFrame()
 			if (Broodwar->self()->minerals() >= (nextOrder.mineralPrice() + bRef->getMineralDebt() + cRef->getMineralDebt()))
 			{
 				cRef->addBuildOrder(nextOrder);
-				broadcast(nextOrder.getName() + " has been queued (Building)");
 				nextOrder = BWAPI::UnitTypes::None; //reset the flag
-
-				connectToBOMB();
+				BOMBUpdateThread();
 			}
 		}
 		//It's a unit and therefore should be sent to the building manager for training
@@ -44,10 +53,8 @@ void BuildOrderManager::onFrame()
 				if (nextOrder.supplyRequired() <= remainingSupply)
 				{
 					bRef->addBuildOrder(nextOrder);
-					broadcast(nextOrder.getName() + " has been queued (Unit)");
 					nextOrder = BWAPI::UnitTypes::None;
-
-					connectToBOMB();
+					BOMBUpdateThread();
 				}
 			}
 		}
@@ -155,12 +162,12 @@ void BuildOrderManager::buildPlayerState()
 		{
 			queued[u] += 1;
 		}
+		BOMBUpdateThread();
 	}
 	catch (...)
 	{
 		Broodwar->drawTextScreen(10, 10, "Building the playerState is what broke it");
 	}
-	connectToBOMB();
 }
 void BuildOrderManager::printPlayerState()
 {
@@ -187,22 +194,19 @@ void BuildOrderManager::printPlayerState()
 		count++;
 		Broodwar->drawTextScreen(15, 20 + (count * 10), (nextOrder.getName()).c_str());
 		count++;
-
-		/*char buffer[MAX_PATH]; Prints the local directory
-		GetModuleFileName(NULL, buffer, MAX_PATH);
-		std::string::size_type pos = std::string(buffer).find_last_of("\\/");
-		Broodwar->drawTextScreen(10, 20 + (count * 10), std::string(buffer).substr(0, pos).c_str());*/
 	}
 	catch (std::exception& e)
 	{
 		Broodwar->drawTextScreen(10,10, e.what());
 	}
 }
-void BuildOrderManager::connectToBOMB()
+void BuildOrderManager::BOMBUpdateThread()
 {
-	Connectors::Connector::updateState(queued, playerState);
+	std::thread go(BOMBUpdate, playerState, queued);
+	go.detach();
+	//Connectors::Connector::updateState(queued, playerState);
 }
-void BOMBTest(std::map<BWAPI::UnitType, int> _playerState, std::map<BWAPI::UnitType, int> _queued, Connectors::Connector con)
+void BOMBUpdate(std::map<BWAPI::UnitType, int> _playerState, std::map<BWAPI::UnitType, int> _queued)
 {
 	Connectors::Connector::updateState(_queued, _playerState);
 }

@@ -16,14 +16,14 @@ public:
 	std::string getPreamble() override { return preamble; }
 	void printPlayerState();
 	void buildPlayerState();
-	void connectToBOMB();
+	void BOMBUpdateThread();
 private:
 	ResourceManager* rRef;
 	BuildingManager* bRef;
 	ConstructionManager* cRef;
 	//Connectors::Connector c; It's static now
 	std::string preamble = "Build Order Manager: ";
-	BWAPI::UnitType nextOrder = BWAPI::UnitTypes::None;
+	BWAPI::UnitType nextOrder = BWAPI::UnitTypes::Terran_SCV; //It's always this to start with, it just avoids asking the BOMB for a build order before the state has been initialised
 	BWAPI::UnitType getNextBuildRecommendation();
 	std::map<BWAPI::UnitType, int> getPlayerState();
 	std::map<BWAPI::UnitType, int> playerState;
