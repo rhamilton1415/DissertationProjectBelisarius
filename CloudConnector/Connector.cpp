@@ -53,7 +53,7 @@ namespace Connectors
 	{
 		try
 		{
-			http_client client(L"https//localhost:80/");
+			http_client client(L"https://localhost:80/");
 			http_request request(methods::GET);
 			request.headers().add(L"Order", 1);
 			pplx::task<web::http::http_response> response = client.request(request);
@@ -87,7 +87,7 @@ namespace Connectors
 			completeState[L"Queued"] = queuedJSONobj;
 
 			// Manually build up an HTTP request with header and request URI.
-			http_client client(L"https//localhost:80/");
+			http_client client(L"https://localhost:80/");
 			http_request request(methods::POST);
 			request.headers().add(L"State", 1);
 			request.headers().set_content_type(L"application/json");

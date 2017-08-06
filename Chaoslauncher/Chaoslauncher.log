@@ -859,3 +859,15 @@
 06/08/2017 13:25:01 3856 Call ScWindowCreated for all active Plugins
 06/08/2017 13:25:01 3856 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
 06/08/2017 13:25:01 3856 Starting Starcraft completed
+06/08/2017 13:27:51 3856 Startbutton
+06/08/2017 13:27:51 3856 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
+06/08/2017 13:27:51 3856 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
+06/08/2017 13:27:51 3856 Obtained DebugPrivilege
+06/08/2017 13:27:51 3856 CreateProcess
+06/08/2017 13:27:51 3856 Call ScSuspended for all active Plugins
+06/08/2017 13:27:51 3856 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
+06/08/2017 13:27:51 3856 ResumeThread
+06/08/2017 13:27:51 3856 WaitForInputIdle
+06/08/2017 13:27:52 3856 Call ScWindowCreated for all active Plugins
+06/08/2017 13:27:52 3856 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
+06/08/2017 13:27:52 3856 Starting Starcraft completed
