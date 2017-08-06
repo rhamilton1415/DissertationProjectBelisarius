@@ -38,9 +38,9 @@ void updatePlayerState(json::value completePlayerState);
 /* handlers implementation */
 void handle_get(http_request request)
 {
+	std::cout << "GET" << std::endl;
 	try
 	{
-		TRACE(L"\nhandle GET\n");
 		json::value obj;
 		for (auto const & p : dictionary)
 		{

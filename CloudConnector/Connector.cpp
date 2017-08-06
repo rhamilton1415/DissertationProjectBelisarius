@@ -6,7 +6,8 @@ namespace Connectors
 {
 	std::map<BWAPI::UnitType, int> Connector::playerState;
 	std::map<BWAPI::UnitType, int> Connector::queued; 
-	bool Connector::connectionAvailable;
+	bool Connector::connectionAvailable = false;
+	std::string Connector::errMessage = "";
 
 	//stolen from stackoverflow
 	template <typename Map>
@@ -19,7 +20,7 @@ namespace Connectors
 	{
 		try
 		{
-			http_client c(L"https://localhost:80/");
+			http_client c(L"http://localhost:80/");
 			http_request r(methods::GET);
 			r.headers().add(L"Init", 1);
 			pplx::task<web::http::http_response> response = c.request(r);
@@ -27,6 +28,7 @@ namespace Connectors
 			if (response.get().status_code() == http::status_codes::OK)
 			{
 				connectionAvailable = true;
+				errMessage = "";
 			}
 			else
 			{
@@ -35,7 +37,7 @@ namespace Connectors
 		}
 		catch (const std::exception& e)
 		{
-			BWAPI::Broodwar->sendText(std::string(e.what()).c_str());
+			errMessage = e.what();
 			connectionAvailable = false;
 		}
 	}
@@ -53,7 +55,7 @@ namespace Connectors
 	{
 		try
 		{
-			http_client client(L"https://localhost:80/");
+			http_client client(L"http://localhost:80/");
 			http_request request(methods::GET);
 			request.headers().add(L"Order", 1);
 			pplx::task<web::http::http_response> response = client.request(request);
@@ -87,7 +89,7 @@ namespace Connectors
 			completeState[L"Queued"] = queuedJSONobj;
 
 			// Manually build up an HTTP request with header and request URI.
-			http_client client(L"https://localhost:80/");
+			http_client client(L"http://localhost:80/");
 			http_request request(methods::POST);
 			request.headers().add(L"State", 1);
 			request.headers().set_content_type(L"application/json");

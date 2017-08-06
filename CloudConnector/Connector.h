@@ -23,12 +23,13 @@ namespace Connectors
 		static void updateState(std::map<BWAPI::UnitType, int> queued, std::map<BWAPI::UnitType, int> playerState);
 		static BWAPI::UnitType getBOMBOrder();
 		static bool isConnectionAvailable() { return connectionAvailable; }
+		static std::string getErrMessage() { return errMessage; }
 	private:
 		//static int Connect(std::map<BWAPI::UnitType, int> queued, std::map<BWAPI::UnitType, int> playerState);
 		static std::string updateBOMBState();
 		static std::map<BWAPI::UnitType, int> playerState;
 		static std::map<BWAPI::UnitType, int> queued;
-		//static http_client client;
 		static bool connectionAvailable;
+		static std::string errMessage;
 	};
 }

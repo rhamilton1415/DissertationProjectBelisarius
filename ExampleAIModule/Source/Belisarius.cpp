@@ -83,7 +83,14 @@ void Belisarius::onFrame()
 
   //some debugging info
   Broodwar->drawTextScreen(10, 0, "Project Belisarius");
-  Broodwar->drawTextScreen(10, 10, std::to_string(Connectors::Connector::isConnectionAvailable()).c_str());
+  if (Connectors::Connector::isConnectionAvailable())
+  {
+	  Broodwar->drawTextScreen(10, 10, std::string("Connection Established").c_str());
+  }
+  else
+  {
+	  Broodwar->drawTextScreen(10, 10, Connectors::Connector::getErrMessage().c_str());
+  }
  /* Broodwar->drawTextScreen(10, 20, ("Resource Manager: " + std::to_string(r.getWorkerCount())).c_str());
   Broodwar->drawTextScreen(10, 40, ("Building Manager: " + std::to_string(b.getBuildingCount())).c_str());
   Broodwar->drawTextScreen(10, 60, ("Construction Manager: "+ std::to_string(c.getWorkerCount()) + " orders:  " + std::to_string(c.getBuildOrders().size())).c_str());
