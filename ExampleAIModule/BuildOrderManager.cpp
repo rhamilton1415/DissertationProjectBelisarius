@@ -35,8 +35,9 @@ void BuildOrderManager::onFrame()
 		}
 
 	}
-	else //if (Broodwar->self()->minerals() >= nextOrder.mineralPrice())
+	else
 	{
+		BOMBUpdateThread(); //kinda spammy but it won't spam the server unless something has actually changed
 		if (nextOrder.isBuilding()) //The construction manager will deal with it also don't spam
 		{
 			if (Broodwar->self()->minerals() >= (nextOrder.mineralPrice() + bRef->getMineralDebt() + cRef->getMineralDebt()))

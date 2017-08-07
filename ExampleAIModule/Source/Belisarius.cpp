@@ -77,6 +77,7 @@ void Belisarius::onEnd(bool isWinner)
   {
     // Log your win here!
   }
+  Connectors::Connector::endSession();
 }
 
 void Belisarius::onFrame()
@@ -103,6 +104,7 @@ void Belisarius::onFrame()
   Broodwar->drawTextScreen(10, 60, ("Construction Manager: "+ std::to_string(p.getAgentProfile(c).getAveragePerformance())).c_str());
   Broodwar->drawTextScreen(10, 80, ("Build Order Manager: " + std::to_string(p.getAgentProfile(bOM).getAveragePerformance())).c_str());
   Broodwar->drawTextScreen(10, 100, ("Profiler: " + std::to_string(p.getAverageBotPerformace())).c_str());
+  Broodwar->drawTextScreen(10, 120, ("Session ID: " + std::to_string(Connectors::Connector::getSessionID())).c_str());
   // Return if the game is a replay or is paused
   if ( Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self() )
     return;

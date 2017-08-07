@@ -1,5 +1,9 @@
-﻿  Generating code
-  All 6482 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+﻿  Server.cpp
+Server.cpp(164): warning C4101: 'e': unreferenced local variable
+  Generating code
+  10 of 6691 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    4 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Server.vcxproj -> C:\Users\Robert\BWAPI\Release\Server.exe
   Server.vcxproj -> C:\Users\Robert\BWAPI\Release\Server.pdb (Full PDB)

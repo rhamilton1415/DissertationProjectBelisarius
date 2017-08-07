@@ -20,10 +20,14 @@ namespace Connectors
 	{
 	public:
 		static void establishConnection();
+		static void endSession();
+		//update Agent Environment
 		static void updateState(std::map<BWAPI::UnitType, int> queued, std::map<BWAPI::UnitType, int> playerState);
+		//perform Agent Function
 		static BWAPI::UnitType getBOMBOrder();
 		static bool isConnectionAvailable() { return connectionAvailable; }
 		static std::string getErrMessage() { return errMessage; }
+		static int getSessionID() { return sessionId; }
 		static bool isBOMBOrderBlocked() { return BOMOrderBlock; }
 	private:
 		//static int Connect(std::map<BWAPI::UnitType, int> queued, std::map<BWAPI::UnitType, int> playerState);
@@ -33,5 +37,7 @@ namespace Connectors
 		static bool connectionAvailable;
 		static std::string errMessage;
 		static bool BOMOrderBlock;
+		static int sessionId;
+		static http_client client;
 	};
 }

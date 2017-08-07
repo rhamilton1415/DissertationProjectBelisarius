@@ -64,7 +64,10 @@ void ConstructionManager::onFrame()
 		// If the worker is carrying cargo, order it to return before doing anything else
 		if (u->isCarryingGas() || u->isCarryingMinerals())
 		{
-			u->returnCargo();
+			if (u->canReturnCargo())
+			{
+				u->returnCargo();
+			}
 			continue;
 		}
 		if (u->isGatheringGas() || u->isGatheringMinerals())
@@ -139,6 +142,8 @@ void ConstructionManager::onFrame()
 							broadcast("The build Order: " + buildOrders.at(index).getName() + " could not be built");
 							if (buildPosition == TilePositions::Invalid)
 							{
+								//We can't build this anywhere so don't
+								buildOrders.erase(buildOrders.begin() + index);
 							}
 							if (Broodwar->self()->minerals() < buildOrders.at(index))
 							{

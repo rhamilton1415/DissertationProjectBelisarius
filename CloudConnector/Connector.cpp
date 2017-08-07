@@ -9,6 +9,8 @@ namespace Connectors
 	bool Connector::connectionAvailable = false;
 	std::string Connector::errMessage = "";
 	bool Connector::BOMOrderBlock = false;
+	int Connector::sessionId = 0;
+	http_client Connector::client(L"http://localhost:80");
 
 	//stolen from stackoverflow
 	template <typename Map>
@@ -21,13 +23,13 @@ namespace Connectors
 	{
 		try
 		{
-			http_client c(L"http://localhost:80/");
-			http_request r(methods::GET);
+			http_request r(methods::POST);
 			r.headers().add(L"Init", 1);
-			pplx::task<web::http::http_response> response = c.request(r);
+			pplx::task<web::http::http_response> response = client.request(r);
 			//If this succeeds, we can use the cloud server - else the AI will use local maths. 
 			if (response.get().status_code() == http::status_codes::OK)
 			{
+				sessionId = response.get().extract_json().get().as_integer();
 				connectionAvailable = true;
 				errMessage = "";
 			}
@@ -40,6 +42,19 @@ namespace Connectors
 		{
 			errMessage = e.what();
 			connectionAvailable = false;
+		}
+	}
+	void Connector::endSession()
+	{
+		try
+		{
+			http_request request(methods::DEL);
+			request.headers().add(L"SessionId", sessionId);
+			pplx::task<web::http::http_response> response = client.request(request);
+		}
+		catch(...)
+		{
+
 		}
 	}
 	void Connector::updateState(std::map<BWAPI::UnitType, int> inQueued, std::map<BWAPI::UnitType, int> inPlayerState)
@@ -57,9 +72,9 @@ namespace Connectors
 	{
 		try
 		{
-			http_client client(L"http://localhost:80/");
 			http_request request(methods::GET);
 			request.headers().add(L"Order", 1);
+			request.headers().add(L"SessionId", sessionId);
 			pplx::task<web::http::http_response> response = client.request(request);
 			json::value v = response.get().extract_json().get();
 			return BWAPI::UnitType(v.as_integer());
@@ -92,10 +107,10 @@ namespace Connectors
 			completeState[L"Queued"] = queuedJSONobj;
 
 			// Manually build up an HTTP request with header and request URI.
-			http_client client(L"http://localhost:80/");
 			http_request request(methods::POST);
 			request.headers().add(L"State", 1);
 			request.headers().set_content_type(L"application/json");
+			request.headers().add(L"SessionId", sessionId);
 			request.set_body(completeState);
 			pplx::task<web::http::http_response> response = client.request(request);
 			return utility::conversions::to_utf8string(response.get().to_string());
