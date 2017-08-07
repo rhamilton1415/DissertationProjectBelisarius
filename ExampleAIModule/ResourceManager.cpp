@@ -87,3 +87,7 @@ BWAPI::Unit& ResourceManager::requestUnit()
 		u->stop();
 		return u;
 }
+bool ResourceManager::hasUnit(BWAPI::Unit u)
+{
+	return std::binary_search(resourceCollectors.begin(), resourceCollectors.end(), u);
+}

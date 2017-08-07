@@ -59,9 +59,15 @@ void Belisarius::onStart()
 	  }
 	  //ResourceManager *r = new ResourceManager();
   }
+  //Some setup for the bot
   //See if a connection is available
   std::thread checkCon(Connectors::Connector::establishConnection);
   checkCon.detach();
+  //Initialise the Profiler
+  p.addAgent(r);
+  p.addAgent(c);
+  p.addAgent(bOM);
+  p.addAgent(b);
 }
 
 void Belisarius::onEnd(bool isWinner)
@@ -76,7 +82,8 @@ void Belisarius::onEnd(bool isWinner)
 void Belisarius::onFrame()
 {
   // Called once every game frame
-
+  //start the profiler
+  p.start();
   // Display the game frame rate as text in the upper left area of the screen
   Broodwar->drawTextScreen(200, 0,  "FPS: %d", Broodwar->getFPS() );
   Broodwar->drawTextScreen(200, 20, "Average FPS: %f", Broodwar->getAverageFPS() );
@@ -91,10 +98,11 @@ void Belisarius::onFrame()
   {
 	  Broodwar->drawTextScreen(10, 10, Connectors::Connector::getErrMessage().c_str());
   }
- /* Broodwar->drawTextScreen(10, 20, ("Resource Manager: " + std::to_string(r.getWorkerCount())).c_str());
-  Broodwar->drawTextScreen(10, 40, ("Building Manager: " + std::to_string(b.getBuildingCount())).c_str());
-  Broodwar->drawTextScreen(10, 60, ("Construction Manager: "+ std::to_string(c.getWorkerCount()) + " orders:  " + std::to_string(c.getBuildOrders().size())).c_str());
-  Broodwar->drawTextScreen(20, 80, ("constructing: " + std::to_string(c.getBuildingsUnderConstruction().size())).c_str());*/
+  Broodwar->drawTextScreen(10, 20, ("Resource Manager: " + std::to_string(p.getAgentProfile(r).getAveragePerformance())).c_str());
+  Broodwar->drawTextScreen(10, 40, ("Building Manager: " + std::to_string(p.getAgentProfile(b).getAveragePerformance())).c_str());
+  Broodwar->drawTextScreen(10, 60, ("Construction Manager: "+ std::to_string(p.getAgentProfile(c).getAveragePerformance())).c_str());
+  Broodwar->drawTextScreen(10, 80, ("Build Order Manager: " + std::to_string(p.getAgentProfile(bOM).getAveragePerformance())).c_str());
+  Broodwar->drawTextScreen(10, 100, ("Profiler: " + std::to_string(p.getAverageBotPerformace())).c_str());
   // Return if the game is a replay or is paused
   if ( Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self() )
     return;
@@ -103,12 +111,24 @@ void Belisarius::onFrame()
   // Latency frames are the number of frames before commands are processed.
   if ( Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0 )
     return;
-
-  //bOM.printPlayerState();
-  r.onFrame(); //try to only ping top level agents from here
+  //Resource Manager
+  p.getAgentProfile(r).start();
+  r.onFrame();
+  p.getAgentProfile(r).finish();
+  //Building Manager
+  p.getAgentProfile(b).start();
   b.onFrame();
+  p.getAgentProfile(b).finish();
+  //Build Order Manager
+  p.getAgentProfile(bOM).start();
   bOM.onFrame();
+  p.getAgentProfile(bOM).finish();
+  //Construction Manager
+  p.getAgentProfile(c).start();
   c.onFrame();
+  p.getAgentProfile(c).finish();
+  //end Profiling for the frame
+  p.finish();
 }
 
 void Belisarius::onSendText(std::string text)

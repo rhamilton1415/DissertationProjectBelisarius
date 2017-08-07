@@ -11,7 +11,7 @@ public:
 	~BuildingManager();
 	void onFrame();
 	void unitCreatedUpdate();
-	void unitDestroyedUpdate();
+	void unitDestroyedUpdate(BWAPI::Unit u);
 	void addUnit(BWAPI::Unit u);
 	void addBuildOrder(BWAPI::UnitType uT);
 	int getOrders(BWAPI::UnitType orderType);

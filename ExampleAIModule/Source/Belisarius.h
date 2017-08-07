@@ -8,7 +8,7 @@
 #include "..\StrategyManager.h"
 #include "..\TacticalManager.h"
 #include "..\AdvesarialIntelligenceManager.h"
-// Remember not to use "Broodwar" in any global class constructor!
+#include "..\Profiler.h"
 
 class Belisarius : public BWAPI::AIModule
 {
@@ -38,5 +38,7 @@ public:
   BuildingManager b = BuildingManager(r);
   ConstructionManager c = ConstructionManager(r);
   BuildOrderManager bOM = BuildOrderManager(r, b, c);
+  Profiler p;
+
   std::vector<AdvesarialIntelligenceManager> players;
 };

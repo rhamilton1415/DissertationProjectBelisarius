@@ -97,10 +97,12 @@
   <ItemGroup>
     <ClCompile Include="AdvesarialIntelligenceManager.cpp" />
     <ClCompile Include="Agent.cpp" />
+    <ClCompile Include="AgentProfile.cpp" />
     <ClCompile Include="BuildingManager.cpp" />
     <ClCompile Include="BuildOrderManager.cpp" />
     <ClCompile Include="ConstructionManager.cpp" />
     <ClCompile Include="ConstructionPair.cpp" />
+    <ClCompile Include="Profiler.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Source\Dll.cpp" />
     <ClCompile Include="Source\Belisarius.cpp" />
@@ -110,10 +112,12 @@
   <ItemGroup>
     <ClInclude Include="AdvesarialIntelligenceManager.h" />
     <ClInclude Include="Agent.h" />
+    <ClInclude Include="AgentProfile.h" />
     <ClInclude Include="BuildingManager.h" />
     <ClInclude Include="BuildOrderManager.h" />
     <ClInclude Include="ConstructionManager.h" />
     <ClInclude Include="ConstructionPair.h" />
+    <ClInclude Include="Profiler.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Source\Belisarius.h" />
     <ClInclude Include="StrategyManager.h" />

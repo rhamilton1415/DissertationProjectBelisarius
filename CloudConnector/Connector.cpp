@@ -8,6 +8,7 @@ namespace Connectors
 	std::map<BWAPI::UnitType, int> Connector::queued; 
 	bool Connector::connectionAvailable = false;
 	std::string Connector::errMessage = "";
+	bool Connector::BOMOrderBlock = false;
 
 	//stolen from stackoverflow
 	template <typename Map>
@@ -51,6 +52,7 @@ namespace Connectors
 			updateBOMBState();
 		}
 	}
+
 	BWAPI::UnitType Connector::getBOMBOrder()
 	{
 		try
@@ -65,6 +67,7 @@ namespace Connectors
 		catch (...) //If the above fails, it may be because the server is unavailable - retry the check.
 		{
 			establishConnection();
+			return BWAPI::UnitTypes::None; //This will just fail the next build order frame - hopefully if the server has gone down it'll just go locally
 		}
 	}
 	std::string Connector::updateBOMBState()

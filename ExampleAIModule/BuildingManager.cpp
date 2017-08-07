@@ -200,3 +200,7 @@ const std::vector<BWAPI::UnitType> BuildingManager::getUnitsBeingTrained()
 	}
 	return units;
 }
+void BuildingManager::unitDestroyedUpdate(BWAPI::Unit u)
+{
+	buildings.erase(std::find(buildings.begin(), buildings.end(), u));
+}

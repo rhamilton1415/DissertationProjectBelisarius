@@ -12,6 +12,8 @@
     <ClCompile Include="TacticalManager.cpp" />
     <ClCompile Include="ConstructionManager.cpp" />
     <ClCompile Include="ConstructionPair.cpp" />
+    <ClCompile Include="Profiler.cpp" />
+    <ClCompile Include="AgentProfile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdvesarialIntelligenceManager.h" />
@@ -24,5 +26,7 @@
     <ClInclude Include="TacticalManager.h" />
     <ClInclude Include="ConstructionManager.h" />
     <ClInclude Include="ConstructionPair.h" />
+    <ClInclude Include="Profiler.h" />
+    <ClInclude Include="AgentProfile.h" />
   </ItemGroup>
 </Project>

@@ -24,6 +24,7 @@ namespace Connectors
 		static BWAPI::UnitType getBOMBOrder();
 		static bool isConnectionAvailable() { return connectionAvailable; }
 		static std::string getErrMessage() { return errMessage; }
+		static bool isBOMBOrderBlocked() { return BOMOrderBlock; }
 	private:
 		//static int Connect(std::map<BWAPI::UnitType, int> queued, std::map<BWAPI::UnitType, int> playerState);
 		static std::string updateBOMBState();
@@ -31,5 +32,6 @@ namespace Connectors
 		static std::map<BWAPI::UnitType, int> queued;
 		static bool connectionAvailable;
 		static std::string errMessage;
+		static bool BOMOrderBlock;
 	};
 }

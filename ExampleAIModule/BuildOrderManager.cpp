@@ -1,6 +1,7 @@
 #include "BuildOrderManager.h"
 
 void BOMBUpdate(std::map<BWAPI::UnitType, int> _playerState, std::map<BWAPI::UnitType, int> _queued);
+void BOMBAgentFunction(BWAPI::UnitType& order, bool& block);
 BuildOrderManager::BuildOrderManager(ResourceManager &r, BuildingManager &b, ConstructionManager &c)
 {
 	rRef = &r;
@@ -20,13 +21,15 @@ void BuildOrderManager::onFrame()
 	{
 		if (Connectors::Connector::isConnectionAvailable())
 		{
-			nextOrder = Connectors::Connector::getBOMBOrder();
+			if (!BOMBBlock) //If there isn't a request in progress
+			{
+				BOMBAgentFunctionThread();
+			}
 		}
 		else
 		{
 			nextOrder = getNextBuildRecommendation();
 			//Check again
-			broadcast("Connection unavailable - attempting to reestablish");
 			std::thread checkCon(Connectors::Connector::establishConnection);
 			checkCon.detach();
 		}
@@ -209,4 +212,15 @@ void BuildOrderManager::BOMBUpdateThread()
 void BOMBUpdate(std::map<BWAPI::UnitType, int> _playerState, std::map<BWAPI::UnitType, int> _queued)
 {
 	Connectors::Connector::updateState(_queued, _playerState);
+}
+void BuildOrderManager::BOMBAgentFunctionThread()
+{
+	std::thread go(BOMBAgentFunction, std::ref(nextOrder), std::ref(BOMBBlock));
+	go.detach();
+}
+void BOMBAgentFunction(BWAPI::UnitType& order, bool& block)
+{
+	block = true;
+	order = Connectors::Connector::getBOMBOrder();
+	block = false;
 }

@@ -38,13 +38,14 @@ void ConstructionManager::onFrame()
 	for (int i = 0; i < builders.size(); i++)
 	{
 		BWAPI::Unit& u = builders.at(i);
-
+		
 		// Ignore the unit if it no longer exists
 		// Make sure to include this block when handling any Unit pointer!
 		if (!u->exists())
 		{
 			continue;
 		}
+		//avoid some potential issues with command spamming clogging it up
 		// Ignore the unit if it has one of the following status ailments
 		if (u->isLockedDown() || u->isMaelstrommed() || u->isStasised())
 		{
@@ -68,7 +69,8 @@ void ConstructionManager::onFrame()
 		}
 		if (u->isGatheringGas() || u->isGatheringMinerals())
 		{
-			u->stop();
+			u->returnCargo();
+			continue;
 		}
 		// Finally make the unit do some stuff!
 		// If the unit is a worker unit
