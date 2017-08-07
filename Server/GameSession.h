@@ -18,8 +18,14 @@ class GameSession
 public:
 	GameSession();
 	~GameSession();
+	void updatePlayerState(json::value completeState);
+	BWAPI::UnitType buildOrderManagerB();
+	std::map<BWAPI::UnitType, int> getPlayerState();
+	std::map<BWAPI::UnitType, int> getQueued();
+	BWAPI::UnitType getLastQueued();
 private:
 	std::map<BWAPI::UnitType, int> playerState; //Existing/Functional Units
 	std::map<BWAPI::UnitType, int> queued; //Units queued, training or constructing
+	BWAPI::UnitType lastQueued;
 };
 

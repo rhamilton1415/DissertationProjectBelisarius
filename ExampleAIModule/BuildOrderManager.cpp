@@ -42,6 +42,7 @@ void BuildOrderManager::onFrame()
 			if (Broodwar->self()->minerals() >= (nextOrder.mineralPrice() + bRef->getMineralDebt() + cRef->getMineralDebt()))
 			{
 				cRef->addBuildOrder(nextOrder);
+				broadcast(nextOrder.getName() + " has been queued");
 				nextOrder = BWAPI::UnitTypes::None; //reset the flag
 				BOMBUpdateThread();
 			}
@@ -56,6 +57,7 @@ void BuildOrderManager::onFrame()
 				if (nextOrder.supplyRequired() <= remainingSupply)
 				{
 					bRef->addBuildOrder(nextOrder);
+					broadcast(nextOrder.getName() + " has been queued");
 					nextOrder = BWAPI::UnitTypes::None;
 					BOMBUpdateThread();
 				}

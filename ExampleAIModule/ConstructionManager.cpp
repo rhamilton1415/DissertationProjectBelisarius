@@ -69,8 +69,11 @@ void ConstructionManager::onFrame()
 		}
 		if (u->isGatheringGas() || u->isGatheringMinerals())
 		{
-			u->returnCargo();
-			continue;
+			u->stop();
+		}
+		if (rRef->hasUnit(u))
+		{
+			Broodwar->sendText("Unit exists in two managers - error");
 		}
 		// Finally make the unit do some stuff!
 		// If the unit is a worker unit
@@ -136,11 +139,9 @@ void ConstructionManager::onFrame()
 							broadcast("The build Order: " + buildOrders.at(index).getName() + " could not be built");
 							if (buildPosition == TilePositions::Invalid)
 							{
-								broadcast("No suitable position could be found");
 							}
 							if (Broodwar->self()->minerals() < buildOrders.at(index))
 							{
-								broadcast("Insufficient Minerals");
 							}
 						}
 						else

@@ -2,13 +2,14 @@
 //
 
 #include "stdafx.h"
+#include "GameSession.h"
+#include <curses.h>
 #include <BWAPI.h>
 #include <cpprest/http_client.h>
 #include <cpprest/http_listener.h>
 #include <cpprest/json.h>
 #include <cpprest/filestream.h>
 #include <iostream>
-
 using namespace utility;                    // Common utilities like string conversions
 using namespace web;
 using namespace web::http;
@@ -22,12 +23,14 @@ using namespace std;
 #define TRACE_ACTION(a, k, v) wcout << a << L" (" << k << L", " << v << L")\n"
 
 map<utility::string_t, utility::string_t> dictionary;
+std::vector<GameSession> sessions;
 std::map<BWAPI::UnitType, int> playerState; //Existing/Functional Units
 std::map<BWAPI::UnitType, int> queued; //Units queued, training or constructing
-
+BWAPI::UnitType lastQueued = BWAPI::UnitTypes::Terran_SCV;
 //Build Order related functions
 int getRemainingSupply();
 BWAPI::UnitType buildOrderManagerB();
+void printGameSession();
 
 //JSON related functions
 void handle_get(http_request request);
@@ -38,7 +41,6 @@ void updatePlayerState(json::value completePlayerState);
 /* handlers implementation */
 void handle_get(http_request request)
 {
-	std::cout << "GET" << std::endl;
 	try
 	{
 		json::value obj;
@@ -48,9 +50,10 @@ void handle_get(http_request request)
 		}
 		if (request.headers().has(L"Order"))
 		{
-			json::value order = json::value::number(buildOrderManagerB());
-			std::cout << "Sending Build Order: ";
-			std::wcout << order.serialize() << std::endl;
+			lastQueued = buildOrderManagerB();
+			//I don't think it's good practise to try and keep track of the player state from here, but it'll be overwritten by the next stateUpdate anyway
+			queued[lastQueued]++;
+			json::value order = json::value::number(lastQueued);
 			request.reply(status_codes::OK, order);
 		}
 		else if (request.headers().has(L"Init"))
@@ -65,6 +68,7 @@ void handle_get(http_request request)
 			std::wcout << stream.str();
 			request.reply(status_codes::OK, obj);
 		}
+		printGameSession();
 	}
 	catch (...)
 	{
@@ -75,9 +79,12 @@ void handle_post(http_request request)
 {
 	try
 	{
-		TRACE(L"\nhandle POST\n");
 		if (request.headers().content_type() == L"application/json") //If we have JSON data to deal with
 		{
+			if (request.headers().has(L"Init"));
+			{
+
+			}
 			if (request.headers().has(L"State")) //The client is trying to POST a state update
 			{
 				updatePlayerState(request.extract_json().get());
@@ -88,6 +95,7 @@ void handle_post(http_request request)
 		{
 			request.reply(status_codes::InternalError);
 		}
+		printGameSession();
 	}
 	catch (const std::exception& e)
 	{
@@ -99,7 +107,6 @@ void updatePlayerState(json::value completePlayerState)
 {
 	json::value playerStateJSONobj = completePlayerState[L"PlayerState"];
 	json::value queuedJSONobj = completePlayerState[L"Queued"];
-	std::wcout << playerStateJSONobj.serialize() << std::endl;
 	for (auto iter = playerStateJSONobj.as_object().cbegin(); iter != playerStateJSONobj.as_object().cend(); iter++)
 	{
 		playerState[std::stoi(iter->first)] = iter->second.as_integer();
@@ -115,16 +122,6 @@ void updatePlayerState(json::value completePlayerState)
 	{
 		//If there is nothing queued, the previous call will fail but it is not an erronous complete state so just continue
 		//If there is no Player State, an "ex nihilo" Build Order Manager is out of scope
-	}
-	std::cout << "New Player State: " << std::endl;
-	for (std::map<BWAPI::UnitType, int>::const_iterator it = playerState.begin(); it != playerState.end(); ++it)
-	{
-		std::cout << std::to_string(it->first) + " " + std::to_string(playerState.at(it->first)) << std::endl;
-	}
-	std::cout << "New Queued State: " << std::endl;
-	for (std::map<BWAPI::UnitType, int>::const_iterator it = queued.begin(); it != queued.end(); ++it)
-	{
-		std::cout << std::to_string(it->first) + " " + std::to_string(queued.at(it->first)) << std::endl;
 	}
 }
 int getRemainingSupply()
@@ -222,6 +219,7 @@ BWAPI::UnitType buildOrderManagerB()
 }
 int main()
 {
+	initscr();
 	http_listener listener(L"http://localhost:80/");
 	listener.support(methods::GET, handle_get);
 	listener.support(methods::POST, handle_post);
@@ -229,7 +227,7 @@ int main()
 	{
 		listener
 			.open()
-			.then([&listener]() {TRACE(L"\nstarting to listen\n"); })
+			.then([&listener]() { })
 			.wait();
 
 		while (true);
@@ -237,10 +235,43 @@ int main()
 	catch (exception const & e)
 	{
 		std::string s;
-		wcout << e.what() << endl;
 		cin >> s;
 	}
 
 	return 0;
 }
-
+void printGameSession()
+{
+	try
+	{
+		clear();
+		attron(A_BOLD);
+		printw("Player State:\n");
+		attroff(A_BOLD);
+		for (std::map<BWAPI::UnitType, int>::const_iterator it = playerState.begin(); it != playerState.end(); ++it)
+		{
+			printw(" ");
+			printw(((it->first.getName()) + " " + std::to_string(playerState.at(it->first))).c_str());
+			printw("\n");
+		}
+		attron(A_BOLD);
+		printw("Queued: \n");
+		attroff(A_BOLD);
+		for (std::map<BWAPI::UnitType, int>::const_iterator it = queued.begin(); it != queued.end(); ++it)
+		{
+			printw(" ");
+			printw(((it->first.getName()) + " " + std::to_string(queued.at(it->first))).c_str());
+			printw("\n");
+		}
+		attron(A_BOLD);
+		printw("Last Order: \n");
+		attroff(A_BOLD);
+		printw(" ");
+		printw(lastQueued.getName().c_str());
+		refresh();
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << e.what() << endl;
+	}
+}
