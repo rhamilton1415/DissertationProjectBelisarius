@@ -23,6 +23,19 @@ namespace Connectors
 	{
 		try
 		{
+			ifstream myReadFile;
+			std::string address;
+			//uri u;
+			myReadFile.open("ClientConfig.txt");
+			if (myReadFile.is_open()) {
+				while (!myReadFile.eof()) 
+				{
+					myReadFile >> address;
+					client = http_client(utility::conversions::to_string_t(address));
+				}
+			}
+			myReadFile.close();
+			//client = http_client(u);
 			http_request r(methods::POST);
 			r.headers().add(L"Init", 1);
 			pplx::task<web::http::http_response> response = client.request(r);
@@ -41,6 +54,7 @@ namespace Connectors
 		catch (const std::exception& e)
 		{
 			errMessage = e.what();
+			//errMessage = utility::conversions::to_utf8string(client.base_uri().to_string());
 			connectionAvailable = false;
 		}
 	}

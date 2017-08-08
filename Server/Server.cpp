@@ -148,7 +148,19 @@ void handle_delete(http_request request)
 int main()
 {
 	initscr();
-	http_listener listener(L"http://localhost:80/");
+	ifstream myReadFile;
+	http_listener listener;
+	std::string address;
+	//uri u;
+	myReadFile.open("ServerConfig.txt");
+	if (myReadFile.is_open()) {
+		while (!myReadFile.eof())
+		{
+			myReadFile >> address;
+			listener = http_listener(utility::conversions::to_string_t(address));
+		}
+	}
+	myReadFile.close();
 	listener.support(methods::GET, handle_get);
 	listener.support(methods::POST, handle_post);
 	listener.support(methods::DEL, handle_delete);
