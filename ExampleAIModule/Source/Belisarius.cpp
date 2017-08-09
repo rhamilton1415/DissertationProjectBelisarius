@@ -93,7 +93,7 @@ void Belisarius::onFrame()
   Broodwar->drawTextScreen(10, 0, "Project Belisarius");
   if (Connectors::Connector::isConnectionAvailable())
   {
-	  Broodwar->drawTextScreen(10, 10, std::string("Connection Established").c_str());
+	  Broodwar->drawTextScreen(10, 10, std::string("Connection Established" ).c_str());
   }
   else
   {

@@ -9,7 +9,7 @@ namespace Connectors
 	bool Connector::connectionAvailable = false;
 	std::string Connector::errMessage = "";
 	bool Connector::BOMOrderBlock = false;
-	int Connector::sessionId = 0;
+	int Connector::sessionId = -1;
 	http_client Connector::client(L"http://localhost:80");
 
 	//stolen from stackoverflow
@@ -37,7 +37,8 @@ namespace Connectors
 			myReadFile.close();
 			//client = http_client(u);
 			http_request r(methods::POST);
-			r.headers().add(L"Init", 1);
+			r.headers().add(L"Init", 1); 
+			r.headers().add(L"SessionId", sessionId); //if we have no connection this will be -1
 			pplx::task<web::http::http_response> response = client.request(r);
 			//If this succeeds, we can use the cloud server - else the AI will use local maths. 
 			if (response.get().status_code() == http::status_codes::OK)
@@ -49,6 +50,7 @@ namespace Connectors
 			else
 			{
 				connectionAvailable = false;
+				sessionId = -1;
 			}
 		}
 		catch (const std::exception& e)
@@ -56,6 +58,7 @@ namespace Connectors
 			errMessage = e.what();
 			//errMessage = utility::conversions::to_utf8string(client.base_uri().to_string());
 			connectionAvailable = false;
+			sessionId = -1;
 		}
 	}
 	void Connector::endSession()

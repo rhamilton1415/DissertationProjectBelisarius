@@ -16,6 +16,7 @@ GameSession::~GameSession()
 }
 void GameSession::updatePlayerState(json::value completePlayerState)
 {
+	lastUpdate = ptime(microsec_clock::universal_time());
 	playerState.clear();
 	queued.clear();
 	json::value playerStateJSONobj = completePlayerState[L"PlayerState"];
@@ -117,6 +118,7 @@ BWAPI::UnitType GameSession::buildOrderManagerB()
 }
 int GameSession::getRemainingSupply()
 {
+	lastUpdate = ptime(microsec_clock::universal_time());
 	int supply = 0;
 	for (std::map<BWAPI::UnitType, int>::const_iterator it = playerState.begin(); it != playerState.end(); ++it)
 	{
@@ -134,11 +136,17 @@ int GameSession::getRemainingSupply()
 	}
 	return supply;
 }
+int GameSession::getSecondsSinceLastUpdate()
+{
+	time_duration duration = ptime(microsec_clock::universal_time()) - lastUpdate;
+	return duration.total_seconds();
+}
 void GameSession::printGameSession()
 {
 	try
 	{
 		attron(A_BOLD);
+		printw(("Last update: " + std::to_string(getSecondsSinceLastUpdate()) + " seconds ago\n").c_str());
 		printw("Player State:\n");
 		attroff(A_BOLD);
 		for (std::map<BWAPI::UnitType, int>::const_iterator it = playerState.begin(); it != playerState.end(); ++it)

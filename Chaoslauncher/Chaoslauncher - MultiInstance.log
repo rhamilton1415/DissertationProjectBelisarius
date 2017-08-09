@@ -1,0 +1,128 @@
+08/08/2017 20:29:18 13588 Logging started
+08/08/2017 20:29:19 13588 Begin Startup
+08/08/2017 20:29:19 13588 Chaosauncher 0.5.4.1 on NT 6.2.9200  at C:\Users\Robert\BWAPI\Chaoslauncher\Chaoslauncher - MultiInstance.exe
+08/08/2017 20:29:19 13588 Load Settings
+08/08/2017 20:29:19 13588 GamePath: C:\Users\Robert\Documents\Starcraft\
+08/08/2017 20:29:19 13588 Load Plugins
+08/08/2017 20:29:19 13588 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\iccscbn.icc
+08/08/2017 20:29:20 13588 Plugin loaded ICCup
+08/08/2017 20:29:20 13588 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\APMAlert.bwl
+08/08/2017 20:29:20 13588 Plugin loaded APMAlert (1.16.1)
+08/08/2017 20:29:20 13588 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\BWAPI_PluginInjector.bwl
+08/08/2017 20:29:21 13588 Plugin loaded BWAPI 4.2.0 Injector [RELEASE]
+08/08/2017 20:29:21 13588 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\BWAPI_PluginInjectord.bwl
+08/08/2017 20:29:21 13588 Plugin loaded BWAPI 4.2.0 Injector [DEBUG]
+08/08/2017 20:29:21 13588 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\Chaosplugin.bwl
+08/08/2017 20:29:21 13588 Plugin loaded Chaosplugin for 1.16.1
+08/08/2017 20:29:21 13588 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\LatencyChanger.bwl
+08/08/2017 20:29:21 13588 Plugin loaded LatencyChanger for 1.16.1
+08/08/2017 20:29:21 13588 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\repfix.bwl
+08/08/2017 20:29:21 13588 Plugin loaded RepFix
+08/08/2017 20:29:21 13588 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\RWAPlayer.bwl
+08/08/2017 20:29:21 13588 Plugin loaded RWAPlayer (1.16.1)
+08/08/2017 20:29:21 13588 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\RWARecorder.bwl
+08/08/2017 20:29:21 13588 Plugin loaded RWARecorder (1.16.1)
+08/08/2017 20:29:21 13588 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\Stormplugin.bwl
+08/08/2017 20:29:21 13588 Plugin loaded Stormplugin for 1.16.1
+08/08/2017 20:29:21 13588 Loading BWL4-Plugin C:\Users\Robert\BWAPI\Chaoslauncher\Plugins\wmode.bwl
+08/08/2017 20:29:21 13588 Plugin loaded W-MODE 1.02
+08/08/2017 20:29:21 13588 Load Tools
+08/08/2017 20:29:21 13588 Init GUI
+08/08/2017 20:29:21 13588 Get Starcraftversions
+08/08/2017 20:29:22 13588 Init complete
+08/08/2017 20:29:35 13588 Startbutton
+08/08/2017 20:29:35 13588 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
+08/08/2017 20:29:35 13588 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
+08/08/2017 20:29:35 13588 Obtained DebugPrivilege
+08/08/2017 20:29:35 13588 CreateProcess
+08/08/2017 20:29:35 13588 Call ScSuspended for all active Plugins
+08/08/2017 20:29:35 13588 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
+08/08/2017 20:29:35 13588 ResumeThread
+08/08/2017 20:29:35 13588 WaitForInputIdle
+08/08/2017 20:29:35 13588 Call ScWindowCreated for all active Plugins
+08/08/2017 20:29:35 13588 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
+08/08/2017 20:29:35 13588 Starting Starcraft completed
+08/08/2017 20:29:36 13588 Startbutton
+08/08/2017 20:29:36 13588 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
+08/08/2017 20:29:36 13588 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
+08/08/2017 20:29:36 13588 Obtained DebugPrivilege
+08/08/2017 20:29:36 13588 CreateProcess
+08/08/2017 20:29:36 13588 Call ScSuspended for all active Plugins
+08/08/2017 20:29:37 13588 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
+08/08/2017 20:29:37 13588 ResumeThread
+08/08/2017 20:29:37 13588 WaitForInputIdle
+08/08/2017 20:29:37 13588 Call ScWindowCreated for all active Plugins
+08/08/2017 20:29:37 13588 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
+08/08/2017 20:29:37 13588 Starting Starcraft completed
+08/08/2017 20:29:40 13588 Startbutton
+08/08/2017 20:29:40 13588 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
+08/08/2017 20:29:40 13588 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
+08/08/2017 20:29:41 13588 Obtained DebugPrivilege
+08/08/2017 20:29:41 13588 CreateProcess
+08/08/2017 20:29:41 13588 Call ScSuspended for all active Plugins
+08/08/2017 20:29:41 13588 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
+08/08/2017 20:29:41 13588 ResumeThread
+08/08/2017 20:29:41 13588 WaitForInputIdle
+08/08/2017 20:29:41 13588 Call ScWindowCreated for all active Plugins
+08/08/2017 20:29:41 13588 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
+08/08/2017 20:29:41 13588 Starting Starcraft completed
+09/08/2017 13:29:39 13588 Startbutton
+09/08/2017 13:29:39 13588 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
+09/08/2017 13:29:39 13588 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
+09/08/2017 13:29:39 13588 Obtained DebugPrivilege
+09/08/2017 13:29:39 13588 CreateProcess
+09/08/2017 13:29:39 13588 Call ScSuspended for all active Plugins
+09/08/2017 13:29:39 13588 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
+09/08/2017 13:29:39 13588 ResumeThread
+09/08/2017 13:29:39 13588 WaitForInputIdle
+09/08/2017 13:29:39 13588 Call ScWindowCreated for all active Plugins
+09/08/2017 13:29:39 13588 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
+09/08/2017 13:29:39 13588 Starting Starcraft completed
+09/08/2017 13:30:49 13588 Startbutton
+09/08/2017 13:30:49 13588 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
+09/08/2017 13:30:49 13588 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
+09/08/2017 13:30:49 13588 Obtained DebugPrivilege
+09/08/2017 13:30:49 13588 CreateProcess
+09/08/2017 13:30:49 13588 Call ScSuspended for all active Plugins
+09/08/2017 13:30:49 13588 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
+09/08/2017 13:30:49 13588 ResumeThread
+09/08/2017 13:30:49 13588 WaitForInputIdle
+09/08/2017 13:30:49 13588 Call ScWindowCreated for all active Plugins
+09/08/2017 13:30:49 13588 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
+09/08/2017 13:30:49 13588 Starting Starcraft completed
+09/08/2017 13:32:33 13588 Startbutton
+09/08/2017 13:32:33 13588 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
+09/08/2017 13:32:33 13588 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
+09/08/2017 13:32:33 13588 Obtained DebugPrivilege
+09/08/2017 13:32:33 13588 CreateProcess
+09/08/2017 13:32:33 13588 Call ScSuspended for all active Plugins
+09/08/2017 13:32:33 13588 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
+09/08/2017 13:32:33 13588 ResumeThread
+09/08/2017 13:32:33 13588 WaitForInputIdle
+09/08/2017 13:32:33 13588 Call ScWindowCreated for all active Plugins
+09/08/2017 13:32:33 13588 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
+09/08/2017 13:32:33 13588 Starting Starcraft completed
+09/08/2017 13:43:00 13588 Startbutton
+09/08/2017 13:43:00 13588 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
+09/08/2017 13:43:00 13588 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
+09/08/2017 13:43:00 13588 Obtained DebugPrivilege
+09/08/2017 13:43:00 13588 CreateProcess
+09/08/2017 13:43:00 13588 Call ScSuspended for all active Plugins
+09/08/2017 13:43:00 13588 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
+09/08/2017 13:43:00 13588 ResumeThread
+09/08/2017 13:43:00 13588 WaitForInputIdle
+09/08/2017 13:43:00 13588 Call ScWindowCreated for all active Plugins
+09/08/2017 13:43:00 13588 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
+09/08/2017 13:43:00 13588 Starting Starcraft completed
+09/08/2017 13:49:28 13588 Startbutton
+09/08/2017 13:49:28 13588 Starting Game Starcraft 1.16.1 C:\Users\Robert\Documents\Starcraft\StarCraft.exe
+09/08/2017 13:49:28 13588 BWAPI 4.2.0 Injector [RELEASE] Version  Compatible RunIncompatible
+09/08/2017 13:49:28 13588 Obtained DebugPrivilege
+09/08/2017 13:49:28 13588 CreateProcess
+09/08/2017 13:49:28 13588 Call ScSuspended for all active Plugins
+09/08/2017 13:49:28 13588 ApplyPatchSuspended for BWAPI 4.2.0 Injector [RELEASE]
+09/08/2017 13:49:29 13588 ResumeThread
+09/08/2017 13:49:29 13588 WaitForInputIdle
+09/08/2017 13:49:29 13588 Call ScWindowCreated for all active Plugins
+09/08/2017 13:49:29 13588 ApplyPatch for BWAPI 4.2.0 Injector [RELEASE]
+09/08/2017 13:49:29 13588 Starting Starcraft completed

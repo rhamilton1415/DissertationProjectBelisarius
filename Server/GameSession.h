@@ -6,6 +6,7 @@
 #include <cpprest/filestream.h>
 #include <iostream>
 #include <curses.h>
+#include "boost/date_time/posix_time/posix_time_types.hpp" //no i/o just types
 
 using namespace utility;                    // Common utilities like string conversions
 using namespace web;
@@ -14,6 +15,7 @@ using namespace web::http::client;
 using namespace concurrency::streams;
 using namespace web::http::experimental::listener;
 using namespace std;
+using namespace boost::posix_time;
 class GameSession
 {
 public:
@@ -28,12 +30,14 @@ public:
 	int getID() { return id; }
 	void GameSession::printGameSession();
 	bool operator==(GameSession rhs) { return(id == rhs.getID()); }
+	int getSecondsSinceLastUpdate();
 private:
 	static int sessionCount;
 	int id;
 	std::map<BWAPI::UnitType, int> playerState; //Existing/Functional Units
 	std::map<BWAPI::UnitType, int> queued; //Units queued, training or constructing
 	BWAPI::UnitType lastQueued;
+	ptime lastUpdate;
 	int getRemainingSupply();
 };
 

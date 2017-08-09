@@ -93,12 +93,35 @@ void handle_post(http_request request)
 {
 	try
 	{
-		if (request.headers().has(L"Init"))
+		if (request.headers().has(L"Init")) //establishing or restablishing
 		{
-			GameSession gS = GameSession::createGameSession();
-			int token = gS.getID(); //This will be the gameSession token for 
-			sessions.push_back(gS);
-			request.reply(status_codes::OK, json::value::number(token));
+			http_headers h = request.headers();
+			int sID = std::stoi(h[L"SessionId"]);
+			if (sID == -1)//new session
+			{
+				GameSession gS = GameSession::createGameSession();
+				int token = gS.getID(); //This will be the gameSession token for 
+				sessions.push_back(gS);
+				request.reply(status_codes::OK, json::value::number(token));
+			}
+			else
+			{
+				try
+				{
+					getSession(sID);
+					request.reply(status_codes::OK, json::value::number(sID));
+				}
+				catch (int i)
+				{
+					if (i = -1) //their session doesn't exist
+					{
+						GameSession gS = GameSession::createGameSession();
+						int token = gS.getID(); //This will be the gameSession token for 
+						sessions.push_back(gS);
+						request.reply(status_codes::OK, json::value::number(token));
+					}
+				}
+			}
 		}
 		else if (request.headers().content_type() == L"application/json") //If we have JSON data to deal with
 		{
@@ -120,7 +143,7 @@ void handle_post(http_request request)
 		{
 			request.reply(status_codes::InternalError);
 		}
-		printServerStatus();
+		//printServerStatus();
 	}
 	catch (const std::exception& e)
 	{
@@ -138,7 +161,7 @@ void handle_delete(http_request request)
 		GameSession& gS = getSession(sID);
 		sessions.erase(std::find(sessions.begin(), sessions.end(), gS));
 		request.reply(status_codes::OK);
-		printServerStatus();
+		//printServerStatus();
 	}
 	catch (...)
 	{
@@ -161,6 +184,7 @@ int main()
 		}
 	}
 	myReadFile.close();
+	std::thread serverStatusUpdate(printServerStatus);
 	listener.support(methods::GET, handle_get);
 	listener.support(methods::POST, handle_post);
 	listener.support(methods::DEL, handle_delete);
@@ -178,27 +202,31 @@ int main()
 		std::string s;
 		cin >> s;
 	}
-
+	serverStatusUpdate.join();
 	return 0;
 }
 void printServerStatus()
 {
-	try
+	while (true)
 	{
-		clear();
-		for (auto&u : sessions)
+		try
 		{
-			attron(A_STANDOUT);
-			printw(("\nSession ID: " + std::to_string(u.getID())).c_str());
-			printw("\n");
-			attroff(A_STANDOUT);
-			u.printGameSession();
+			clear();
+			for (auto&u : sessions)
+			{
+				attron(A_STANDOUT);
+				printw(("\nSession ID: " + std::to_string(u.getID())).c_str());
+				printw("\n");
+				attroff(A_STANDOUT);
+				u.printGameSession();
+			}
+			refresh();
 		}
-		refresh();
-	}
-	catch (const std::exception& e)
-	{
-		std::cout << e.what() << endl;
+		catch (const std::exception& e)
+		{
+			std::cout << e.what() << endl;
+		}
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 }
 GameSession& getSession(int sessionID)
