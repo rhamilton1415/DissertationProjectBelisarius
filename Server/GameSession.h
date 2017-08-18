@@ -32,7 +32,7 @@ public:
 	void GameSession::printGameSession();
 	bool operator==(GameSession rhs) { return(id == rhs.getID()); }
 	int getSecondsSinceLastUpdate();
-	SessionProfiler getSessionProfiler() { return sp; }
+	SessionProfiler& getSessionProfiler() { return sp; }
 private:
 	static int sessionCount;
 	int id;

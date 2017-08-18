@@ -1,12 +1,47 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Release\) contains files shared from another project (ExampleAIModule.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  AdvesarialIntelligenceManager.cpp
+  Agent.cpp
+  AgentProfile.cpp
+  BuildOrderManager.cpp
+  BuildingManager.cpp
+  ConstructionManager.cpp
+  ResourceManager.cpp
+  Belisarius.cpp
+c:\users\robert\bwapi\exampleaimodule\AgentProfile.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline (compiling source file AgentProfile.cpp)
+AgentProfile.cpp(23): warning C4244: 'argument': conversion from '__int64' to 'long', possible loss of data
+AgentProfile.cpp(25): warning C4018: '>': signed/unsigned mismatch
+AgentProfile.cpp(38): warning C4244: 'return': conversion from 'double' to 'long', possible loss of data
+AgentProfile.cpp(40): warning C4244: 'initializing': conversion from 'double' to 'long', possible loss of data
+ConstructionManager.cpp(24): warning C4018: '<': signed/unsigned mismatch
+ConstructionManager.cpp(38): warning C4018: '<': signed/unsigned mismatch
+ConstructionManager.cpp(86): warning C4018: '<': signed/unsigned mismatch
+ConstructionManager.cpp(201): warning C4018: '<': signed/unsigned mismatch
+ConstructionManager.cpp(255): warning C4018: '<': signed/unsigned mismatch
+ConstructionManager.cpp(263): warning C4018: '<': signed/unsigned mismatch
+ConstructionManager.cpp(278): warning C4018: '<': signed/unsigned mismatch
+ConstructionManager.cpp(316): warning C4018: '<': signed/unsigned mismatch
+ConstructionManager.cpp(320): warning C4018: '<': signed/unsigned mismatch
+BuildingManager.cpp(52): warning C4018: '<': signed/unsigned mismatch
+BuildingManager.cpp(127): warning C4018: '<': signed/unsigned mismatch
+BuildingManager.cpp(137): warning C4018: '<': signed/unsigned mismatch
+BuildingManager.cpp(159): warning C4018: '<': signed/unsigned mismatch
+c:\users\robert\bwapi\exampleaimodule\source\..\Profiler.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline (compiling source file Source\Belisarius.cpp)
+BuildingManager.cpp(165): warning C4018: '<': signed/unsigned mismatch
+c:\users\robert\bwapi\exampleaimodule\source\..\Profiler.h(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline (compiling source file Source\Belisarius.cpp)
+BuildingManager.cpp(174): warning C4018: '<': signed/unsigned mismatch
+c:\users\robert\bwapi\exampleaimodule\AgentProfile.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline (compiling source file Source\Belisarius.cpp)
+BuildingManager.cpp(180): warning C4018: '<': signed/unsigned mismatch
+  Dll.cpp
   StrategyManager.cpp
   TacticalManager.cpp
+c:\users\robert\bwapi\exampleaimodule\source\..\Profiler.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline (compiling source file Source\Dll.cpp)
+c:\users\robert\bwapi\exampleaimodule\source\..\Profiler.h(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline (compiling source file Source\Dll.cpp)
+c:\users\robert\bwapi\exampleaimodule\AgentProfile.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline (compiling source file Source\Dll.cpp)
      Creating library Release\Belisarius.lib and object Release\Belisarius.exp
   Generating code
-  616 of 10356 functions ( 5.9%) were compiled, the rest were copied from previous compilation.
-    91 functions were new in current compilation
-    207 functions had inline decision re-evaluated but remain unchanged
+  598 of 10422 functions ( 5.7%) were compiled, the rest were copied from previous compilation.
+    63 functions were new in current compilation
+    123 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-Profiler.obj : warning LNK4099: PDB 'vc140.pdb' was not found with 'Profiler.obj' or at 'C:\Users\Robert\BWAPI\Release\vc140.pdb'; linking object as if no debug info
   ExampleAIModule.vcxproj -> C:\Users\Robert\BWAPI\Release\Belisarius.dll
   ExampleAIModule.vcxproj -> C:\Users\Robert\BWAPI\Release\Belisarius.pdb (Full PDB)

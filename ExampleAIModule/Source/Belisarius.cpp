@@ -61,8 +61,8 @@ void Belisarius::onStart()
   }
   //Some setup for the bot
   //See if a connection is available
-  std::thread checkCon(Connectors::Connector::establishConnection);
-  checkCon.detach();
+  //std::thread checkCon(Connectors::Connector::establishConnection);
+  //checkCon.detach();
   //Initialise the Profiler
   p.addAgent(r);
   p.addAgent(c);
@@ -131,6 +131,10 @@ void Belisarius::onFrame()
   p.getAgentProfile(c).finish();
   //end Profiling for the frame
   p.finish();
+  if ((Broodwar->getFrameCount() / Broodwar->getAverageFPS()) > 90) //after one minuite, end
+  {
+	  Broodwar->leaveGame();
+  }
 }
 
 void Belisarius::onSendText(std::string text)

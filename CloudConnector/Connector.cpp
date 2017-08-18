@@ -22,6 +22,7 @@ namespace Connectors
 	}
 	void Connector::establishConnection()
 	{
+		p.BOMBEstablishStart();
 		try
 		{
 			ifstream myReadFile;
@@ -40,7 +41,9 @@ namespace Connectors
 			http_request r(methods::POST);
 			r.headers().add(L"Init", 1); 
 			r.headers().add(L"SessionId", sessionId); //if we have no connection this will be -1
+			p.addNetworkOut(sizeof(r));
 			pplx::task<web::http::http_response> response = client.request(r);
+			p.addNetowrkIn(sizeof(response));
 			//If this succeeds, we can use the cloud server - else the AI will use local maths. 
 			if (response.get().status_code() == http::status_codes::OK)
 			{
@@ -61,6 +64,7 @@ namespace Connectors
 			connectionAvailable = false;
 			sessionId = -1;
 		}
+		p.BOMBEstablishFinish();
 	}
 	void Connector::endSession()
 	{
@@ -82,7 +86,9 @@ namespace Connectors
 		{
 			queued = inQueued;
 			playerState = inPlayerState;
+			p.BOMBUpdateStart();
 			updateBOMBState();
+			p.BOMBUpdateFinish();
 		}
 	}
 
@@ -95,9 +101,11 @@ namespace Connectors
 			http_request request(methods::GET);
 			request.headers().add(L"Order", 1);
 			request.headers().add(L"SessionId", sessionId);
+			p.addNetworkOut(sizeof(request));
 			pplx::task<web::http::http_response> response = client.request(request);
 			json::value v = response.get().extract_json().get();
 			p.BOMBFunctionFinish();
+			p.addNetowrkIn(sizeof(response));
 			return BWAPI::UnitType(v.as_integer());
 		}
 		catch (...) //If the above fails, it may be because the server is unavailable - retry the check.
@@ -113,7 +121,6 @@ namespace Connectors
 		try
 		{
 			p.addConnectionAttempt();
-			p.BOMBUpdateStart();
 			//Build JSON objects of the "Complete State" of both PlayerState and Queued maps
 			json::value completeState; //me_irl
 			json::value playerStateJSONobj;
@@ -137,8 +144,9 @@ namespace Connectors
 			request.headers().set_content_type(L"application/json");
 			request.headers().add(L"SessionId", sessionId);
 			request.set_body(completeState);
+			p.addNetworkOut(sizeof(request));
 			pplx::task<web::http::http_response> response = client.request(request);
-			p.BOMBUpdateFinish();
+			p.addNetowrkIn(sizeof(response));
 			return utility::conversions::to_utf8string(response.get().to_string());
 		}
 		catch (const std::exception& e)

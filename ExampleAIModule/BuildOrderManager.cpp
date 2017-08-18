@@ -2,11 +2,15 @@
 
 void BOMBUpdate(std::map<BWAPI::UnitType, int> _playerState, std::map<BWAPI::UnitType, int> _queued);
 void BOMBAgentFunction(BWAPI::UnitType& order, bool& block);
+void connectionInit(bool& block);
+
 BuildOrderManager::BuildOrderManager(ResourceManager &r, BuildingManager &b, ConstructionManager &c)
 {
 	rRef = &r;
 	bRef = &b;
 	cRef = &c;
+	std::thread checkCon(connectionInit,std::ref(BOMBBlock));
+	checkCon.detach();
 }
 
 
@@ -30,8 +34,8 @@ void BuildOrderManager::onFrame()
 		{
 			nextOrder = getNextBuildRecommendation();
 			//Check again
-			std::thread checkCon(Connectors::Connector::establishConnection);
-			checkCon.detach();
+			//std::thread checkCon(connectionInit,std::ref(BOMBBlock));
+			//checkCon.detach();
 		}
 
 	}
@@ -225,5 +229,11 @@ void BOMBAgentFunction(BWAPI::UnitType& order, bool& block)
 {
 	block = true;
 	order = Connectors::Connector::getBOMBOrder();
+	block = false;
+}
+void connectionInit(bool& block)
+{
+	block = true;
+	Connectors::Connector::establishConnection();
 	block = false;
 }

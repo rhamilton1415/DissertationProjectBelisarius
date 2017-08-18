@@ -138,8 +138,6 @@ void ConstructionManager::onFrame()
 						TilePosition buildPosition = Broodwar->getBuildLocation(buildOrders.at(index), u->getTilePosition());
 						if (!u->build(buildOrders.at(index), buildPosition))
 						{
-							//perform some nonesense 
-							broadcast("The build Order: " + buildOrders.at(index).getName() + " could not be built");
 							if (buildPosition == TilePositions::Invalid)
 							{
 								//We can't build this anywhere so don't

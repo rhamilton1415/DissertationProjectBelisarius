@@ -239,6 +239,15 @@ void printServerStatus()
 			printw("\n");
 			printw(("Function OPS: " + std::to_string(totalFunctionOperationsPerMin)).c_str());
 			printw("\n");
+
+			for (auto&u : sessions)
+			{
+				attron(A_STANDOUT);
+				printw(("\nSession ID: " + std::to_string(u.getID())).c_str());
+				printw("\n");
+				attroff(A_STANDOUT);
+				u.printGameSession();
+			}
 			refresh();
 		}
 		catch (const std::exception& e)

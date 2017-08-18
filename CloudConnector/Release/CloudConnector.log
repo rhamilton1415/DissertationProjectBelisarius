@@ -1,2 +1,8 @@
-﻿  Connector.cpp
+﻿  BOMBProfiler.cpp
+BOMBProfiler.cpp(15): warning C4018: '<': signed/unsigned mismatch
+BOMBProfiler.cpp(21): warning C4018: '<': signed/unsigned mismatch
+BOMBProfiler.cpp(27): warning C4018: '<': signed/unsigned mismatch
+BOMBProfiler.cpp(36): warning C4018: '<': signed/unsigned mismatch
+BOMBProfiler.cpp(42): warning C4018: '<': signed/unsigned mismatch
+  Connector.cpp
   CloudConnector.vcxproj -> C:\Users\Robert\BWAPI\Release\CloudConnector.lib

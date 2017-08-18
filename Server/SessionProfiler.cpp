@@ -9,6 +9,7 @@ SessionProfiler::SessionProfiler()
 
 SessionProfiler::~SessionProfiler()
 {
+
 }
 
 void SessionProfiler::startUpdate()

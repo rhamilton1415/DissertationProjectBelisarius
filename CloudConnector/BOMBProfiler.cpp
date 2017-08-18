@@ -23,8 +23,26 @@ BOMBProfiler::~BOMBProfiler()
 		outfile << std::to_string(BOMBUpdatePerformance.at(i).total_milliseconds()) << std::endl;
 	}
 	outfile << std::endl;
+	outfile << "BOMB Establish performance" << std::endl;
+	for (int i = 0; i < BOMBEstablishPerformance.size(); i++)
+	{
+		outfile << std::to_string(BOMBEstablishPerformance.at(i).total_milliseconds()) << std::endl;
+	}
+	outfile << std::endl;
 	outfile << "Total Connection Attempts: " + std::to_string(connectionAttempts) << std::endl;
 	outfile << "Total Connection Failures: " + std::to_string(connectionFailures) << std::endl;
+	outfile << std::endl;
+	outfile << "Network in" << std::endl;
+	for (int i = 0; i < networkIn.size(); i++)
+	{
+		outfile << std::to_string(networkIn.at(i)) << std::endl;
+	}
+	outfile << std::endl;
+	outfile << "Network out" << std::endl;
+	for (int i = 0; i < networkOut.size(); i++)
+	{
+		outfile << std::to_string(networkOut.at(i)) << std::endl;
+	}
 	outfile.close();
 }
 void BOMBProfiler::BOMBFunctionStart()
@@ -35,6 +53,15 @@ void BOMBProfiler::BOMBFunctionFinish()
 {
 	time_duration duration = ptime(microsec_clock::universal_time()) - BOMBFunctionTimer;
 	BOMBFunctionPerformance.push_back(duration);
+}
+void BOMBProfiler::BOMBEstablishStart()
+{
+	BOMBEstablishTimer = ptime(microsec_clock::universal_time());
+}
+void BOMBProfiler::BOMBEstablishFinish()
+{
+	time_duration duration = ptime(microsec_clock::universal_time()) - BOMBEstablishTimer;
+	BOMBEstablishPerformance.push_back(duration);
 }
 void BOMBProfiler::BOMBUpdateStart()
 {
