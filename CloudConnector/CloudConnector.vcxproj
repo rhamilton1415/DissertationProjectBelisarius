@@ -156,9 +156,11 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BOMBProfiler.h" />
     <ClInclude Include="Connector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BOMBProfiler.cpp" />
     <ClCompile Include="Connector.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

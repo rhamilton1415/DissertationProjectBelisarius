@@ -9,7 +9,7 @@ public:
 	~AgentProfile();
 	void start();
 	void finish();
-	Agent* getAgent() { return a; }
+	Agent* getAgent(){ return a; }
 	std::vector<long> getPerformanceHistory();
 	long getAveragePerformance();
 	int getFrameCount() { return frameCount; }

@@ -11,6 +11,7 @@ namespace Connectors
 	bool Connector::BOMOrderBlock = false;
 	int Connector::sessionId = -1;
 	http_client Connector::client(L"http://localhost:80");
+	BOMBProfiler Connector::p(&sessionId);
 
 	//stolen from stackoverflow
 	template <typename Map>
@@ -89,15 +90,20 @@ namespace Connectors
 	{
 		try
 		{
+			p.addConnectionAttempt();
+			p.BOMBFunctionStart();
 			http_request request(methods::GET);
 			request.headers().add(L"Order", 1);
 			request.headers().add(L"SessionId", sessionId);
 			pplx::task<web::http::http_response> response = client.request(request);
 			json::value v = response.get().extract_json().get();
+			p.BOMBFunctionFinish();
 			return BWAPI::UnitType(v.as_integer());
 		}
 		catch (...) //If the above fails, it may be because the server is unavailable - retry the check.
 		{
+			p.BOMBFunctionFinish();
+			p.addConnectionFailure();
 			establishConnection();
 			return BWAPI::UnitTypes::None; //This will just fail the next build order frame - hopefully if the server has gone down it'll just go locally
 		}
@@ -106,6 +112,8 @@ namespace Connectors
 	{
 		try
 		{
+			p.addConnectionAttempt();
+			p.BOMBUpdateStart();
 			//Build JSON objects of the "Complete State" of both PlayerState and Queued maps
 			json::value completeState; //me_irl
 			json::value playerStateJSONobj;
@@ -130,18 +138,16 @@ namespace Connectors
 			request.headers().add(L"SessionId", sessionId);
 			request.set_body(completeState);
 			pplx::task<web::http::http_response> response = client.request(request);
+			p.BOMBUpdateFinish();
 			return utility::conversions::to_utf8string(response.get().to_string());
 		}
 		catch (const std::exception& e)
 		{
+			p.BOMBUpdateFinish();
+			p.addConnectionFailure();
 			establishConnection();
 			return e.what();
 		}
 		
 	}
-
-	/*int Connector::Connect(std::map<BWAPI::UnitType, int> queued, std::map<BWAPI::UnitType, int> playerState)
-	{
-		return 0;
-	}*/
 }

@@ -21,9 +21,15 @@
     <ClInclude Include="Connector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BOMBProfiler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Connector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BOMBProfiler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

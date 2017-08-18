@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <BWAPI.h>
+#include "BOMBProfiler.h"
 using namespace utility;                    // Common utilities like string conversions
 using namespace web;                        // Common features like URIs.
 using namespace web::http;                  // Common HTTP functionality
@@ -39,5 +40,6 @@ namespace Connectors
 		static bool BOMOrderBlock;
 		static int sessionId;
 		static http_client client;
+		static BOMBProfiler p;
 	};
 }
