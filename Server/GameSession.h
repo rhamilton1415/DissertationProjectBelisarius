@@ -6,6 +6,7 @@
 #include <cpprest/filestream.h>
 #include <iostream>
 #include <curses.h>
+#include "SessionProfiler.h"
 #include "boost/date_time/posix_time/posix_time_types.hpp" //no i/o just types
 
 using namespace utility;                    // Common utilities like string conversions
@@ -31,6 +32,7 @@ public:
 	void GameSession::printGameSession();
 	bool operator==(GameSession rhs) { return(id == rhs.getID()); }
 	int getSecondsSinceLastUpdate();
+	SessionProfiler getSessionProfiler() { return sp; }
 private:
 	static int sessionCount;
 	int id;
@@ -39,5 +41,6 @@ private:
 	BWAPI::UnitType lastQueued;
 	ptime lastUpdate;
 	int getRemainingSupply();
+	SessionProfiler sp;
 };
 

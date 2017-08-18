@@ -1,9 +1,25 @@
-﻿  Server.cpp
-Server.cpp(200): warning C4101: 'e': unreferenced local variable
+﻿  SessionProfiler.cpp
+SessionProfiler.cpp(69): warning C4018: '<': signed/unsigned mismatch
+SessionProfiler.cpp(81): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
+SessionProfiler.cpp(87): warning C4018: '<': signed/unsigned mismatch
+SessionProfiler.cpp(99): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\utility(172): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
+  SessionProfiler.cpp(25): note: see reference to function template instantiation 'std::pair<long,boost::posix_time::ptime>::pair<__int64,boost::posix_time::ptime&,void,0>(_Other1 &&,_Other2) noexcept' being compiled
+          with
+          [
+              _Other1=__int64,
+              _Other2=boost::posix_time::ptime &
+          ]
+  SessionProfiler.cpp(25): note: see reference to function template instantiation 'std::pair<long,boost::posix_time::ptime>::pair<__int64,boost::posix_time::ptime&,void,0>(_Other1 &&,_Other2) noexcept' being compiled
+          with
+          [
+              _Other1=__int64,
+              _Other2=boost::posix_time::ptime &
+          ]
   Generating code
-  92 of 7046 functions ( 1.3%) were compiled, the rest were copied from previous compilation.
-    86 functions were new in current compilation
-    19 functions had inline decision re-evaluated but remain unchanged
+  2 of 7157 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Server.vcxproj -> C:\Users\Robert\BWAPI\Release\Server.exe
   Server.vcxproj -> C:\Users\Robert\BWAPI\Release\Server.pdb (Full PDB)

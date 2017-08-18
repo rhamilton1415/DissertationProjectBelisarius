@@ -16,6 +16,7 @@ GameSession::~GameSession()
 }
 void GameSession::updatePlayerState(json::value completePlayerState)
 {
+	sp.startUpdate();
 	lastUpdate = ptime(microsec_clock::universal_time());
 	playerState.clear();
 	queued.clear();
@@ -37,10 +38,12 @@ void GameSession::updatePlayerState(json::value completePlayerState)
 		//If there is nothing queued, the previous call will fail but it is not an erronous complete state so just continue
 		//If there is no Player State, an "ex nihilo" Build Order Manager is out of scope
 	}
+	sp.finishUpdate();
 	buildOrderManagerB();
 }
 BWAPI::UnitType GameSession::buildOrderManagerB()
 {
+	sp.startFunction();
 	//Priorities should be normalized
 	//Calculate the priority for building a new worker
 	BWAPI::UnitType workerRecommendation = BWAPI::UnitTypes::Terran_SCV;
@@ -103,16 +106,19 @@ BWAPI::UnitType GameSession::buildOrderManagerB()
 	if (buildingPriority > combatUnitPriority && buildingPriority > workerUnitPriority)
 	{
 		lastQueued = buildingRecommendation;
+		sp.finishFunction();
 		return buildingRecommendation;
 	}
 	else if (combatUnitPriority > workerUnitPriority)
 	{
 		lastQueued = combatUnitRecommendation;
+		sp.finishFunction();
 		return combatUnitRecommendation;
 	}
 	else
 	{
 		lastQueued = workerRecommendation;
+		sp.finishFunction();
 		return workerRecommendation;
 	}
 }

@@ -150,12 +150,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameSession.h" />
+    <ClInclude Include="SessionProfiler.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameSession.cpp" />
     <ClCompile Include="Server.cpp" />
+    <ClCompile Include="SessionProfiler.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

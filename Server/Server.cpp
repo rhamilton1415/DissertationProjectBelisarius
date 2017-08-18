@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "GameSession.h"
+#include "SessionProfiler.h"
 #include <curses.h>
 #include <BWAPI.h>
 #include <cpprest/http_client.h>
@@ -212,6 +213,44 @@ void printServerStatus()
 		try
 		{
 			clear();
+			long sessionUpdateAverageTotal = 0;
+			long sessionFunctionAverageTotal = 0;
+			long totalUpdateOperationsPerMin = 0;
+			long totalFunctionOperationsPerMin = 0;
+			for (auto& u : sessions)
+			{
+				sessionUpdateAverageTotal += u.getSessionProfiler().getAverageUpdateTime();
+				sessionFunctionAverageTotal += u.getSessionProfiler().getAverageFunctionTime();
+				totalUpdateOperationsPerMin += u.getSessionProfiler().getUpdateOperationsPerMinute();
+				totalFunctionOperationsPerMin += u.getSessionProfiler().getFunctionOperationsPerMinute();
+			}
+			if (sessions.size() != 0) //Don't divide by zero
+			{
+				sessionUpdateAverageTotal = sessionUpdateAverageTotal / sessions.size();
+				sessionFunctionAverageTotal = sessionFunctionAverageTotal / sessions.size();
+			}
+			printw(("Sessions: " + std::to_string(sessions.size())).c_str());
+			printw("\n");
+			printw(("Average Update time: " + std::to_string(sessionUpdateAverageTotal)).c_str());
+			printw("\n");
+			printw(("Average Function time: " + std::to_string(sessionFunctionAverageTotal)).c_str());
+			printw("\n");
+			printw(("Update OPS: " + std::to_string(totalUpdateOperationsPerMin)).c_str());
+			printw("\n");
+			printw(("Function OPS: " + std::to_string(totalFunctionOperationsPerMin)).c_str());
+			printw("\n");
+			refresh();
+		}
+		catch (const std::exception& e)
+		{
+		}
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
+	/*while (true)
+	{
+		try
+		{
+			clear();
 			for (auto&u : sessions)
 			{
 				attron(A_STANDOUT);
@@ -227,7 +266,7 @@ void printServerStatus()
 			std::cout << e.what() << endl;
 		}
 		std::this_thread::sleep_for(std::chrono::seconds(1));
-	}
+	}*/
 }
 GameSession& getSession(int sessionID)
 {
